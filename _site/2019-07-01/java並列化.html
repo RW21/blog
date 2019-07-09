@@ -1,53 +1,82 @@
 <!DOCTYPE html>
-<html lang="en"><head>
-  <meta charset="utf-8">
-  <meta http-equiv="X-UA-Compatible" content="IE=edge">
-  <meta name="viewport" content="width=device-width, initial-scale=1"><!-- Begin Jekyll SEO tag v2.5.0 -->
+<html lang="en">
+
+  <head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <!-- Begin Jekyll SEO tag v2.5.0 -->
 <title>Java並列化 | RW21 Blog</title>
 <meta name="generator" content="Jekyll v3.8.5" />
 <meta property="og:title" content="Java並列化" />
+<meta name="author" content="RW" />
 <meta property="og:locale" content="en_US" />
 <meta name="description" content="はじめに 本記事ではJavaにおける並列処理を主に個人の備忘録、勉強用として雑に記しています。気が向いたら更新します。主にJavaの並列化に使うキーワードを紹介しています。 並列処理 並列処理とは複数のスレッドを使って、メインスレッドとは別のスレッドでプロセスを行うことである。 並列処理における問題例 スレッドAがメモリを読み込んでいる間にスレッドBがそのメモリに書き込みをしたら、スレッドAで読み取られるのは新しい値か古い値か? 並列(concurrency) vs 並行(parallelism) 並列化と並行化という単語は同じマルチスレッドプログラミングにおいてよく使われますが、同一ではありません。 並列化 システムが複数のタスクを一度にこなすこと。 並行化 タスクがサブタスクに分散して一度に複数のサブタスクをこなすこと。 マルチスレッドプログラミング? 分散コンピューティング? 並行処理? 並列処理? マルチスレッドプログラミングや分散コンピューティングの概念は並列処理の概念とよく似ています。基本的には(並行処理, 並列処理)⊆マルチスレッディングです。本記事では並列処理しか扱いません。 なぜ並列処理するのか リソース利用の最適化 CPUのアイドルタイムを減らす。 プログラムの高速化 例えばサーバーからリクエストをlistenしてそのリクエストを処理するループがあるとする。 while(server is active){ // リクエストを受ける ... // リクエストを処理する } このループではリクエストを処理してる間は他のリクエストを受けれなくなっている。もしリクエストの処理のタスクを他のスレッドに受け渡せば、すぐにまたリクエストを受けれるようになり、高速化できる。 while(server is active){ // リクエストを受ける ... // リクエストを他スレッドに受け渡す } 主な並列処理モデル ここで紹介する並列処理モデルは分散コンピューティングシステムに使われるモデルと共通するのもあります。 Parallel Workers 出典: Jenkov.com Delegatorがworkerにタスクを分散する方法です。Parallel worker モデルは最もJavaの並列処理に使われているモデルです。java.util.concurrentパッケージに含まれているツールはこのモデルに基づいて作られています。 利点/欠点 利点 簡単 欠点 複数のworkerが同じメモリもしくはデータベースを改変している場合、workerスレッドはその改変が他のworkerスレッドにも知らされるようにしなければならない。(CPUの実行に留まらず、メモリにプッシュされなければならない) 競合状態やデッドロックといった並列処理におけるよくある問題を避けなければならない。 -スレッドが同じデータ構造へのアクセスを待ってしまうと並行化(parallelisation)が欠けてします。 タスクの順番が決定的ではない。これにより、現在のシステムのステートがどうなっているのか分からなくなる場合がある。 Assembly Line 出典: Jenkov.com Workerにタスクの役割があって、一つのタスクが終わると次のWorkerにタスクが移行する。 出典: Jenkov.com 上の図のようになることも。 利点/欠点 利点 共有ステートがない。 タスクに順番がある。 欠点 Same-threading シングルスレッドのプログラムを複数のCPUコアを活用するために複数コアに渡ってスケールすること。このモデルでは共有されるデータ構造、メモリはありません。 Javaでスレッドを作る Javaではスレッドはオブジェクトとして扱われています。 public class StartThread { public static void main(String[] args) { Thread myThread = new Thread(); myThread.start(); } } myThread.start();でスレッドを始めています。しかしこれではスレッドは何もしていません。 runメソッドをオーバーライドしてスレッドでコードを動かす スレッドに動くコードを指定するにはThreadのサブクラスを作り、runメソッドをオーバーライドします。 public class StartThread { public static class MyThread extends Thread { @Override public void run() { System.out.println(&quot;Hello World&quot;); } } public static void main(String[] args) { Thread myThread = new MyThread(); myThread.start(); } } Runnableインターフェースでスレッドを実装 Runnableをコンストラクタとして通してスレッドを作ることができます。 public class StartThread { public static class MyRunnable implements Runnable { @Override public void run() { System.out.println(&quot;Hello again&quot;); } } public static void main(String[] args) { Thread myThread1 = new Thread(new MyRunnable()); myThread1.start(); } } スレッドが取り得る状態 New スレッドが作られて、まだ実行(run)されていない状態。 Runnable スレッドが実行された状態。 Blocked 同期ブロックを実行待ち。(他のスレッドがすでに実行している。) Waiting 他のスレッドを待っている。スレッドシグナリングでWaitingになったり解除されたりする。 競合状態とクリティカルセクション 競合状態はクリティカルセクションで起こりうる状態です。 クリティカルセクション クリティカルセクションとはコードが複数のスレッドで実行されて、その順番によって結果が異なる状態です。複数のスレッドが同じクリティカルセクションに書き込みしようとすると問題が発生します。 public class Counter { protected long count = 0; public void add(long value){ this.count = this.count + value; } } 上記のクラスではaddメソッドがクリティカルセクションになります。 競合状態 上のクリティカルセクションを2つのスレッドAとBで実行されます。まずスレッドAとBがレジスターにthis.count = 0を読み込みます。まずスレッドAが読み込まれたthis.countに2を足します。その後、スレッドBが読み込まれたthis.countに3を足します。この場合、最終的な結果はthis.count = 5ではなく、this.count = 3になります。 上記のように複数のスレッドが同じリソースを取り合うことを競合状態といいます。 競合状態を防ぐ 競合状態を防ぐ一つの方法にはクリティカルセクションを不可分操作(atomic)状態にするというのがあります。つまり、一つのスレッドが実行中には他のスレッドが実行できない状態にします。 これを実現するにはクリティカルセクションでスレッド同期を行います。スレッド同期を行うこと以外ではスレッドロックやjava.util.concurrent.atomic.AtomicIntegerなどの不可分操作変数を使うことができます。 スレッドセーフと共有リソース 複数のスレッドに同時で実行されても安全なコードをスレッドセーフと呼びます。スレッドセーフなコードは競合状態を起こしません。競合状態は複数のスレッドが共有リソースをアクセスすることで起こります、なのでどういったリソースが共有なのかを知っておくことが大切です。 ローカル変数 ローカル変数はスレッドのスタックに保存されるのでスレッド間で共有されることがありません。プリミティブ型のローカル変数は常にスレッドセーフです。 ローカルオブジェクト参照 この場合は、参照自体は共有されません。しかしオブジェクトは共有ヒープに保存されます。もしオブジェクトがローカルで作成されメソッドの外には出ない場合、スレッドセーフです。 メンバ変数 メンバ変数はオブジェクトと共にヒープに保存されています。スレッドセーフではありません。 synchronizedキーワードで同期ブロック Javaの同期ブロックはすべてsynchronizedのメソッド修飾子で実装できます。 public synchronized void add(int value){ this.count += value; } メソッド全体を同期ブロックにするのが好ましくない場合は、一部だけ同期ブロックにすることができます。 public void add(int value){ synchronized(this){ this.count += value; } } 同期ブロックの中のコードは複数のスレッドで同時に実行されることはありません。 volatileキーワード Volatileとは揮発性という意味です。プログラミングにおいては値が変更されていないようにみえてもアクセスする度に変わっているという意味になります。Javaのvolatileキーワードは変数がCPUキャッシュにではなくメインメモリに保存されていることを保証をします。 例えば以下のような共有されている変数があるとします。 public class SharedObject { public int counter = 0; } スレッド1はcounterをインクリメントします。スレッド1とスレッド2は度々counterを読みます。もしcounterがvolatileだと宣言されていない場合は、メインメモリからではなく、CPUキャッシュから値が読まれる恐れがあります。以下の図がこのシチューションを表しています。 出典: Jenkov.com volatileだけでは十分じゃない場合 スレッドがvolatileな変数を読み込んで、それを元に新しい値に更新してしまうと、その変数は固定されるのを保証されません。変数を読み込んで書き込むまでの間に他のスレッドが書き込む可能性があり、競合状態が発生します。 ThreadLocal ThreadLocalクラスは一つのスレッドにしか読み書きできない変数を作るのに使います。もし2つのスレッドが同じThreadLocalの参照を読み込むと2つのスレッドは互いのThreadLocal変数にアクセスできません。 ThreadLocal変数の作成 private ThreadLocal myThreadLocal = new ThreadLocal(); ThreadLocal変数へのアクセス ThreadLocal変数が作成されると以下のように値を設定できます。 myThreadLocal.set(&quot;A thread local value&quot;); 値を読み込むには: String threadLocalValue = (String) myThreadLocal.get(); スレッドシグナリング スレッドシグナリングでスレッド間にシグナルを送ることができます。シグナリングを使えばスレッドが他のスレッドを待機するということができるようになります。 共有オブジェクトでシグナリング 共有変数の値を変更することでスレッド間のシグナリングを行うのが最も簡単です。 public class MySignal{ protected boolean hasDataToProcess = false; public synchronized boolean hasDataToProcess(){ return this.hasDataToProcess; } public synchronized void setHasDataToProcess(boolean hasData){ this.hasDataToProcess = hasData; } } 出典: Jenkov.com wait() notify() notifyAll() java.lang.Objectにはシグナルを待機しているスレッドを非アクティブ化するメカニズムがあります。wait()をオブジェクトに呼び出すスレッドは他のスレッドがそのオブジェクトがnotify()を実行するまで非アクティブになります。 デッドロック デッドロックとは本来スレッドシグナリングで進行するはずの複数のスレッドがブロック状態(非アクティブ)になっていて、プログラムが動かない状態を指します。簡単な例をあげると、スレッドAとスレッドBがあって、スレッドAがスレッドBをロックしてスレッドBを待機する、スレッドBがスレッドAをロックしてスレッドAを待機する。 生産者消費者問題 並列処理の問題としてよく取り上げられるのが生産者消費者問題です。この問題では、一つのデータ構造から複数の消費者スレッドがアイテムを取り出し、複数の生産者がアイテムを追加します。 データ構造 データ構造は先に入れられたデータから順に取り出されるキューで実装します。 スレッド 消費者スレッドはキューがいっぱいになると生産者スレッドをブロックします。(これ以上商品を足すのを防ぐため。)逆に、生産者スレッドはキューが空になると消費者スレッドをブロックするよう実装します。 これらはいちいちスレッドシグナリングを実行しなくてもjava.util.concurrent.BlockingQueueで簡単に実装できてしまいます。 参照 Jenkov.com Java documentation Winterbe" />
 <meta property="og:description" content="はじめに 本記事ではJavaにおける並列処理を主に個人の備忘録、勉強用として雑に記しています。気が向いたら更新します。主にJavaの並列化に使うキーワードを紹介しています。 並列処理 並列処理とは複数のスレッドを使って、メインスレッドとは別のスレッドでプロセスを行うことである。 並列処理における問題例 スレッドAがメモリを読み込んでいる間にスレッドBがそのメモリに書き込みをしたら、スレッドAで読み取られるのは新しい値か古い値か? 並列(concurrency) vs 並行(parallelism) 並列化と並行化という単語は同じマルチスレッドプログラミングにおいてよく使われますが、同一ではありません。 並列化 システムが複数のタスクを一度にこなすこと。 並行化 タスクがサブタスクに分散して一度に複数のサブタスクをこなすこと。 マルチスレッドプログラミング? 分散コンピューティング? 並行処理? 並列処理? マルチスレッドプログラミングや分散コンピューティングの概念は並列処理の概念とよく似ています。基本的には(並行処理, 並列処理)⊆マルチスレッディングです。本記事では並列処理しか扱いません。 なぜ並列処理するのか リソース利用の最適化 CPUのアイドルタイムを減らす。 プログラムの高速化 例えばサーバーからリクエストをlistenしてそのリクエストを処理するループがあるとする。 while(server is active){ // リクエストを受ける ... // リクエストを処理する } このループではリクエストを処理してる間は他のリクエストを受けれなくなっている。もしリクエストの処理のタスクを他のスレッドに受け渡せば、すぐにまたリクエストを受けれるようになり、高速化できる。 while(server is active){ // リクエストを受ける ... // リクエストを他スレッドに受け渡す } 主な並列処理モデル ここで紹介する並列処理モデルは分散コンピューティングシステムに使われるモデルと共通するのもあります。 Parallel Workers 出典: Jenkov.com Delegatorがworkerにタスクを分散する方法です。Parallel worker モデルは最もJavaの並列処理に使われているモデルです。java.util.concurrentパッケージに含まれているツールはこのモデルに基づいて作られています。 利点/欠点 利点 簡単 欠点 複数のworkerが同じメモリもしくはデータベースを改変している場合、workerスレッドはその改変が他のworkerスレッドにも知らされるようにしなければならない。(CPUの実行に留まらず、メモリにプッシュされなければならない) 競合状態やデッドロックといった並列処理におけるよくある問題を避けなければならない。 -スレッドが同じデータ構造へのアクセスを待ってしまうと並行化(parallelisation)が欠けてします。 タスクの順番が決定的ではない。これにより、現在のシステムのステートがどうなっているのか分からなくなる場合がある。 Assembly Line 出典: Jenkov.com Workerにタスクの役割があって、一つのタスクが終わると次のWorkerにタスクが移行する。 出典: Jenkov.com 上の図のようになることも。 利点/欠点 利点 共有ステートがない。 タスクに順番がある。 欠点 Same-threading シングルスレッドのプログラムを複数のCPUコアを活用するために複数コアに渡ってスケールすること。このモデルでは共有されるデータ構造、メモリはありません。 Javaでスレッドを作る Javaではスレッドはオブジェクトとして扱われています。 public class StartThread { public static void main(String[] args) { Thread myThread = new Thread(); myThread.start(); } } myThread.start();でスレッドを始めています。しかしこれではスレッドは何もしていません。 runメソッドをオーバーライドしてスレッドでコードを動かす スレッドに動くコードを指定するにはThreadのサブクラスを作り、runメソッドをオーバーライドします。 public class StartThread { public static class MyThread extends Thread { @Override public void run() { System.out.println(&quot;Hello World&quot;); } } public static void main(String[] args) { Thread myThread = new MyThread(); myThread.start(); } } Runnableインターフェースでスレッドを実装 Runnableをコンストラクタとして通してスレッドを作ることができます。 public class StartThread { public static class MyRunnable implements Runnable { @Override public void run() { System.out.println(&quot;Hello again&quot;); } } public static void main(String[] args) { Thread myThread1 = new Thread(new MyRunnable()); myThread1.start(); } } スレッドが取り得る状態 New スレッドが作られて、まだ実行(run)されていない状態。 Runnable スレッドが実行された状態。 Blocked 同期ブロックを実行待ち。(他のスレッドがすでに実行している。) Waiting 他のスレッドを待っている。スレッドシグナリングでWaitingになったり解除されたりする。 競合状態とクリティカルセクション 競合状態はクリティカルセクションで起こりうる状態です。 クリティカルセクション クリティカルセクションとはコードが複数のスレッドで実行されて、その順番によって結果が異なる状態です。複数のスレッドが同じクリティカルセクションに書き込みしようとすると問題が発生します。 public class Counter { protected long count = 0; public void add(long value){ this.count = this.count + value; } } 上記のクラスではaddメソッドがクリティカルセクションになります。 競合状態 上のクリティカルセクションを2つのスレッドAとBで実行されます。まずスレッドAとBがレジスターにthis.count = 0を読み込みます。まずスレッドAが読み込まれたthis.countに2を足します。その後、スレッドBが読み込まれたthis.countに3を足します。この場合、最終的な結果はthis.count = 5ではなく、this.count = 3になります。 上記のように複数のスレッドが同じリソースを取り合うことを競合状態といいます。 競合状態を防ぐ 競合状態を防ぐ一つの方法にはクリティカルセクションを不可分操作(atomic)状態にするというのがあります。つまり、一つのスレッドが実行中には他のスレッドが実行できない状態にします。 これを実現するにはクリティカルセクションでスレッド同期を行います。スレッド同期を行うこと以外ではスレッドロックやjava.util.concurrent.atomic.AtomicIntegerなどの不可分操作変数を使うことができます。 スレッドセーフと共有リソース 複数のスレッドに同時で実行されても安全なコードをスレッドセーフと呼びます。スレッドセーフなコードは競合状態を起こしません。競合状態は複数のスレッドが共有リソースをアクセスすることで起こります、なのでどういったリソースが共有なのかを知っておくことが大切です。 ローカル変数 ローカル変数はスレッドのスタックに保存されるのでスレッド間で共有されることがありません。プリミティブ型のローカル変数は常にスレッドセーフです。 ローカルオブジェクト参照 この場合は、参照自体は共有されません。しかしオブジェクトは共有ヒープに保存されます。もしオブジェクトがローカルで作成されメソッドの外には出ない場合、スレッドセーフです。 メンバ変数 メンバ変数はオブジェクトと共にヒープに保存されています。スレッドセーフではありません。 synchronizedキーワードで同期ブロック Javaの同期ブロックはすべてsynchronizedのメソッド修飾子で実装できます。 public synchronized void add(int value){ this.count += value; } メソッド全体を同期ブロックにするのが好ましくない場合は、一部だけ同期ブロックにすることができます。 public void add(int value){ synchronized(this){ this.count += value; } } 同期ブロックの中のコードは複数のスレッドで同時に実行されることはありません。 volatileキーワード Volatileとは揮発性という意味です。プログラミングにおいては値が変更されていないようにみえてもアクセスする度に変わっているという意味になります。Javaのvolatileキーワードは変数がCPUキャッシュにではなくメインメモリに保存されていることを保証をします。 例えば以下のような共有されている変数があるとします。 public class SharedObject { public int counter = 0; } スレッド1はcounterをインクリメントします。スレッド1とスレッド2は度々counterを読みます。もしcounterがvolatileだと宣言されていない場合は、メインメモリからではなく、CPUキャッシュから値が読まれる恐れがあります。以下の図がこのシチューションを表しています。 出典: Jenkov.com volatileだけでは十分じゃない場合 スレッドがvolatileな変数を読み込んで、それを元に新しい値に更新してしまうと、その変数は固定されるのを保証されません。変数を読み込んで書き込むまでの間に他のスレッドが書き込む可能性があり、競合状態が発生します。 ThreadLocal ThreadLocalクラスは一つのスレッドにしか読み書きできない変数を作るのに使います。もし2つのスレッドが同じThreadLocalの参照を読み込むと2つのスレッドは互いのThreadLocal変数にアクセスできません。 ThreadLocal変数の作成 private ThreadLocal myThreadLocal = new ThreadLocal(); ThreadLocal変数へのアクセス ThreadLocal変数が作成されると以下のように値を設定できます。 myThreadLocal.set(&quot;A thread local value&quot;); 値を読み込むには: String threadLocalValue = (String) myThreadLocal.get(); スレッドシグナリング スレッドシグナリングでスレッド間にシグナルを送ることができます。シグナリングを使えばスレッドが他のスレッドを待機するということができるようになります。 共有オブジェクトでシグナリング 共有変数の値を変更することでスレッド間のシグナリングを行うのが最も簡単です。 public class MySignal{ protected boolean hasDataToProcess = false; public synchronized boolean hasDataToProcess(){ return this.hasDataToProcess; } public synchronized void setHasDataToProcess(boolean hasData){ this.hasDataToProcess = hasData; } } 出典: Jenkov.com wait() notify() notifyAll() java.lang.Objectにはシグナルを待機しているスレッドを非アクティブ化するメカニズムがあります。wait()をオブジェクトに呼び出すスレッドは他のスレッドがそのオブジェクトがnotify()を実行するまで非アクティブになります。 デッドロック デッドロックとは本来スレッドシグナリングで進行するはずの複数のスレッドがブロック状態(非アクティブ)になっていて、プログラムが動かない状態を指します。簡単な例をあげると、スレッドAとスレッドBがあって、スレッドAがスレッドBをロックしてスレッドBを待機する、スレッドBがスレッドAをロックしてスレッドAを待機する。 生産者消費者問題 並列処理の問題としてよく取り上げられるのが生産者消費者問題です。この問題では、一つのデータ構造から複数の消費者スレッドがアイテムを取り出し、複数の生産者がアイテムを追加します。 データ構造 データ構造は先に入れられたデータから順に取り出されるキューで実装します。 スレッド 消費者スレッドはキューがいっぱいになると生産者スレッドをブロックします。(これ以上商品を足すのを防ぐため。)逆に、生産者スレッドはキューが空になると消費者スレッドをブロックするよう実装します。 これらはいちいちスレッドシグナリングを実行しなくてもjava.util.concurrent.BlockingQueueで簡単に実装できてしまいます。 参照 Jenkov.com Java documentation Winterbe" />
-<link rel="canonical" href="http://localhost:4000/programming/java/2019/07/01/java%E4%B8%A6%E5%88%97%E5%8C%96.html" />
-<meta property="og:url" content="http://localhost:4000/programming/java/2019/07/01/java%E4%B8%A6%E5%88%97%E5%8C%96.html" />
+<link rel="canonical" href="http://localhost:4000/2019-07-01/java%E4%B8%A6%E5%88%97%E5%8C%96" />
+<meta property="og:url" content="http://localhost:4000/2019-07-01/java%E4%B8%A6%E5%88%97%E5%8C%96" />
 <meta property="og:site_name" content="RW21 Blog" />
 <meta property="og:type" content="article" />
 <meta property="article:published_time" content="2019-07-01T22:00:00+10:00" />
 <script type="application/ld+json">
-{"@type":"BlogPosting","mainEntityOfPage":{"@type":"WebPage","@id":"http://localhost:4000/programming/java/2019/07/01/java%E4%B8%A6%E5%88%97%E5%8C%96.html"},"url":"http://localhost:4000/programming/java/2019/07/01/java%E4%B8%A6%E5%88%97%E5%8C%96.html","headline":"Java並列化","dateModified":"2019-07-01T22:00:00+10:00","datePublished":"2019-07-01T22:00:00+10:00","description":"はじめに 本記事ではJavaにおける並列処理を主に個人の備忘録、勉強用として雑に記しています。気が向いたら更新します。主にJavaの並列化に使うキーワードを紹介しています。 並列処理 並列処理とは複数のスレッドを使って、メインスレッドとは別のスレッドでプロセスを行うことである。 並列処理における問題例 スレッドAがメモリを読み込んでいる間にスレッドBがそのメモリに書き込みをしたら、スレッドAで読み取られるのは新しい値か古い値か? 並列(concurrency) vs 並行(parallelism) 並列化と並行化という単語は同じマルチスレッドプログラミングにおいてよく使われますが、同一ではありません。 並列化 システムが複数のタスクを一度にこなすこと。 並行化 タスクがサブタスクに分散して一度に複数のサブタスクをこなすこと。 マルチスレッドプログラミング? 分散コンピューティング? 並行処理? 並列処理? マルチスレッドプログラミングや分散コンピューティングの概念は並列処理の概念とよく似ています。基本的には(並行処理, 並列処理)⊆マルチスレッディングです。本記事では並列処理しか扱いません。 なぜ並列処理するのか リソース利用の最適化 CPUのアイドルタイムを減らす。 プログラムの高速化 例えばサーバーからリクエストをlistenしてそのリクエストを処理するループがあるとする。 while(server is active){ // リクエストを受ける ... // リクエストを処理する } このループではリクエストを処理してる間は他のリクエストを受けれなくなっている。もしリクエストの処理のタスクを他のスレッドに受け渡せば、すぐにまたリクエストを受けれるようになり、高速化できる。 while(server is active){ // リクエストを受ける ... // リクエストを他スレッドに受け渡す } 主な並列処理モデル ここで紹介する並列処理モデルは分散コンピューティングシステムに使われるモデルと共通するのもあります。 Parallel Workers 出典: Jenkov.com Delegatorがworkerにタスクを分散する方法です。Parallel worker モデルは最もJavaの並列処理に使われているモデルです。java.util.concurrentパッケージに含まれているツールはこのモデルに基づいて作られています。 利点/欠点 利点 簡単 欠点 複数のworkerが同じメモリもしくはデータベースを改変している場合、workerスレッドはその改変が他のworkerスレッドにも知らされるようにしなければならない。(CPUの実行に留まらず、メモリにプッシュされなければならない) 競合状態やデッドロックといった並列処理におけるよくある問題を避けなければならない。 -スレッドが同じデータ構造へのアクセスを待ってしまうと並行化(parallelisation)が欠けてします。 タスクの順番が決定的ではない。これにより、現在のシステムのステートがどうなっているのか分からなくなる場合がある。 Assembly Line 出典: Jenkov.com Workerにタスクの役割があって、一つのタスクが終わると次のWorkerにタスクが移行する。 出典: Jenkov.com 上の図のようになることも。 利点/欠点 利点 共有ステートがない。 タスクに順番がある。 欠点 Same-threading シングルスレッドのプログラムを複数のCPUコアを活用するために複数コアに渡ってスケールすること。このモデルでは共有されるデータ構造、メモリはありません。 Javaでスレッドを作る Javaではスレッドはオブジェクトとして扱われています。 public class StartThread { public static void main(String[] args) { Thread myThread = new Thread(); myThread.start(); } } myThread.start();でスレッドを始めています。しかしこれではスレッドは何もしていません。 runメソッドをオーバーライドしてスレッドでコードを動かす スレッドに動くコードを指定するにはThreadのサブクラスを作り、runメソッドをオーバーライドします。 public class StartThread { public static class MyThread extends Thread { @Override public void run() { System.out.println(&quot;Hello World&quot;); } } public static void main(String[] args) { Thread myThread = new MyThread(); myThread.start(); } } Runnableインターフェースでスレッドを実装 Runnableをコンストラクタとして通してスレッドを作ることができます。 public class StartThread { public static class MyRunnable implements Runnable { @Override public void run() { System.out.println(&quot;Hello again&quot;); } } public static void main(String[] args) { Thread myThread1 = new Thread(new MyRunnable()); myThread1.start(); } } スレッドが取り得る状態 New スレッドが作られて、まだ実行(run)されていない状態。 Runnable スレッドが実行された状態。 Blocked 同期ブロックを実行待ち。(他のスレッドがすでに実行している。) Waiting 他のスレッドを待っている。スレッドシグナリングでWaitingになったり解除されたりする。 競合状態とクリティカルセクション 競合状態はクリティカルセクションで起こりうる状態です。 クリティカルセクション クリティカルセクションとはコードが複数のスレッドで実行されて、その順番によって結果が異なる状態です。複数のスレッドが同じクリティカルセクションに書き込みしようとすると問題が発生します。 public class Counter { protected long count = 0; public void add(long value){ this.count = this.count + value; } } 上記のクラスではaddメソッドがクリティカルセクションになります。 競合状態 上のクリティカルセクションを2つのスレッドAとBで実行されます。まずスレッドAとBがレジスターにthis.count = 0を読み込みます。まずスレッドAが読み込まれたthis.countに2を足します。その後、スレッドBが読み込まれたthis.countに3を足します。この場合、最終的な結果はthis.count = 5ではなく、this.count = 3になります。 上記のように複数のスレッドが同じリソースを取り合うことを競合状態といいます。 競合状態を防ぐ 競合状態を防ぐ一つの方法にはクリティカルセクションを不可分操作(atomic)状態にするというのがあります。つまり、一つのスレッドが実行中には他のスレッドが実行できない状態にします。 これを実現するにはクリティカルセクションでスレッド同期を行います。スレッド同期を行うこと以外ではスレッドロックやjava.util.concurrent.atomic.AtomicIntegerなどの不可分操作変数を使うことができます。 スレッドセーフと共有リソース 複数のスレッドに同時で実行されても安全なコードをスレッドセーフと呼びます。スレッドセーフなコードは競合状態を起こしません。競合状態は複数のスレッドが共有リソースをアクセスすることで起こります、なのでどういったリソースが共有なのかを知っておくことが大切です。 ローカル変数 ローカル変数はスレッドのスタックに保存されるのでスレッド間で共有されることがありません。プリミティブ型のローカル変数は常にスレッドセーフです。 ローカルオブジェクト参照 この場合は、参照自体は共有されません。しかしオブジェクトは共有ヒープに保存されます。もしオブジェクトがローカルで作成されメソッドの外には出ない場合、スレッドセーフです。 メンバ変数 メンバ変数はオブジェクトと共にヒープに保存されています。スレッドセーフではありません。 synchronizedキーワードで同期ブロック Javaの同期ブロックはすべてsynchronizedのメソッド修飾子で実装できます。 public synchronized void add(int value){ this.count += value; } メソッド全体を同期ブロックにするのが好ましくない場合は、一部だけ同期ブロックにすることができます。 public void add(int value){ synchronized(this){ this.count += value; } } 同期ブロックの中のコードは複数のスレッドで同時に実行されることはありません。 volatileキーワード Volatileとは揮発性という意味です。プログラミングにおいては値が変更されていないようにみえてもアクセスする度に変わっているという意味になります。Javaのvolatileキーワードは変数がCPUキャッシュにではなくメインメモリに保存されていることを保証をします。 例えば以下のような共有されている変数があるとします。 public class SharedObject { public int counter = 0; } スレッド1はcounterをインクリメントします。スレッド1とスレッド2は度々counterを読みます。もしcounterがvolatileだと宣言されていない場合は、メインメモリからではなく、CPUキャッシュから値が読まれる恐れがあります。以下の図がこのシチューションを表しています。 出典: Jenkov.com volatileだけでは十分じゃない場合 スレッドがvolatileな変数を読み込んで、それを元に新しい値に更新してしまうと、その変数は固定されるのを保証されません。変数を読み込んで書き込むまでの間に他のスレッドが書き込む可能性があり、競合状態が発生します。 ThreadLocal ThreadLocalクラスは一つのスレッドにしか読み書きできない変数を作るのに使います。もし2つのスレッドが同じThreadLocalの参照を読み込むと2つのスレッドは互いのThreadLocal変数にアクセスできません。 ThreadLocal変数の作成 private ThreadLocal myThreadLocal = new ThreadLocal(); ThreadLocal変数へのアクセス ThreadLocal変数が作成されると以下のように値を設定できます。 myThreadLocal.set(&quot;A thread local value&quot;); 値を読み込むには: String threadLocalValue = (String) myThreadLocal.get(); スレッドシグナリング スレッドシグナリングでスレッド間にシグナルを送ることができます。シグナリングを使えばスレッドが他のスレッドを待機するということができるようになります。 共有オブジェクトでシグナリング 共有変数の値を変更することでスレッド間のシグナリングを行うのが最も簡単です。 public class MySignal{ protected boolean hasDataToProcess = false; public synchronized boolean hasDataToProcess(){ return this.hasDataToProcess; } public synchronized void setHasDataToProcess(boolean hasData){ this.hasDataToProcess = hasData; } } 出典: Jenkov.com wait() notify() notifyAll() java.lang.Objectにはシグナルを待機しているスレッドを非アクティブ化するメカニズムがあります。wait()をオブジェクトに呼び出すスレッドは他のスレッドがそのオブジェクトがnotify()を実行するまで非アクティブになります。 デッドロック デッドロックとは本来スレッドシグナリングで進行するはずの複数のスレッドがブロック状態(非アクティブ)になっていて、プログラムが動かない状態を指します。簡単な例をあげると、スレッドAとスレッドBがあって、スレッドAがスレッドBをロックしてスレッドBを待機する、スレッドBがスレッドAをロックしてスレッドAを待機する。 生産者消費者問題 並列処理の問題としてよく取り上げられるのが生産者消費者問題です。この問題では、一つのデータ構造から複数の消費者スレッドがアイテムを取り出し、複数の生産者がアイテムを追加します。 データ構造 データ構造は先に入れられたデータから順に取り出されるキューで実装します。 スレッド 消費者スレッドはキューがいっぱいになると生産者スレッドをブロックします。(これ以上商品を足すのを防ぐため。)逆に、生産者スレッドはキューが空になると消費者スレッドをブロックするよう実装します。 これらはいちいちスレッドシグナリングを実行しなくてもjava.util.concurrent.BlockingQueueで簡単に実装できてしまいます。 参照 Jenkov.com Java documentation Winterbe","@context":"http://schema.org"}</script>
+{"@type":"BlogPosting","url":"http://localhost:4000/2019-07-01/java%E4%B8%A6%E5%88%97%E5%8C%96","headline":"Java並列化","dateModified":"2019-07-01T22:00:00+10:00","datePublished":"2019-07-01T22:00:00+10:00","mainEntityOfPage":{"@type":"WebPage","@id":"http://localhost:4000/2019-07-01/java%E4%B8%A6%E5%88%97%E5%8C%96"},"author":{"@type":"Person","name":"RW"},"description":"はじめに 本記事ではJavaにおける並列処理を主に個人の備忘録、勉強用として雑に記しています。気が向いたら更新します。主にJavaの並列化に使うキーワードを紹介しています。 並列処理 並列処理とは複数のスレッドを使って、メインスレッドとは別のスレッドでプロセスを行うことである。 並列処理における問題例 スレッドAがメモリを読み込んでいる間にスレッドBがそのメモリに書き込みをしたら、スレッドAで読み取られるのは新しい値か古い値か? 並列(concurrency) vs 並行(parallelism) 並列化と並行化という単語は同じマルチスレッドプログラミングにおいてよく使われますが、同一ではありません。 並列化 システムが複数のタスクを一度にこなすこと。 並行化 タスクがサブタスクに分散して一度に複数のサブタスクをこなすこと。 マルチスレッドプログラミング? 分散コンピューティング? 並行処理? 並列処理? マルチスレッドプログラミングや分散コンピューティングの概念は並列処理の概念とよく似ています。基本的には(並行処理, 並列処理)⊆マルチスレッディングです。本記事では並列処理しか扱いません。 なぜ並列処理するのか リソース利用の最適化 CPUのアイドルタイムを減らす。 プログラムの高速化 例えばサーバーからリクエストをlistenしてそのリクエストを処理するループがあるとする。 while(server is active){ // リクエストを受ける ... // リクエストを処理する } このループではリクエストを処理してる間は他のリクエストを受けれなくなっている。もしリクエストの処理のタスクを他のスレッドに受け渡せば、すぐにまたリクエストを受けれるようになり、高速化できる。 while(server is active){ // リクエストを受ける ... // リクエストを他スレッドに受け渡す } 主な並列処理モデル ここで紹介する並列処理モデルは分散コンピューティングシステムに使われるモデルと共通するのもあります。 Parallel Workers 出典: Jenkov.com Delegatorがworkerにタスクを分散する方法です。Parallel worker モデルは最もJavaの並列処理に使われているモデルです。java.util.concurrentパッケージに含まれているツールはこのモデルに基づいて作られています。 利点/欠点 利点 簡単 欠点 複数のworkerが同じメモリもしくはデータベースを改変している場合、workerスレッドはその改変が他のworkerスレッドにも知らされるようにしなければならない。(CPUの実行に留まらず、メモリにプッシュされなければならない) 競合状態やデッドロックといった並列処理におけるよくある問題を避けなければならない。 -スレッドが同じデータ構造へのアクセスを待ってしまうと並行化(parallelisation)が欠けてします。 タスクの順番が決定的ではない。これにより、現在のシステムのステートがどうなっているのか分からなくなる場合がある。 Assembly Line 出典: Jenkov.com Workerにタスクの役割があって、一つのタスクが終わると次のWorkerにタスクが移行する。 出典: Jenkov.com 上の図のようになることも。 利点/欠点 利点 共有ステートがない。 タスクに順番がある。 欠点 Same-threading シングルスレッドのプログラムを複数のCPUコアを活用するために複数コアに渡ってスケールすること。このモデルでは共有されるデータ構造、メモリはありません。 Javaでスレッドを作る Javaではスレッドはオブジェクトとして扱われています。 public class StartThread { public static void main(String[] args) { Thread myThread = new Thread(); myThread.start(); } } myThread.start();でスレッドを始めています。しかしこれではスレッドは何もしていません。 runメソッドをオーバーライドしてスレッドでコードを動かす スレッドに動くコードを指定するにはThreadのサブクラスを作り、runメソッドをオーバーライドします。 public class StartThread { public static class MyThread extends Thread { @Override public void run() { System.out.println(&quot;Hello World&quot;); } } public static void main(String[] args) { Thread myThread = new MyThread(); myThread.start(); } } Runnableインターフェースでスレッドを実装 Runnableをコンストラクタとして通してスレッドを作ることができます。 public class StartThread { public static class MyRunnable implements Runnable { @Override public void run() { System.out.println(&quot;Hello again&quot;); } } public static void main(String[] args) { Thread myThread1 = new Thread(new MyRunnable()); myThread1.start(); } } スレッドが取り得る状態 New スレッドが作られて、まだ実行(run)されていない状態。 Runnable スレッドが実行された状態。 Blocked 同期ブロックを実行待ち。(他のスレッドがすでに実行している。) Waiting 他のスレッドを待っている。スレッドシグナリングでWaitingになったり解除されたりする。 競合状態とクリティカルセクション 競合状態はクリティカルセクションで起こりうる状態です。 クリティカルセクション クリティカルセクションとはコードが複数のスレッドで実行されて、その順番によって結果が異なる状態です。複数のスレッドが同じクリティカルセクションに書き込みしようとすると問題が発生します。 public class Counter { protected long count = 0; public void add(long value){ this.count = this.count + value; } } 上記のクラスではaddメソッドがクリティカルセクションになります。 競合状態 上のクリティカルセクションを2つのスレッドAとBで実行されます。まずスレッドAとBがレジスターにthis.count = 0を読み込みます。まずスレッドAが読み込まれたthis.countに2を足します。その後、スレッドBが読み込まれたthis.countに3を足します。この場合、最終的な結果はthis.count = 5ではなく、this.count = 3になります。 上記のように複数のスレッドが同じリソースを取り合うことを競合状態といいます。 競合状態を防ぐ 競合状態を防ぐ一つの方法にはクリティカルセクションを不可分操作(atomic)状態にするというのがあります。つまり、一つのスレッドが実行中には他のスレッドが実行できない状態にします。 これを実現するにはクリティカルセクションでスレッド同期を行います。スレッド同期を行うこと以外ではスレッドロックやjava.util.concurrent.atomic.AtomicIntegerなどの不可分操作変数を使うことができます。 スレッドセーフと共有リソース 複数のスレッドに同時で実行されても安全なコードをスレッドセーフと呼びます。スレッドセーフなコードは競合状態を起こしません。競合状態は複数のスレッドが共有リソースをアクセスすることで起こります、なのでどういったリソースが共有なのかを知っておくことが大切です。 ローカル変数 ローカル変数はスレッドのスタックに保存されるのでスレッド間で共有されることがありません。プリミティブ型のローカル変数は常にスレッドセーフです。 ローカルオブジェクト参照 この場合は、参照自体は共有されません。しかしオブジェクトは共有ヒープに保存されます。もしオブジェクトがローカルで作成されメソッドの外には出ない場合、スレッドセーフです。 メンバ変数 メンバ変数はオブジェクトと共にヒープに保存されています。スレッドセーフではありません。 synchronizedキーワードで同期ブロック Javaの同期ブロックはすべてsynchronizedのメソッド修飾子で実装できます。 public synchronized void add(int value){ this.count += value; } メソッド全体を同期ブロックにするのが好ましくない場合は、一部だけ同期ブロックにすることができます。 public void add(int value){ synchronized(this){ this.count += value; } } 同期ブロックの中のコードは複数のスレッドで同時に実行されることはありません。 volatileキーワード Volatileとは揮発性という意味です。プログラミングにおいては値が変更されていないようにみえてもアクセスする度に変わっているという意味になります。Javaのvolatileキーワードは変数がCPUキャッシュにではなくメインメモリに保存されていることを保証をします。 例えば以下のような共有されている変数があるとします。 public class SharedObject { public int counter = 0; } スレッド1はcounterをインクリメントします。スレッド1とスレッド2は度々counterを読みます。もしcounterがvolatileだと宣言されていない場合は、メインメモリからではなく、CPUキャッシュから値が読まれる恐れがあります。以下の図がこのシチューションを表しています。 出典: Jenkov.com volatileだけでは十分じゃない場合 スレッドがvolatileな変数を読み込んで、それを元に新しい値に更新してしまうと、その変数は固定されるのを保証されません。変数を読み込んで書き込むまでの間に他のスレッドが書き込む可能性があり、競合状態が発生します。 ThreadLocal ThreadLocalクラスは一つのスレッドにしか読み書きできない変数を作るのに使います。もし2つのスレッドが同じThreadLocalの参照を読み込むと2つのスレッドは互いのThreadLocal変数にアクセスできません。 ThreadLocal変数の作成 private ThreadLocal myThreadLocal = new ThreadLocal(); ThreadLocal変数へのアクセス ThreadLocal変数が作成されると以下のように値を設定できます。 myThreadLocal.set(&quot;A thread local value&quot;); 値を読み込むには: String threadLocalValue = (String) myThreadLocal.get(); スレッドシグナリング スレッドシグナリングでスレッド間にシグナルを送ることができます。シグナリングを使えばスレッドが他のスレッドを待機するということができるようになります。 共有オブジェクトでシグナリング 共有変数の値を変更することでスレッド間のシグナリングを行うのが最も簡単です。 public class MySignal{ protected boolean hasDataToProcess = false; public synchronized boolean hasDataToProcess(){ return this.hasDataToProcess; } public synchronized void setHasDataToProcess(boolean hasData){ this.hasDataToProcess = hasData; } } 出典: Jenkov.com wait() notify() notifyAll() java.lang.Objectにはシグナルを待機しているスレッドを非アクティブ化するメカニズムがあります。wait()をオブジェクトに呼び出すスレッドは他のスレッドがそのオブジェクトがnotify()を実行するまで非アクティブになります。 デッドロック デッドロックとは本来スレッドシグナリングで進行するはずの複数のスレッドがブロック状態(非アクティブ)になっていて、プログラムが動かない状態を指します。簡単な例をあげると、スレッドAとスレッドBがあって、スレッドAがスレッドBをロックしてスレッドBを待機する、スレッドBがスレッドAをロックしてスレッドAを待機する。 生産者消費者問題 並列処理の問題としてよく取り上げられるのが生産者消費者問題です。この問題では、一つのデータ構造から複数の消費者スレッドがアイテムを取り出し、複数の生産者がアイテムを追加します。 データ構造 データ構造は先に入れられたデータから順に取り出されるキューで実装します。 スレッド 消費者スレッドはキューがいっぱいになると生産者スレッドをブロックします。(これ以上商品を足すのを防ぐため。)逆に、生産者スレッドはキューが空になると消費者スレッドをブロックするよう実装します。 これらはいちいちスレッドシグナリングを実行しなくてもjava.util.concurrent.BlockingQueueで簡単に実装できてしまいます。 参照 Jenkov.com Java documentation Winterbe","@context":"http://schema.org"}</script>
 <!-- End Jekyll SEO tag -->
-<link rel="stylesheet" href="/assets/main.css"><link type="application/atom+xml" rel="alternate" href="http://localhost:4000/feed.xml" title="RW21 Blog" /></head>
-<body><header class="site-header" role="banner">
 
-  <div class="wrapper"><a class="site-title" rel="author" href="/">RW21 Blog</a><nav class="site-nav">
-        <input type="checkbox" id="nav-trigger" class="nav-trigger" />
-        <label for="nav-trigger">
-          <span class="menu-icon">
-            <svg viewBox="0 0 18 15" width="18px" height="15px">
-              <path d="M18,1.484c0,0.82-0.665,1.484-1.484,1.484H1.484C0.665,2.969,0,2.304,0,1.484l0,0C0,0.665,0.665,0,1.484,0 h15.032C17.335,0,18,0.665,18,1.484L18,1.484z M18,7.516C18,8.335,17.335,9,16.516,9H1.484C0.665,9,0,8.335,0,7.516l0,0 c0-0.82,0.665-1.484,1.484-1.484h15.032C17.335,6.031,18,6.696,18,7.516L18,7.516z M18,13.516C18,14.335,17.335,15,16.516,15H1.484 C0.665,15,0,14.335,0,13.516l0,0c0-0.82,0.665-1.483,1.484-1.483h15.032C17.335,12.031,18,12.695,18,13.516L18,13.516z"/>
-            </svg>
-          </span>
-        </label>
 
-        <div class="trigger"><a class="page-link" href="/about/">About</a></div>
-      </nav></div>
-</header>
-<main class="page-content" aria-label="Content">
-      <div class="wrapper">
-        <article class="post h-entry" itemscope itemtype="http://schema.org/BlogPosting">
+  <!-- CSS -->
+  <link rel="stylesheet" href="/assets/main.css">
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Libre+Baskerville:400,400i,700">
 
-  <header class="post-header">
-    <h1 class="post-title p-name" itemprop="name headline">Java並列化</h1>
-    <p class="post-meta">
-      <time class="dt-published" datetime="2019-07-01T22:00:00+10:00" itemprop="datePublished">Jul 1, 2019
-      </time></p>
-  </header>
+  <!-- Favicon -->
+  <link rel="icon" type="image/png" sizes="32x32" href="/assets/favicon-32x32.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/assets/favicon-16x16.png">
+  <link rel="apple-touch-icon" sizes="180x180" href="/assets/apple-touch-icon.png">
 
-  <div class="post-content e-content" itemprop="articleBody">
-    <h1 id="はじめに">はじめに</h1>
+  <!-- RSS -->
+  <link type="application/atom+xml" rel="alternate" href="http://localhost:4000/feed.xml" title="RW21 Blog" />
+
+  <!-- Google Analytics-->
+  
+</head>
+
+
+  <body>
+
+    <nav class="nav">
+  <div class="nav-container">
+    <a href="/">
+      <h2 class="nav-title">RW21 Blog</h2>
+    </a>
+    <ul>
+      <li><a href="/about">About</a></li>
+      <li><a href="/">Posts</a></li>
+    </ul>
+  </div>
+</nav>
+
+
+    <main>
+      <div class="post">
+  <div class="post-info">
+    <span>Written by</span>
+    
+        RW
+    
+
+    
+      <br>
+      <span>on&nbsp;</span><time datetime="2019-07-01 22:00:00 +1000">July 01, 2019</time>
+    
+  </div>
+
+  <h1 class="post-title">Java並列化</h1>
+  <div class="post-line"></div>
+
+  <h1 id="はじめに">はじめに</h1>
 
 <p>本記事ではJavaにおける並列処理を主に個人の備忘録、勉強用として雑に記しています。気が向いたら更新します。主にJavaの並列化に使うキーワードを紹介しています。</p>
+
+<hr />
 
 <h1 id="並列処理">並列処理</h1>
 
@@ -140,8 +169,7 @@
 
 <p>Workerにタスクの役割があって、一つのタスクが終わると次のWorkerにタスクが移行する。</p>
 
-<p><img src="images/concurrency-models-6.png" alt="" />
-<img src="/assets/images/2019/concurrency-models-6.png" alt="" /></p>
+<p><img src="/assets/images/2019/concurrency-models-6.png" alt="" /></p>
 
 <p>出典: <a href="http://tutorials.jenkov.com/java-concurrency/concurrency-models.html#concurrency-models-and-distributed-system-similarities">Jenkov.com</a></p>
 
@@ -418,34 +446,25 @@
 </ul>
 
 
-  </div><a class="u-url" href="/programming/java/2019/07/01/java%E4%B8%A6%E5%88%97%E5%8C%96.html" hidden></a>
-</article>
 
-      </div>
-    </main><footer class="site-footer h-card">
-  <data class="u-url" href="/"></data>
-
-  <div class="wrapper">
-
-    <h2 class="footer-heading">RW21 Blog</h2>
-
-    <div class="footer-col-wrapper">
-      <div class="footer-col footer-col-1">
-        <ul class="contact-list">
-          <li class="p-name">RW21 Blog</li></ul>
-      </div>
-
-      <div class="footer-col footer-col-2"><ul class="social-media-list"><li><a href="https://github.com/RW21"><svg class="svg-icon"><use xlink:href="/assets/minima-social-icons.svg#github"></use></svg> <span class="username">RW21</span></a></li><li><a href="https://www.twitter.com/RinzeWatanabe"><svg class="svg-icon"><use xlink:href="/assets/minima-social-icons.svg#twitter"></use></svg> <span class="username">RinzeWatanabe</span></a></li></ul>
 </div>
 
-      <div class="footer-col footer-col-3">
-        <p>RW21 blog. 雑多なブログ.</p>
-      </div>
-    </div>
+<div class="pagination">
+  
+  
+    <a href="/2019-06-25/%E3%83%96%E3%83%AD%E3%82%B0%E3%81%AA%E3%81%A9" class="right arrow">&#8594;</a>
+  
 
-  </div>
+  <a href="#" class="top">Top</a>
+</div>
 
+    </main>
+
+    <footer>
+  <span>
+    &copy; <time datetime="2019-07-09 14:00:45 +1000">2019</time> . Made with Jekyll using the <a href="https://github.com/chesterhow/tale/">Tale</a> theme.
+  </span>
 </footer>
-</body>
 
+  </body>
 </html>

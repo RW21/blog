@@ -3,6 +3,7 @@ layout: post
 title:  "ブログを始める"
 date:   2019-06-25 22:00:00 +1000
 categories: personal
+author: "RW"
 ---
 Jenkyllでブログを始めることにした。ブログとはいっても個人的な備忘録などが中心になると思う。以下、ありきたりなブログの初投稿。
 
