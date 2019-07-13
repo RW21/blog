@@ -1,5 +1,5 @@
 ---
-layout: post
+# layout: post
 title:  "ブログを始める"
 date:   2019-06-25 22:00:00 +1000
 categories: personal
