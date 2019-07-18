@@ -107,7 +107,10 @@
     <div class="masthead__menu">
       <nav id="site-nav" class="greedy-nav">
         
-        <a class="site-title" href="/">RW21 Blog</a>
+        <a class="site-title" href="/">
+          RW21 Blog
+          
+        </a>
         <ul class="visible-links"><li class="masthead__menu-item">
               <a href="/posts/" >Posts</a>
             </li><li class="masthead__menu-item">
@@ -259,8 +262,8 @@
     
       
         <li>
-          <a href="#java">
-            <strong>java</strong> <span class="taxonomy__count">1</span>
+          <a href="#maths">
+            <strong>maths</strong> <span class="taxonomy__count">1</span>
           </a>
         </li>
       
@@ -324,7 +327,7 @@ Jenkyll
     
     <h2 class="archive__item-title" itemprop="headline">
       
-        <a href="/programming/java/java%E4%B8%A6%E5%88%97%E5%8C%96/" rel="permalink">Java並列化
+        <a href="/programming/java%E4%B8%A6%E5%88%97%E5%8C%96/" rel="permalink">Java並列化
 </a>
       
     </h2>
@@ -358,8 +361,8 @@ Jenkyll
     
   
     
-      <section id="java" class="taxonomy__section">
-        <h2 class="archive__subtitle">java</h2>
+      <section id="maths" class="taxonomy__section">
+        <h2 class="archive__subtitle">maths</h2>
         <div class="entries-list">
           
             
@@ -371,7 +374,7 @@ Jenkyll
     
     <h2 class="archive__item-title" itemprop="headline">
       
-        <a href="/programming/java/java%E4%B8%A6%E5%88%97%E5%8C%96/" rel="permalink">Java並列化
+        <a href="/maths/e-from-prime/" rel="permalink">素数の並びからeが⁉
 </a>
       
     </h2>
@@ -381,20 +384,17 @@ Jenkyll
 
 
 
-  1 minute read
+  less than 1 minute read
 </p>
     
-    <p class="archive__item-excerpt" itemprop="description">はじめに
+    <p class="archive__item-excerpt" itemprop="description">
 
-本記事ではJavaにおける並列処理を主に個人の備忘録、勉強用として雑に記しています。気が向いたら更新します。主にJavaの並列化に使うキーワードを紹介しています。
+素数を素数の間()が増加するように並べ続けたときの列の項の平均が
+に収束する(かもしれない)という投稿をRedditの\r\maths板で見つけた。
 
-並列処理
+どういうこと?
 
-並列処理とは複数のスレッドを使って、メインスレッドとは別のスレッドでプロセスを行うことである。
-
-並列処理における問題例
-
-...</p>
+は素数の間隔がというように増加してないからノーカウント。はOK。このような素数の並びの項の合計の平均はに収束するかも?という投稿。以下は97...</p>
   </article>
 </div>
 
@@ -412,8 +412,13 @@ Jenkyll
 
     
       <div class="search-content">
-        <div class="search-content__inner-wrap"><input type="search" id="search" aria-placeholder="Enter your search term..." class="search-input" tabindex="-1" placeholder="Enter your search term..." />
-    <div id="results" class="results"></div></div>
+        <div class="search-content__inner-wrap"><form class="search-content__form" onkeydown="return event.key != 'Enter';">
+    <label class="sr-only" for="search">
+      Enter your search term...
+    </label>
+    <input type="search" id="search" class="search-input" tabindex="-1" placeholder="Enter your search term..." />
+  </form>
+  <div id="results" class="results"></div></div>
 
       </div>
     

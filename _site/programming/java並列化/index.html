@@ -18,7 +18,7 @@
 <meta property="og:locale" content="en_US">
 <meta property="og:site_name" content="RW21 Blog">
 <meta property="og:title" content="Java並列化">
-<meta property="og:url" content="http://localhost:4000/programming/java/java%E4%B8%A6%E5%88%97%E5%8C%96/">
+<meta property="og:url" content="http://localhost:4000/programming/java%E4%B8%A6%E5%88%97%E5%8C%96/">
 
 
   <meta property="og:description" content="はじめに本記事ではJavaにおける並列処理を主に個人の備忘録、勉強用として雑に記しています。気が向いたら更新します。主にJavaの並列化に使うキーワードを紹介しています。並列処理並列処理とは複数のスレッドを使って、メインスレッドとは別のスレッドでプロセスを行うことである。並列処理における問題例スレッドAがメモリを読み込んでいる間にスレッドBがそのメモリに書き込みをしたら、スレッドAで読み取られるのは新しい値か古い値か?並列(concurrency) vs 並行(parallelism)並列化と並行化という単語は同じマルチスレッドプログラミングにおいてよく使われますが、同一ではありません。並列化システムが複数のタスクを一度にこなすこと。並行化タスクがサブタスクに分散して一度に複数のサブタスクをこなすこと。マルチスレッドプログラミング? 分散コンピューティング? 並行処理? 並列処理?マルチスレッドプログラミングや分散コンピューティングの概念は並列処理の概念とよく似ています。基本的には(並行処理, 並列処理)⊆マルチスレッディングです。本記事では並列処理しか扱いません。なぜ並列処理するのか  リソース利用の最適化          CPUのアイドルタイムを減らす。        プログラムの高速化          例えばサーバーからリクエストをlistenしてそのリクエストを処理するループがあるとする。        while(server is active){  // リクエストを受ける  ...  // リクエストを処理する  }                このループではリクエストを処理してる間は他のリクエストを受けれなくなっている。もしリクエストの処理のタスクを他のスレッドに受け渡せば、すぐにまたリクエストを受けれるようになり、高速化できる。        while(server is active){  // リクエストを受ける  ...  // リクエストを他スレッドに受け渡す  }                    主な並列処理モデルここで紹介する並列処理モデルは分散コンピューティングシステムに使われるモデルと共通するのもあります。Parallel Workers出典: Jenkov.comDelegatorがworkerにタスクを分散する方法です。Parallel worker モデルは最もJavaの並列処理に使われているモデルです。java.util.concurrentパッケージに含まれているツールはこのモデルに基づいて作られています。利点/欠点  利点          簡単        欠点          複数のworkerが同じメモリもしくはデータベースを改変している場合、workerスレッドはその改変が他のworkerスレッドにも知らされるようにしなければならない。(CPUの実行に留まらず、メモリにプッシュされなければならない)      競合状態やデッドロックといった並列処理におけるよくある問題を避けなければならない。  -スレッドが同じデータ構造へのアクセスを待ってしまうと並行化(parallelisation)が欠けてします。      タスクの順番が決定的ではない。これにより、現在のシステムのステートがどうなっているのか分からなくなる場合がある。      Assembly Line出典: Jenkov.comWorkerにタスクの役割があって、一つのタスクが終わると次のWorkerにタスクが移行する。出典: Jenkov.com上の図のようになることも。利点/欠点  利点          共有ステートがない。      タスクに順番がある。        欠点Same-threadingシングルスレッドのプログラムを複数のCPUコアを活用するために複数コアに渡ってスケールすること。このモデルでは共有されるデータ構造、メモリはありません。Javaでスレッドを作るJavaではスレッドはオブジェクトとして扱われています。public class StartThread {    public static void main(String[] args) {        Thread myThread = new Thread();        myThread.start();    } }myThread.start();でスレッドを始めています。しかしこれではスレッドは何もしていません。runメソッドをオーバーライドしてスレッドでコードを動かすスレッドに動くコードを指定するにはThreadのサブクラスを作り、runメソッドをオーバーライドします。public class StartThread {    public static class MyThread extends Thread {        @Override        public void run() {            System.out.println(&quot;Hello World&quot;);        }    }    public static void main(String[] args) {        Thread myThread = new MyThread();        myThread.start();    }}Runnableインターフェースでスレッドを実装Runnableをコンストラクタとして通してスレッドを作ることができます。public class StartThread {    public static class MyRunnable implements Runnable {        @Override        public void run() {            System.out.println(&quot;Hello again&quot;);        }    }    public static void main(String[] args) {        Thread myThread1 = new Thread(new MyRunnable());        myThread1.start();    }}スレッドが取り得る状態  New          スレッドが作られて、まだ実行(run)されていない状態。        Runnable          スレッドが実行された状態。        Blocked          同期ブロックを実行待ち。(他のスレッドがすでに実行している。)        Waiting          他のスレッドを待っている。スレッドシグナリングでWaitingになったり解除されたりする。        Dead          スレッドが実行し終えると死にます。      競合状態とクリティカルセクション競合状態はクリティカルセクションで起こりうる状態です。クリティカルセクションクリティカルセクションとはコードが複数のスレッドで実行されて、その順番によって結果が異なる状態です。複数のスレッドが同じクリティカルセクションに書き込みしようとすると問題が発生します。  public class Counter {     protected long count = 0;     public void add(long value){         this.count = this.count + value;     }  }上記のクラスではaddメソッドがクリティカルセクションになります。競合状態上のクリティカルセクションを2つのスレッドAとBで実行されます。まずスレッドAとBがレジスターにthis.count = 0を読み込みます。まずスレッドAが読み込まれたthis.countに2を足します。その後、スレッドBが読み込まれたthis.countに3を足します。この場合、最終的な結果はthis.count = 5ではなく、this.count = 3になります。上記のように複数のスレッドが同じリソースを取り合うことを競合状態といいます。競合状態を防ぐ競合状態を防ぐ一つの方法にはクリティカルセクションを不可分操作(atomic)状態にするというのがあります。つまり、一つのスレッドが実行中には他のスレッドが実行できない状態にします。これを実現するにはクリティカルセクションでスレッド同期を行います。スレッド同期を行うこと以外ではスレッドロックやjava.util.concurrent.atomic.AtomicIntegerなどの不可分操作変数を使うことができます。スレッドセーフと共有リソース複数のスレッドに同時で実行されても安全なコードをスレッドセーフと呼びます。スレッドセーフなコードは競合状態を起こしません。競合状態は複数のスレッドが共有リソースをアクセスすることで起こります、なのでどういったリソースが共有なのかを知っておくことが大切です。ローカル変数ローカル変数はスレッドのスタックに保存されるのでスレッド間で共有されることがありません。プリミティブ型のローカル変数は常にスレッドセーフです。ローカルオブジェクト参照この場合は、参照自体は共有されません。しかしオブジェクトは共有ヒープに保存されます。もしオブジェクトがローカルで作成されメソッドの外には出ない場合、スレッドセーフです。メンバ変数メンバ変数はオブジェクトと共にヒープに保存されています。スレッドセーフではありません。synchronizedキーワードで同期ブロックJavaの同期ブロックはすべてsynchronizedのメソッド修飾子で実装できます。  public synchronized void add(int value){      this.count += value;  }メソッド全体を同期ブロックにするのが好ましくない場合は、一部だけ同期ブロックにすることができます。  public void add(int value){    synchronized(this){       this.count += value;       }  }同期ブロックの中のコードは複数のスレッドで同時に実行されることはありません。volatileキーワードVolatileとは揮発性という意味です。プログラミングにおいては値が変更されていないようにみえてもアクセスする度に変わっているという意味になります。Javaのvolatileキーワードは変数がCPUキャッシュにではなくメインメモリに保存されていることを保証をします。例えば以下のような共有されている変数があるとします。public class SharedObject {    public int counter = 0;}スレッド1はcounterをインクリメントします。スレッド1とスレッド2は度々counterを読みます。もしcounterがvolatileだと宣言されていない場合は、メインメモリからではなく、CPUキャッシュから値が読まれる恐れがあります。以下の図がこのシチューションを表しています。出典: Jenkov.comvolatileだけでは十分じゃない場合スレッドがvolatileな変数を読み込んで、それを元に新しい値に更新してしまうと、その変数は固定されるのを保証されません。変数を読み込んで書き込むまでの間に他のスレッドが書き込む可能性があり、競合状態が発生します。ThreadLocalThreadLocalクラスは一つのスレッドにしか読み書きできない変数を作るのに使います。もし2つのスレッドが同じThreadLocalの参照を読み込むと2つのスレッドは互いのThreadLocal変数にアクセスできません。ThreadLocal変数の作成private ThreadLocal myThreadLocal = new ThreadLocal();ThreadLocal変数へのアクセスThreadLocal変数が作成されると以下のように値を設定できます。myThreadLocal.set(&quot;A thread local value&quot;);値を読み込むには:String threadLocalValue = (String) myThreadLocal.get();スレッドシグナリングスレッドシグナリングでスレッド間にシグナルを送ることができます。シグナリングを使えばスレッドが他のスレッドを待機するということができるようになります。共有オブジェクトでシグナリング共有変数の値を変更することでスレッド間のシグナリングを行うのが最も簡単です。public class MySignal{  protected boolean hasDataToProcess = false;  public synchronized boolean hasDataToProcess(){    return this.hasDataToProcess;  }  public synchronized void setHasDataToProcess(boolean hasData){    this.hasDataToProcess = hasData;    }}出典: Jenkov.comwait() notify() notifyAll()java.lang.Objectにはシグナルを待機しているスレッドを非アクティブ化するメカニズムがあります。wait()をオブジェクトに呼び出すスレッドは他のスレッドがそのオブジェクトがnotify()を実行するまで非アクティブになります。デッドロックデッドロックとは本来スレッドシグナリングで進行するはずの複数のスレッドがブロック状態(非アクティブ)になっていて、プログラムが動かない状態を指します。簡単な例をあげると、スレッドAとスレッドBがあって、スレッドAがスレッドBをロックしてスレッドBを待機する、スレッドBがスレッドAをロックしてスレッドAを待機する。スレッド優先順位スレッドの優先順位はsetPriorityで設定できます。設定が高いほうが先に実行されます。優先順位には1から10までintが使えます。public class StartThread {    public static void main(String[] args) {        Thread myThread = new Thread();        Thread myThread1 = new Thread();        myThread.setPriority(5);        myThread.setPriority(1);    } }上の場合は、myThreadが先に実行されます。joinjoin()メソッドでスレッドが終わるまで他のスレッドが実行されないよう保証します。thread1.join()でthread1が実行中の時、thread1が実行を終えるまで他のスレッドを実行しません。イメージとしては、スレッド同士をつなげたいときに使います。生産者消費者問題並列処理の問題としてよく取り上げられるのが生産者消費者問題です。この問題では、一つのデータ構造から複数の消費者スレッドがアイテムを取り出し、複数の生産者がアイテムを追加します。データ構造データ構造は先に入れられたデータから順に取り出されるキューで実装します。スレッド消費者スレッドはキューがいっぱいになると生産者スレッドをブロックします。(これ以上商品を足すのを防ぐため。)逆に、生産者スレッドはキューが空になると消費者スレッドをブロックするよう実装します。これらはいちいちスレッドシグナリングを実行しなくてもjava.util.concurrent.BlockingQueueで簡単に実装できてしまいます。参照  Jenkov.com  Java documentation  Winterbe">
@@ -36,7 +36,7 @@
 
 
 
-<link rel="canonical" href="http://localhost:4000/programming/java/java%E4%B8%A6%E5%88%97%E5%8C%96/">
+<link rel="canonical" href="http://localhost:4000/programming/java%E4%B8%A6%E5%88%97%E5%8C%96/">
 
 
 
@@ -111,7 +111,10 @@
     <div class="masthead__menu">
       <nav id="site-nav" class="greedy-nav">
         
-        <a class="site-title" href="/">RW21 Blog</a>
+        <a class="site-title" href="/">
+          RW21 Blog
+          
+        </a>
         <ul class="visible-links"><li class="masthead__menu-item">
               <a href="/posts/" >Posts</a>
             </li><li class="masthead__menu-item">
@@ -256,6 +259,92 @@
       
 
       <section class="page__content" itemprop="text">
+        
+          <aside class="sidebar__right ">
+            <nav class="toc">
+              <header><h4 class="nav__title"><i class="fas fa-file-alt"></i> On this page</h4></header>
+              <ul class="toc__menu">
+  <li><a href="#はじめに">はじめに</a></li>
+  <li><a href="#並列処理">並列処理</a>
+    <ul>
+      <li><a href="#並列処理における問題例">並列処理における問題例</a></li>
+      <li><a href="#並列concurrency-vs-並行parallelism">並列(concurrency) vs 並行(parallelism)</a>
+        <ul>
+          <li><a href="#並列化">並列化</a></li>
+          <li><a href="#並行化">並行化</a></li>
+          <li><a href="#マルチスレッドプログラミング-分散コンピューティング-並行処理-並列処理">マルチスレッドプログラミング? 分散コンピューティング? 並行処理? 並列処理?</a></li>
+        </ul>
+      </li>
+    </ul>
+  </li>
+  <li><a href="#なぜ並列処理するのか">なぜ並列処理するのか</a></li>
+  <li><a href="#主な並列処理モデル">主な並列処理モデル</a>
+    <ul>
+      <li><a href="#parallel-workers">Parallel Workers</a>
+        <ul>
+          <li><a href="#利点欠点">利点/欠点</a></li>
+        </ul>
+      </li>
+      <li><a href="#assembly-line">Assembly Line</a>
+        <ul>
+          <li><a href="#利点欠点-1">利点/欠点</a></li>
+        </ul>
+      </li>
+      <li><a href="#same-threading">Same-threading</a></li>
+    </ul>
+  </li>
+  <li><a href="#javaでスレッドを作る">Javaでスレッドを作る</a>
+    <ul>
+      <li><a href="#runメソッドをオーバーライドしてスレッドでコードを動かす">runメソッドをオーバーライドしてスレッドでコードを動かす</a></li>
+      <li><a href="#runnableインターフェースでスレッドを実装">Runnableインターフェースでスレッドを実装</a></li>
+      <li><a href="#スレッドが取り得る状態">スレッドが取り得る状態</a></li>
+    </ul>
+  </li>
+  <li><a href="#競合状態とクリティカルセクション">競合状態とクリティカルセクション</a>
+    <ul>
+      <li><a href="#クリティカルセクション">クリティカルセクション</a></li>
+      <li><a href="#競合状態">競合状態</a></li>
+      <li><a href="#競合状態を防ぐ">競合状態を防ぐ</a></li>
+    </ul>
+  </li>
+  <li><a href="#スレッドセーフと共有リソース">スレッドセーフと共有リソース</a>
+    <ul>
+      <li><a href="#ローカル変数">ローカル変数</a></li>
+      <li><a href="#ローカルオブジェクト参照">ローカルオブジェクト参照</a></li>
+      <li><a href="#メンバ変数">メンバ変数</a></li>
+    </ul>
+  </li>
+  <li><a href="#synchronizedキーワードで同期ブロック">synchronizedキーワードで同期ブロック</a></li>
+  <li><a href="#volatileキーワード">volatileキーワード</a>
+    <ul>
+      <li><a href="#volatileだけでは十分じゃない場合">volatileだけでは十分じゃない場合</a></li>
+    </ul>
+  </li>
+  <li><a href="#threadlocal">ThreadLocal</a>
+    <ul>
+      <li><a href="#threadlocal変数の作成">ThreadLocal変数の作成</a></li>
+      <li><a href="#threadlocal変数へのアクセス">ThreadLocal変数へのアクセス</a></li>
+    </ul>
+  </li>
+  <li><a href="#スレッドシグナリング">スレッドシグナリング</a>
+    <ul>
+      <li><a href="#共有オブジェクトでシグナリング">共有オブジェクトでシグナリング</a></li>
+      <li><a href="#wait-notify-notifyall">wait() notify() notifyAll()</a></li>
+    </ul>
+  </li>
+  <li><a href="#デッドロック">デッドロック</a></li>
+  <li><a href="#スレッド優先順位">スレッド優先順位</a></li>
+  <li><a href="#join">join</a></li>
+  <li><a href="#生産者消費者問題">生産者消費者問題</a>
+    <ul>
+      <li><a href="#データ構造">データ構造</a></li>
+      <li><a href="#スレッド">スレッド</a></li>
+    </ul>
+  </li>
+  <li><a href="#参照">参照</a></li>
+</ul>
+            </nav>
+          </aside>
         
         <h1 id="はじめに">はじめに</h1>
 
@@ -662,6 +751,25 @@
       <footer class="page__meta">
         
         
+  
+
+
+  
+  
+  
+
+  <p class="page__taxonomy">
+    <strong><i class="fas fa-fw fa-tags" aria-hidden="true"></i> Tags: </strong>
+    <span itemprop="keywords">
+    
+      
+      
+      <a href="/tags/#java" class="page__taxonomy-item" rel="tag">Java</a>
+    
+    </span>
+  </p>
+
+
 
 
   
@@ -674,10 +782,6 @@
   <p class="page__taxonomy">
     <strong><i class="fas fa-fw fa-folder-open" aria-hidden="true"></i> Categories: </strong>
     <span itemprop="keywords">
-    
-      
-      
-      <a href="/categories/#java" class="page__taxonomy-item" rel="tag">java</a><span class="sep">, </span>
     
       
       
@@ -695,11 +799,11 @@
       <section class="page__share">
   
 
-  <a href="https://twitter.com/intent/tweet?text=Java%E4%B8%A6%E5%88%97%E5%8C%96%20http%3A%2F%2Flocalhost%3A4000%2Fprogramming%2Fjava%2Fjava%25E4%25B8%25A6%25E5%2588%2597%25E5%258C%2596%2F" class="btn btn--twitter" onclick="window.open(this.href, 'window', 'left=20,top=20,width=500,height=500,toolbar=1,resizable=0'); return false;" title="Share on Twitter"><i class="fab fa-fw fa-twitter" aria-hidden="true"></i><span> Twitter</span></a>
+  <a href="https://twitter.com/intent/tweet?text=Java%E4%B8%A6%E5%88%97%E5%8C%96%20http%3A%2F%2Flocalhost%3A4000%2Fprogramming%2Fjava%25E4%25B8%25A6%25E5%2588%2597%25E5%258C%2596%2F" class="btn btn--twitter" onclick="window.open(this.href, 'window', 'left=20,top=20,width=500,height=500,toolbar=1,resizable=0'); return false;" title="Share on Twitter"><i class="fab fa-fw fa-twitter" aria-hidden="true"></i><span> Twitter</span></a>
 
-  <a href="https://www.facebook.com/sharer/sharer.php?u=http%3A%2F%2Flocalhost%3A4000%2Fprogramming%2Fjava%2Fjava%25E4%25B8%25A6%25E5%2588%2597%25E5%258C%2596%2F" class="btn btn--facebook" onclick="window.open(this.href, 'window', 'left=20,top=20,width=500,height=500,toolbar=1,resizable=0'); return false;" title="Share on Facebook"><i class="fab fa-fw fa-facebook" aria-hidden="true"></i><span> Facebook</span></a>
+  <a href="https://www.facebook.com/sharer/sharer.php?u=http%3A%2F%2Flocalhost%3A4000%2Fprogramming%2Fjava%25E4%25B8%25A6%25E5%2588%2597%25E5%258C%2596%2F" class="btn btn--facebook" onclick="window.open(this.href, 'window', 'left=20,top=20,width=500,height=500,toolbar=1,resizable=0'); return false;" title="Share on Facebook"><i class="fab fa-fw fa-facebook" aria-hidden="true"></i><span> Facebook</span></a>
 
-  <a href="https://www.linkedin.com/shareArticle?mini=true&url=http%3A%2F%2Flocalhost%3A4000%2Fprogramming%2Fjava%2Fjava%25E4%25B8%25A6%25E5%2588%2597%25E5%258C%2596%2F" class="btn btn--linkedin" onclick="window.open(this.href, 'window', 'left=20,top=20,width=500,height=500,toolbar=1,resizable=0'); return false;" title="Share on LinkedIn"><i class="fab fa-fw fa-linkedin" aria-hidden="true"></i><span> LinkedIn</span></a>
+  <a href="https://www.linkedin.com/shareArticle?mini=true&url=http%3A%2F%2Flocalhost%3A4000%2Fprogramming%2Fjava%25E4%25B8%25A6%25E5%2588%2597%25E5%258C%2596%2F" class="btn btn--linkedin" onclick="window.open(this.href, 'window', 'left=20,top=20,width=500,height=500,toolbar=1,resizable=0'); return false;" title="Share on LinkedIn"><i class="fab fa-fw fa-linkedin" aria-hidden="true"></i><span> LinkedIn</span></a>
 </section>
 
 
@@ -710,7 +814,8 @@
 ">Previous</a>
     
     
-      <a href="#" class="pagination--pager disabled">Next</a>
+      <a href="/maths/e-from-prime/" class="pagination--pager" title="素数の並びからeが⁉
+">Next</a>
     
   </nav>
 
@@ -724,6 +829,40 @@
     <div class="page__related">
       <h4 class="page__related-title">You May Also Enjoy</h4>
       <div class="grid__wrapper">
+        
+          
+
+
+
+<div class="grid__item">
+  <article class="archive__item" itemscope itemtype="https://schema.org/CreativeWork">
+    
+    <h2 class="archive__item-title" itemprop="headline">
+      
+        <a href="/maths/e-from-prime/" rel="permalink">素数の並びからeが⁉
+</a>
+      
+    </h2>
+    
+      <p class="page__meta"><i class="far fa-clock" aria-hidden="true"></i> 
+
+
+
+
+  less than 1 minute read
+</p>
+    
+    <p class="archive__item-excerpt" itemprop="description">
+
+素数を素数の間()が増加するように並べ続けたときの列の項の平均が
+に収束する(かもしれない)という投稿をRedditの\r\maths板で見つけた。
+
+どういうこと?
+
+は素数の間隔がというように増加してないからノーカウント。はOK。このような素数の並びの項の合計の平均はに収束するかも?という投稿。以下は97...</p>
+  </article>
+</div>
+
         
           
 
@@ -765,8 +904,13 @@ Jenkyll
 
     
       <div class="search-content">
-        <div class="search-content__inner-wrap"><input type="search" id="search" aria-placeholder="Enter your search term..." class="search-input" tabindex="-1" placeholder="Enter your search term..." />
-    <div id="results" class="results"></div></div>
+        <div class="search-content__inner-wrap"><form class="search-content__form" onkeydown="return event.key != 'Enter';">
+    <label class="sr-only" for="search">
+      Enter your search term...
+    </label>
+    <input type="search" id="search" class="search-input" tabindex="-1" placeholder="Enter your search term..." />
+  </form>
+  <div id="results" class="results"></div></div>
 
       </div>
     

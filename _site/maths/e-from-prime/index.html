@@ -1,0 +1,537 @@
+<!doctype html>
+<!--
+  Minimal Mistakes Jekyll Theme 4.16.4 by Michael Rose
+  Copyright 2013-2019 Michael Rose - mademistakes.com | @mmistakes
+  Free for personal and commercial use under the MIT license
+  https://github.com/mmistakes/minimal-mistakes/blob/master/LICENSE
+-->
+<html lang="en" class="no-js">
+  <head>
+    <meta charset="utf-8">
+
+<!-- begin _includes/seo.html --><title>素数の並びからeが⁉ - RW21 Blog</title>
+<meta name="description" content="素数を素数の間()が増加するように並べ続けたときの列の項の平均がに収束する(かもしれない)という投稿をRedditの\r\maths板で見つけた。どういうこと?は素数の間隔がというように増加してないからノーカウント。はOK。このような素数の並びの項の合計の平均はに収束するかも?という投稿。以下は977までの素数までの平均。2 3 5 -&gt; 37 11 -&gt; 213 17 -&gt; 2 19 23 2931 3741 43 47 5359 61 6771 73 7983 89 97101 103 107109 113 127131 137139 149151 157163 167 173...857 859 863 877881 883 887 907911 919 929953 967971 977Total average value of each row: 163 / 60 = 2.71666... ≈ e出典: redditまさかと思ってコメントを見てみたら、ここでネタバレしますけど、この数列はに収束してなかった。なぜこうなるのか違いも数もランダムな列で上のように平均をとると、に収束する。上のような素数の数列はある程度違いも数もランダムな列と類似する。をランダムな数でも独立同分布でランダムな連続確立変数とする。上のように違いが増加するような数列をとると、列に項が2つある確率が、3つある確率が、4つある確率が、5つある確率が…という風な数列になる。この数列の合計はとなる。素数の並びはランダムではない素数の平均の数列がに収束しないということは、つまり素数の並びは完全にランダムではないといえるのではないだろうか?">
+
+
+
+<meta property="og:type" content="article">
+<meta property="og:locale" content="en_US">
+<meta property="og:site_name" content="RW21 Blog">
+<meta property="og:title" content="素数の並びからeが⁉">
+<meta property="og:url" content="http://localhost:4000/maths/e-from-prime/">
+
+
+  <meta property="og:description" content="素数を素数の間()が増加するように並べ続けたときの列の項の平均がに収束する(かもしれない)という投稿をRedditの\r\maths板で見つけた。どういうこと?は素数の間隔がというように増加してないからノーカウント。はOK。このような素数の並びの項の合計の平均はに収束するかも?という投稿。以下は977までの素数までの平均。2 3 5 -&gt; 37 11 -&gt; 213 17 -&gt; 2 19 23 2931 3741 43 47 5359 61 6771 73 7983 89 97101 103 107109 113 127131 137139 149151 157163 167 173...857 859 863 877881 883 887 907911 919 929953 967971 977Total average value of each row: 163 / 60 = 2.71666... ≈ e出典: redditまさかと思ってコメントを見てみたら、ここでネタバレしますけど、この数列はに収束してなかった。なぜこうなるのか違いも数もランダムな列で上のように平均をとると、に収束する。上のような素数の数列はある程度違いも数もランダムな列と類似する。をランダムな数でも独立同分布でランダムな連続確立変数とする。上のように違いが増加するような数列をとると、列に項が2つある確率が、3つある確率が、4つある確率が、5つある確率が…という風な数列になる。この数列の合計はとなる。素数の並びはランダムではない素数の平均の数列がに収束しないということは、つまり素数の並びは完全にランダムではないといえるのではないだろうか?">
+
+
+
+
+
+
+
+  <meta property="article:published_time" content="2019-07-13T22:00:00+10:00">
+
+
+
+
+
+
+<link rel="canonical" href="http://localhost:4000/maths/e-from-prime/">
+
+
+
+
+
+
+
+
+
+
+
+
+
+<!-- end _includes/seo.html -->
+
+
+<link href="/feed.xml" type="application/atom+xml" rel="alternate" title="RW21 Blog Feed">
+
+<!-- https://t.co/dKP3o1e -->
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<script>
+  document.documentElement.className = document.documentElement.className.replace(/\bno-js\b/g, '') + ' js ';
+</script>
+
+<!-- For all browsers -->
+<link rel="stylesheet" href="/assets/css/main.css">
+
+<!--[if IE ]>
+  <style>
+    /* old IE unsupported flexbox fixes */
+    .greedy-nav .site-title {
+      padding-right: 3em;
+    }
+    .greedy-nav button {
+      position: absolute;
+      top: 0;
+      right: 0;
+      height: 100%;
+    }
+  </style>
+<![endif]-->
+
+
+
+    <!-- start custom head snippets -->
+
+<!-- insert favicons. use https://realfavicongenerator.net/ -->
+
+<!-- end custom head snippets -->
+
+  </head>
+
+  <body class="layout--single">
+    <nav class="skip-links">
+  <h2 class="screen-reader-text">Skip links</h2>
+  <ul>
+    <li><a href="#site-nav" class="screen-reader-shortcut">Skip to primary navigation</a></li>
+    <li><a href="#main" class="screen-reader-shortcut">Skip to content</a></li>
+    <li><a href="#footer" class="screen-reader-shortcut">Skip to footer</a></li>
+  </ul>
+</nav>
+
+    <!--[if lt IE 9]>
+<div class="notice--danger align-center" style="margin: 0;">You are using an <strong>outdated</strong> browser. Please <a href="https://browsehappy.com/">upgrade your browser</a> to improve your experience.</div>
+<![endif]-->
+
+    
+
+<div class="masthead">
+  <div class="masthead__inner-wrap">
+    <div class="masthead__menu">
+      <nav id="site-nav" class="greedy-nav">
+        
+        <a class="site-title" href="/">
+          RW21 Blog
+          
+        </a>
+        <ul class="visible-links"><li class="masthead__menu-item">
+              <a href="/posts/" >Posts</a>
+            </li><li class="masthead__menu-item">
+              <a href="/categories/" >Categories</a>
+            </li><li class="masthead__menu-item">
+              <a href="/tags/" >Tags</a>
+            </li><li class="masthead__menu-item">
+              <a href="/about/" >About</a>
+            </li></ul>
+        
+        <button class="search__toggle" type="button">
+          <span class="visually-hidden">Toggle search</span>
+          <svg class="icon" width="16" height="16" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 15.99 16">
+            <path d="M15.5,13.12L13.19,10.8a1.69,1.69,0,0,0-1.28-.55l-0.06-.06A6.5,6.5,0,0,0,5.77,0,6.5,6.5,0,0,0,2.46,11.59a6.47,6.47,0,0,0,7.74.26l0.05,0.05a1.65,1.65,0,0,0,.5,1.24l2.38,2.38A1.68,1.68,0,0,0,15.5,13.12ZM6.4,2A4.41,4.41,0,1,1,2,6.4,4.43,4.43,0,0,1,6.4,2Z" transform="translate(-.01)"></path>
+          </svg>
+        </button>
+        
+        <button class="greedy-nav__toggle hidden" type="button">
+          <span class="visually-hidden">Toggle menu</span>
+          <div class="navicon"></div>
+        </button>
+        <ul class="hidden-links hidden"></ul>
+      </nav>
+    </div>
+  </div>
+</div>
+
+
+    <div class="initial-content">
+      
+
+
+
+<div id="main" role="main">
+  
+  <div class="sidebar sticky">
+  
+
+
+<div itemscope itemtype="https://schema.org/Person">
+
+  
+
+  <div class="author__content">
+    
+      <h3 class="author__name" itemprop="name"></h3>
+    
+    
+  </div>
+
+  <div class="author__urls-wrapper">
+    <button class="btn btn--inverse">Follow</button>
+    <ul class="author__urls social-icons">
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      <!--
+  <li>
+    <a href="http://link-to-whatever-social-network.com/user/" itemprop="sameAs" rel="nofollow noopener noreferrer">
+      <i class="fas fa-fw" aria-hidden="true"></i> Custom Social Profile Link
+    </a>
+  </li>
+-->
+    </ul>
+  </div>
+</div>
+
+  
+  </div>
+
+
+  <article class="page" itemscope itemtype="https://schema.org/CreativeWork">
+    <meta itemprop="headline" content="素数の並びからeが⁉">
+    <meta itemprop="description" content="素数を素数の間()が増加するように並べ続けたときの列の項の平均がに収束する(かもしれない)という投稿をRedditの\r\maths板で見つけた。どういうこと?は素数の間隔がというように増加してないからノーカウント。はOK。このような素数の並びの項の合計の平均はに収束するかも?という投稿。以下は977までの素数までの平均。2 3 5 -&gt; 37 11 -&gt; 213 17 -&gt; 2 19 23 2931 3741 43 47 5359 61 6771 73 7983 89 97101 103 107109 113 127131 137139 149151 157163 167 173...857 859 863 877881 883 887 907911 919 929953 967971 977Total average value of each row: 163 / 60 = 2.71666... ≈ e出典: redditまさかと思ってコメントを見てみたら、ここでネタバレしますけど、この数列はに収束してなかった。なぜこうなるのか違いも数もランダムな列で上のように平均をとると、に収束する。上のような素数の数列はある程度違いも数もランダムな列と類似する。をランダムな数でも独立同分布でランダムな連続確立変数とする。上のように違いが増加するような数列をとると、列に項が2つある確率が、3つある確率が、4つある確率が、5つある確率が…という風な数列になる。この数列の合計はとなる。素数の並びはランダムではない素数の平均の数列がに収束しないということは、つまり素数の並びは完全にランダムではないといえるのではないだろうか?">
+    <meta itemprop="datePublished" content="July 13, 2019">
+    
+
+    <div class="page__inner-wrap">
+      
+        <header>
+          <h1 id="page-title" class="page__title" itemprop="headline">素数の並びからeが⁉
+</h1>
+          
+            <p class="page__meta"><i class="far fa-clock" aria-hidden="true"></i> 
+
+
+
+
+  less than 1 minute read
+</p>
+          
+        </header>
+      
+
+      <section class="page__content" itemprop="text">
+        
+        <script type="text/javascript" src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+
+<p>素数を素数の間(<script type="math/tex">P_{n+1}- P_{1}</script>)が増加するように並べ続けたときの列の項の平均が
+<script type="math/tex">e</script>に収束する(かもしれない)という投稿を<a href="https://www.reddit.com/r/math/comments/cbd0a7/found_e_in_the_primes_maybe/">Reddit</a>の\r\maths板で見つけた。</p>
+
+<h1 id="どういうこと">どういうこと?</h1>
+
+<p><script type="math/tex">3、5、7、11、13</script>は素数の間隔が<script type="math/tex">2、2、3、2</script>というように増加してないからノーカウント。<script type="math/tex">19、23、29</script>はOK。このような素数の並びの項の合計の平均は<script type="math/tex">e</script>に収束するかも?という投稿。以下は977までの素数までの平均。</p>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>2 3 5 -&gt; 3
+7 11 -&gt; 2
+13 17 -&gt; 2 
+19 23 29
+31 37
+41 43 47 53
+59 61 67
+71 73 79
+83 89 97
+101 103 107
+109 113 127
+131 137
+139 149
+151 157
+163 167 173
+...
+857 859 863 877
+881 883 887 907
+911 919 929
+953 967
+971 977
+
+Total average value of each row: 163 / 60 = 2.71666... ≈ e
+</code></pre></div></div>
+
+<p>出典: <a href="https://www.reddit.com/r/math/comments/cbd0a7/found_e_in_the_primes_maybe/">reddit</a></p>
+
+<p>まさかと思ってコメントを見てみたら、ここでネタバレしますけど、この数列は<script type="math/tex">e</script>に収束してなかった。</p>
+
+<h1 id="なぜこうなるのか">なぜこうなるのか</h1>
+
+<p>違いも数もランダムな列で上のように平均をとると、<script type="math/tex">e</script>に収束する。上のような素数の数列はある程度違いも数もランダムな列と類似する。</p>
+
+<p><script type="math/tex">a_i</script>をランダムな数で<script type="math/tex">a_{n+1} - a_{n}</script>も独立同分布でランダムな連続確立変数とする。上のように違いが増加するような数列をとると、列に項が2つある確率が<script type="math/tex">1</script>、3つある確率が<script type="math/tex">1/2</script>、4つある確率が<script type="math/tex">1/6</script>、5つある確率が<script type="math/tex">1/24</script>…という風な数列になる。</p>
+
+<p>この数列の合計は<script type="math/tex">\sum_{k=0}^{\infty} \frac{1}{k!} = e</script>となる。</p>
+
+<h2 id="素数の並びはランダムではない">素数の並びはランダムではない</h2>
+
+<p>素数の平均の数列が<script type="math/tex">e</script>に収束しないということは、つまり素数の並びは完全にランダムではないといえるのではないだろうか?</p>
+
+        
+      </section>
+
+      <footer class="page__meta">
+        
+        
+  
+
+
+  
+  
+  
+
+  <p class="page__taxonomy">
+    <strong><i class="fas fa-fw fa-tags" aria-hidden="true"></i> Tags: </strong>
+    <span itemprop="keywords">
+    
+      
+      
+      <a href="/tags/#number" class="page__taxonomy-item" rel="tag">number</a><span class="sep">, </span>
+    
+      
+      
+      <a href="/tags/#theory" class="page__taxonomy-item" rel="tag">theory</a>
+    
+    </span>
+  </p>
+
+
+
+
+  
+
+
+  
+  
+  
+
+  <p class="page__taxonomy">
+    <strong><i class="fas fa-fw fa-folder-open" aria-hidden="true"></i> Categories: </strong>
+    <span itemprop="keywords">
+    
+      
+      
+      <a href="/categories/#maths" class="page__taxonomy-item" rel="tag">maths</a>
+    
+    </span>
+  </p>
+
+
+        
+          <p class="page__date"><strong><i class="fas fa-fw fa-calendar-alt" aria-hidden="true"></i> Updated:</strong> <time datetime="2019-07-13T22:00:00+10:00">July 13, 2019</time></p>
+        
+      </footer>
+
+      <section class="page__share">
+  
+
+  <a href="https://twitter.com/intent/tweet?text=%E7%B4%A0%E6%95%B0%E3%81%AE%E4%B8%A6%E3%81%B3%E3%81%8B%E3%82%89e%E3%81%8C%E2%81%89%20http%3A%2F%2Flocalhost%3A4000%2Fmaths%2Fe-from-prime%2F" class="btn btn--twitter" onclick="window.open(this.href, 'window', 'left=20,top=20,width=500,height=500,toolbar=1,resizable=0'); return false;" title="Share on Twitter"><i class="fab fa-fw fa-twitter" aria-hidden="true"></i><span> Twitter</span></a>
+
+  <a href="https://www.facebook.com/sharer/sharer.php?u=http%3A%2F%2Flocalhost%3A4000%2Fmaths%2Fe-from-prime%2F" class="btn btn--facebook" onclick="window.open(this.href, 'window', 'left=20,top=20,width=500,height=500,toolbar=1,resizable=0'); return false;" title="Share on Facebook"><i class="fab fa-fw fa-facebook" aria-hidden="true"></i><span> Facebook</span></a>
+
+  <a href="https://www.linkedin.com/shareArticle?mini=true&url=http%3A%2F%2Flocalhost%3A4000%2Fmaths%2Fe-from-prime%2F" class="btn btn--linkedin" onclick="window.open(this.href, 'window', 'left=20,top=20,width=500,height=500,toolbar=1,resizable=0'); return false;" title="Share on LinkedIn"><i class="fab fa-fw fa-linkedin" aria-hidden="true"></i><span> LinkedIn</span></a>
+</section>
+
+
+      
+  <nav class="pagination">
+    
+      <a href="/programming/java%E4%B8%A6%E5%88%97%E5%8C%96/" class="pagination--pager" title="Java並列化
+">Previous</a>
+    
+    
+      <a href="#" class="pagination--pager disabled">Next</a>
+    
+  </nav>
+
+    </div>
+
+    
+  </article>
+
+  
+  
+    <div class="page__related">
+      <h4 class="page__related-title">You May Also Enjoy</h4>
+      <div class="grid__wrapper">
+        
+          
+
+
+
+<div class="grid__item">
+  <article class="archive__item" itemscope itemtype="https://schema.org/CreativeWork">
+    
+    <h2 class="archive__item-title" itemprop="headline">
+      
+        <a href="/programming/java%E4%B8%A6%E5%88%97%E5%8C%96/" rel="permalink">Java並列化
+</a>
+      
+    </h2>
+    
+      <p class="page__meta"><i class="far fa-clock" aria-hidden="true"></i> 
+
+
+
+
+  1 minute read
+</p>
+    
+    <p class="archive__item-excerpt" itemprop="description">はじめに
+
+本記事ではJavaにおける並列処理を主に個人の備忘録、勉強用として雑に記しています。気が向いたら更新します。主にJavaの並列化に使うキーワードを紹介しています。
+
+並列処理
+
+並列処理とは複数のスレッドを使って、メインスレッドとは別のスレッドでプロセスを行うことである。
+
+並列処理における問題例
+
+...</p>
+  </article>
+</div>
+
+        
+          
+
+
+
+<div class="grid__item">
+  <article class="archive__item" itemscope itemtype="https://schema.org/CreativeWork">
+    
+    <h2 class="archive__item-title" itemprop="headline">
+      
+        <a href="/personal/%E3%83%96%E3%83%AD%E3%82%B0%E3%81%AA%E3%81%A9/" rel="permalink">ブログを始める
+</a>
+      
+    </h2>
+    
+      <p class="page__meta"><i class="far fa-clock" aria-hidden="true"></i> 
+
+
+
+
+  less than 1 minute read
+</p>
+    
+    <p class="archive__item-excerpt" itemprop="description">Jenkyllでブログを始めることにした。ブログとはいっても個人的な備忘録などが中心になると思う。以下、ありきたりなブログの初投稿。
+
+Jenkyll
+静的サイトジェネレーターのJenkyllとGithubPagesを使った。Jenkyllで色々なテーマを漁ったが自分にしっくり来るものがなかった。自分がブログに求...</p>
+  </article>
+</div>
+
+        
+      </div>
+    </div>
+  
+  
+</div>
+
+    </div>
+
+    
+      <div class="search-content">
+        <div class="search-content__inner-wrap"><form class="search-content__form" onkeydown="return event.key != 'Enter';">
+    <label class="sr-only" for="search">
+      Enter your search term...
+    </label>
+    <input type="search" id="search" class="search-input" tabindex="-1" placeholder="Enter your search term..." />
+  </form>
+  <div id="results" class="results"></div></div>
+
+      </div>
+    
+
+    <div id="footer" class="page__footer">
+      <footer>
+        <!-- start custom footer snippets -->
+
+<!-- end custom footer snippets -->
+        <div class="page__footer-follow">
+  <ul class="social-icons">
+    
+
+    
+      
+        
+          <li><a href="https://twitter.com/RinzeWatanabe" rel="nofollow noopener noreferrer"><i class="fab fa-fw fa-twitter-square" aria-hidden="true"></i> Twitter</a></li>
+        
+      
+        
+          <li><a href="https://github.com/RW21" rel="nofollow noopener noreferrer"><i class="fab fa-fw fa-github" aria-hidden="true"></i> GitHub</a></li>
+        
+      
+    
+
+    <li><a href="/feed.xml"><i class="fas fa-fw fa-rss-square" aria-hidden="true"></i> Feed</a></li>
+  </ul>
+</div>
+
+<div class="page__footer-copyright">&copy; 2019 RW21 Blog. Powered by <a href="https://jekyllrb.com" rel="nofollow">Jekyll</a> &amp; <a href="https://mademistakes.com/work/minimal-mistakes-jekyll-theme/" rel="nofollow">Minimal Mistakes</a>.</div>
+
+      </footer>
+    </div>
+
+    
+  <script src="/assets/js/main.min.js"></script>
+  <script src="https://kit.fontawesome.com/4eee35f757.js"></script>
+
+
+
+
+<script src="/assets/js/lunr/lunr.min.js"></script>
+<script src="/assets/js/lunr/lunr-store.js"></script>
+<script src="/assets/js/lunr/lunr-en.js"></script>
+
+
+
+
+
+
+
+  </body>
+</html>
