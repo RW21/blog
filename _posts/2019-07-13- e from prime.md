@@ -3,18 +3,17 @@
 title:  "素数の並びからeが⁉"
 date:   2019-07-13 22:00:00 +1000
 categories: maths
-tags: number theory
+tags: number_theory
 author: "RW"
 ---
-<script type="text/javascript" src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
-
+<script src='https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/latest.js?config=TeX-MML-AM_CHTML' async></script>
 
 素数を素数の間($$P_{n+1}- P_{1}$$)が増加するように並べ続けたときの列の項の平均が
 $$e$$に収束する(かもしれない)という投稿を[Reddit](https://www.reddit.com/r/math/comments/cbd0a7/found_e_in_the_primes_maybe/)の\r\maths板で見つけた。
 
 # どういうこと?
 
-$$3、5、7、11、13$$は素数の間隔が$$2、2、3、2$$というように増加してないからノーカウント。$$19、23、29$$はOK。このような素数の並びの項の合計の平均は$$e$$に収束するかも?という投稿。以下は977までの素数までの平均。
+$$3,5,7,11,13$$は素数の間隔が$$2,2,3,2$$というように増加してないからノーカウント。$$19,23,29$$はOK。このような素数の並びの項の合計の平均は$$e$$に収束するかも?という投稿。以下は977までの素数までの平均。
 
 ```
 2 3 5 -> 3
