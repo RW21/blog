@@ -1,4 +1,96 @@
-<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="3.8.5">Jekyll</generator><link href="http://localhost:4000/feed.xml" rel="self" type="application/atom+xml" /><link href="http://localhost:4000/" rel="alternate" type="text/html" /><updated>2019-07-18T17:09:47+10:00</updated><id>http://localhost:4000/feed.xml</id><title type="html">RW21 Blog</title><subtitle>Write an awesome description for your new site here. You can edit this line in _config.yml. It will appear in your document head meta (for Google search results) and in your feed.xml site description.</subtitle><entry><title type="html">素数の並びからeが⁉</title><link href="http://localhost:4000/maths/e-from-prime/" rel="alternate" type="text/html" title="素数の並びからeが⁉" /><published>2019-07-13T22:00:00+10:00</published><updated>2019-07-13T22:00:00+10:00</updated><id>http://localhost:4000/maths/%20e%20from%20prime</id><content type="html" xml:base="http://localhost:4000/maths/e-from-prime/">&lt;script src=&quot;https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/latest.js?config=TeX-MML-AM_CHTML&quot; async=&quot;&quot;&gt;&lt;/script&gt;
+<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="3.8.5">Jekyll</generator><link href="http://localhost:4000/feed.xml" rel="self" type="application/atom+xml" /><link href="http://localhost:4000/" rel="alternate" type="text/html" /><updated>2019-08-04T15:03:23+10:00</updated><id>http://localhost:4000/feed.xml</id><title type="html">RW21 Blog</title><subtitle>Write an awesome description for your new site here. You can edit this line in _config.yml. It will appear in your document head meta (for Google search results) and in your feed.xml site description.</subtitle><entry><title type="html">無向グラフをクローンする</title><link href="http://localhost:4000/programming/%E7%84%A1%E5%90%91%E3%82%B0%E3%83%A9%E3%83%95%E3%82%92%E3%82%AF%E3%83%AD%E3%83%BC%E3%83%B3%E3%81%99%E3%82%8B/" rel="alternate" type="text/html" title="無向グラフをクローンする" /><published>2019-08-01T22:00:00+10:00</published><updated>2019-08-01T22:00:00+10:00</updated><id>http://localhost:4000/programming/%E7%84%A1%E5%90%91%E3%82%B0%E3%83%A9%E3%83%95%E3%82%92%E3%82%AF%E3%83%AD%E3%83%BC%E3%83%B3%E3%81%99%E3%82%8B</id><content type="html" xml:base="http://localhost:4000/programming/%E7%84%A1%E5%90%91%E3%82%B0%E3%83%A9%E3%83%95%E3%82%92%E3%82%AF%E3%83%AD%E3%83%BC%E3%83%B3%E3%81%99%E3%82%8B/">&lt;h1 id=&quot;無向グラフとは&quot;&gt;無向グラフとは&lt;/h1&gt;
+
+&lt;p&gt;無向グラフのデータ構造のクローンは簡単そうに見えて意外と簡単にはできません。下手に実装すると大変効率の悪いプログラムになってしまいます。&lt;/p&gt;
+
+&lt;p&gt;本記事ではクローンしたいグラフのノードの一つを入力にとって、それと同じグラフを持つ入力されたノードのコピーを返す関数を作ります。&lt;/p&gt;
+
+&lt;h2 id=&quot;有向グラフ無向グラフ&quot;&gt;有向グラフ/無向グラフ&lt;/h2&gt;
+
+&lt;p&gt;グラフには有向グラフと無向グラフがあり、無向グラフはノードとノードの間の辺が対面通行のグラフです。有向グラフはノード間の辺が一方通行のグラフです。&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;/assets/images/2019/undirected_directed_graph.jpg&quot; alt=&quot;&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;出典: &lt;a href=&quot;https://www.e-education.psu.edu/geog597i_02/node/832&quot;&gt;e-education.psu.edu&lt;/a&gt;&lt;/p&gt;
+
+&lt;h2 id=&quot;ノードの定義&quot;&gt;ノードの定義&lt;/h2&gt;
+
+&lt;p&gt;まず、ノードを以下のように定義します。&lt;/p&gt;
+
+&lt;div class=&quot;language-python highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;c&quot;&gt;# Python&lt;/span&gt;
+
+&lt;span class=&quot;k&quot;&gt;class&lt;/span&gt; &lt;span class=&quot;nc&quot;&gt;Node&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt;
+    &lt;span class=&quot;k&quot;&gt;def&lt;/span&gt; &lt;span class=&quot;nf&quot;&gt;__init__&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;bp&quot;&gt;self&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;val&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;nb&quot;&gt;int&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;neighbors&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;nb&quot;&gt;list&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;):&lt;/span&gt;
+        &lt;span class=&quot;bp&quot;&gt;self&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;val&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;val&lt;/span&gt;
+        &lt;span class=&quot;bp&quot;&gt;self&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;neighbors&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;neighbors&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;h1 id=&quot;使用するアルゴリズムとデータ構造&quot;&gt;使用するアルゴリズムとデータ構造&lt;/h1&gt;
+
+&lt;p&gt;データ構造をクローンするにはまずそのデータ構造を走査する必要があります。例えば二次元配列のクローンをするには必ず全ての要素を走査します。グラフのようなデータ構造を走査するアルゴリズムにはBFS(幅優先探索)とDFS(深さ優先探索)というのがあります。グラフのデータ構造は深さより幅が大きいことを想定して、ここではBFSを使います。しかし、BFSでグラフを探索しただけではノード間の辺の関係を記録することは難しいです。そこで、ハッシュテーブルを使います。&lt;/p&gt;
+
+&lt;h2 id=&quot;bfs&quot;&gt;BFS&lt;/h2&gt;
+
+&lt;ol&gt;
+  &lt;li&gt;根ノードを空のキューに加える。&lt;/li&gt;
+  &lt;li&gt;ノードをキューの先頭から取り出し、以下の処理を行う。
+    &lt;ul&gt;
+      &lt;li&gt;ノードが探索対象であれば、探索をやめ結果を返す。&lt;/li&gt;
+      &lt;li&gt;そうでない場合、ノードの子で未探索のものを全てキューに追加する。&lt;/li&gt;
+    &lt;/ul&gt;
+  &lt;/li&gt;
+  &lt;li&gt;もしキューが空ならば、グラフ内の全てのノードに対して処理が行われたので、探索をやめ”not found”と結果を返す。&lt;/li&gt;
+  &lt;li&gt;2に戻る。&lt;/li&gt;
+&lt;/ol&gt;
+
+&lt;p&gt;出典: &lt;a href=&quot;https://ja.wikipedia.org/wiki/%E5%B9%85%E5%84%AA%E5%85%88%E6%8E%A2%E7%B4%A2&quot;&gt;wikipedia&lt;/a&gt;&lt;/p&gt;
+
+&lt;h2 id=&quot;ハッシュテーブル&quot;&gt;ハッシュテーブル&lt;/h2&gt;
+
+&lt;p&gt;皆大好きな万能データ構造のハッシュテーブルです。難しいアルゴリズムの問題ではとりあえずハッシュテーブルを使おうとしますね。この問題ではハッシュテーブルはオリジナルのノードをキー、コピーを値として保存します。&lt;/p&gt;
+
+&lt;h1 id=&quot;アルゴリズム&quot;&gt;アルゴリズム&lt;/h1&gt;
+
+&lt;ol&gt;
+  &lt;li&gt;入力されたノードをキューに追加し、ノードをキー、ノードのコピーを値としてハッシュテーブルに保存する。このクローニングはキューが空になるまで続けます。&lt;/li&gt;
+  &lt;li&gt;ノードをキューから取得する。&lt;/li&gt;
+  &lt;li&gt;取得したノードに隣接したノード(&lt;code class=&quot;highlighter-rouge&quot;&gt;node.neighbors&lt;/code&gt;)をイテレートする。&lt;/li&gt;
+  &lt;li&gt;隣接しているノードがハッシュテーブルにない場合は、そのノードのコピーをハッシュテーブルに追加し、そのノードをキューに追加する。&lt;/li&gt;
+  &lt;li&gt;クローンされた隣接のノードを取得したノードの&lt;code class=&quot;highlighter-rouge&quot;&gt;neighbors&lt;/code&gt;として追加する。&lt;/li&gt;
+&lt;/ol&gt;
+
+&lt;h2 id=&quot;pythonコード&quot;&gt;Pythonコード&lt;/h2&gt;
+
+&lt;div class=&quot;language-python highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;kn&quot;&gt;from&lt;/span&gt; &lt;span class=&quot;nn&quot;&gt;collections&lt;/span&gt; &lt;span class=&quot;kn&quot;&gt;import&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;deque&lt;/span&gt;
+
+&lt;span class=&quot;k&quot;&gt;def&lt;/span&gt; &lt;span class=&quot;nf&quot;&gt;cloneGraph&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;node&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;Node&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;-&amp;gt;&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;Node&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt;
+        &lt;span class=&quot;c&quot;&gt;# 入力されたノードのクローン&lt;/span&gt;
+        &lt;span class=&quot;n&quot;&gt;copy_node&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;Node&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;node&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;val&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;[])&lt;/span&gt;
+
+        &lt;span class=&quot;c&quot;&gt;# キューとハッシュテーブルの作成&lt;/span&gt;
+        &lt;span class=&quot;n&quot;&gt;hash_&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;nb&quot;&gt;dict&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;()&lt;/span&gt;
+        &lt;span class=&quot;n&quot;&gt;queue&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;deque&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;()&lt;/span&gt;
+
+        &lt;span class=&quot;n&quot;&gt;queue&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;append&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;node&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+        &lt;span class=&quot;n&quot;&gt;hash_&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;node&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;]&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;copy_node&lt;/span&gt;
+
+        &lt;span class=&quot;k&quot;&gt;while&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;queue&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt;
+            &lt;span class=&quot;n&quot;&gt;node&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;queue&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;popleft&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;()&lt;/span&gt;
+            
+            &lt;span class=&quot;k&quot;&gt;for&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;neighbor&lt;/span&gt; &lt;span class=&quot;ow&quot;&gt;in&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;node&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;neighbors&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt;
+                &lt;span class=&quot;k&quot;&gt;if&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;neighbor&lt;/span&gt; &lt;span class=&quot;ow&quot;&gt;not&lt;/span&gt; &lt;span class=&quot;ow&quot;&gt;in&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;hash_&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt;
+                    &lt;span class=&quot;n&quot;&gt;queue&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;append&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;neighbor&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+                    &lt;span class=&quot;n&quot;&gt;hash_&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;neighbor&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;]&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;Node&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;neighbor&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;val&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;[])&lt;/span&gt;
+
+                &lt;span class=&quot;n&quot;&gt;hash_&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;node&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;]&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;neighbors&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;append&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;hash_&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;neighbor&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;])&lt;/span&gt;
+                
+        &lt;span class=&quot;k&quot;&gt;return&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;copy_node&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;h2 id=&quot;時間計算量空間計算量&quot;&gt;時間計算量/空間計算量&lt;/h2&gt;
+
+&lt;p&gt;時間計算量 = O(ノードの数 + 辺の数)&lt;/p&gt;
+
+&lt;p&gt;空間計算量 = O(ノードの数 + 辺の数)&lt;/p&gt;</content><author><name>RW</name></author><category term="data_structure" /><category term="algorithm" /><summary type="html">無向グラフとは 無向グラフのデータ構造のクローンは簡単そうに見えて意外と簡単にはできません。下手に実装すると大変効率の悪いプログラムになってしまいます。 本記事ではクローンしたいグラフのノードの一つを入力にとって、それと同じグラフを持つ入力されたノードのコピーを返す関数を作ります。 有向グラフ/無向グラフ グラフには有向グラフと無向グラフがあり、無向グラフはノードとノードの間の辺が対面通行のグラフです。有向グラフはノード間の辺が一方通行のグラフです。 出典: e-education.psu.edu ノードの定義 まず、ノードを以下のように定義します。 # Python class Node: def __init__(self, val: int, neighbors: list): self.val = val self.neighbors = neighbors 使用するアルゴリズムとデータ構造 データ構造をクローンするにはまずそのデータ構造を走査する必要があります。例えば二次元配列のクローンをするには必ず全ての要素を走査します。グラフのようなデータ構造を走査するアルゴリズムにはBFS(幅優先探索)とDFS(深さ優先探索)というのがあります。グラフのデータ構造は深さより幅が大きいことを想定して、ここではBFSを使います。しかし、BFSでグラフを探索しただけではノード間の辺の関係を記録することは難しいです。そこで、ハッシュテーブルを使います。 BFS 根ノードを空のキューに加える。 ノードをキューの先頭から取り出し、以下の処理を行う。 ノードが探索対象であれば、探索をやめ結果を返す。 そうでない場合、ノードの子で未探索のものを全てキューに追加する。 もしキューが空ならば、グラフ内の全てのノードに対して処理が行われたので、探索をやめ”not found”と結果を返す。 2に戻る。 出典: wikipedia ハッシュテーブル 皆大好きな万能データ構造のハッシュテーブルです。難しいアルゴリズムの問題ではとりあえずハッシュテーブルを使おうとしますね。この問題ではハッシュテーブルはオリジナルのノードをキー、コピーを値として保存します。 アルゴリズム 入力されたノードをキューに追加し、ノードをキー、ノードのコピーを値としてハッシュテーブルに保存する。このクローニングはキューが空になるまで続けます。 ノードをキューから取得する。 取得したノードに隣接したノード(node.neighbors)をイテレートする。 隣接しているノードがハッシュテーブルにない場合は、そのノードのコピーをハッシュテーブルに追加し、そのノードをキューに追加する。 クローンされた隣接のノードを取得したノードのneighborsとして追加する。 Pythonコード from collections import deque def cloneGraph(node: Node) -&amp;gt; Node: # 入力されたノードのクローン copy_node = Node(node.val, []) # キューとハッシュテーブルの作成 hash_ = dict() queue = deque() queue.append(node) hash_[node] = copy_node while queue: node = queue.popleft() for neighbor in node.neighbors: if neighbor not in hash_: queue.append(neighbor) hash_[neighbor] = Node(neighbor.val, []) hash_[node].neighbors.append(hash_[neighbor]) return copy_node 時間計算量/空間計算量 時間計算量 = O(ノードの数 + 辺の数) 空間計算量 = O(ノードの数 + 辺の数)</summary></entry><entry><title type="html">素数の並びからeが⁉</title><link href="http://localhost:4000/maths/e-from-prime/" rel="alternate" type="text/html" title="素数の並びからeが⁉" /><published>2019-07-13T22:00:00+10:00</published><updated>2019-07-13T22:00:00+10:00</updated><id>http://localhost:4000/maths/%20e%20from%20prime</id><content type="html" xml:base="http://localhost:4000/maths/e-from-prime/">&lt;script src=&quot;https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/latest.js?config=TeX-MML-AM_CHTML&quot; async=&quot;&quot;&gt;&lt;/script&gt;
 
 &lt;p&gt;素数を素数の間(&lt;script type=&quot;math/tex&quot;&gt;P_{n+1}- P_{1}&lt;/script&gt;)が増加するように並べ続けたときの列の項の平均が
 &lt;script type=&quot;math/tex&quot;&gt;e&lt;/script&gt;に収束する(かもしれない)という投稿を&lt;a href=&quot;https://www.reddit.com/r/math/comments/cbd0a7/found_e_in_the_primes_maybe/&quot;&gt;Reddit&lt;/a&gt;の\r\maths板で見つけた。&lt;/p&gt;
@@ -40,13 +132,13 @@ Total average value of each row: 163 / 60 = 2.71666... ≈ e
 
 &lt;p&gt;違いも数もランダムな列で上のように平均をとると、&lt;script type=&quot;math/tex&quot;&gt;e&lt;/script&gt;に収束する。上のような素数の数列はある程度違いも数もランダムな列と類似する。&lt;/p&gt;
 
-&lt;p&gt;&lt;script type=&quot;math/tex&quot;&gt;a_i&lt;/script&gt;をランダムな数で&lt;script type=&quot;math/tex&quot;&gt;a_{n+1} - a_{n}&lt;/script&gt;も独立同分布でランダムな連続確立変数とする。上のように違いが増加するような数列をとると、列に項が2つある確率が&lt;script type=&quot;math/tex&quot;&gt;1&lt;/script&gt;、3つある確率が&lt;script type=&quot;math/tex&quot;&gt;1/2&lt;/script&gt;、4つある確率が&lt;script type=&quot;math/tex&quot;&gt;1/6&lt;/script&gt;、5つある確率が&lt;script type=&quot;math/tex&quot;&gt;1/24&lt;/script&gt;…という風な数列になる。&lt;/p&gt;
+&lt;p&gt;&lt;script type=&quot;math/tex&quot;&gt;a_i&lt;/script&gt;をランダムな数の数列で&lt;script type=&quot;math/tex&quot;&gt;a_{n+1} - a_{n}&lt;/script&gt;を独立同分布でランダムな連続確立変数とする。上のように違いが増加するような数列だけをとると、列に項が2つある確率が&lt;script type=&quot;math/tex&quot;&gt;1&lt;/script&gt;、3つある確率が&lt;script type=&quot;math/tex&quot;&gt;1/2&lt;/script&gt;、4つある確率が&lt;script type=&quot;math/tex&quot;&gt;1/6&lt;/script&gt;、5つある確率が&lt;script type=&quot;math/tex&quot;&gt;1/24&lt;/script&gt;…という風な数列になる。&lt;/p&gt;
 
 &lt;p&gt;この数列の合計は&lt;script type=&quot;math/tex&quot;&gt;\sum_{k=0}^{\infty} \frac{1}{k!} = e&lt;/script&gt;となる。&lt;/p&gt;
 
 &lt;h2 id=&quot;素数の並びはランダムではない&quot;&gt;素数の並びはランダムではない&lt;/h2&gt;
 
-&lt;p&gt;素数の平均の数列が&lt;script type=&quot;math/tex&quot;&gt;e&lt;/script&gt;に収束しないということは、つまり素数の並びは完全にランダムではないといえるのではないだろうか?&lt;/p&gt;</content><author><name>RW</name></author><category term="number_theory" /><summary type="html">素数を素数の間()が増加するように並べ続けたときの列の項の平均が に収束する(かもしれない)という投稿をRedditの\r\maths板で見つけた。 どういうこと? は素数の間隔がというように増加してないからノーカウント。はOK。このような素数の並びの項の合計の平均はに収束するかも?という投稿。以下は977までの素数までの平均。 2 3 5 -&amp;gt; 3 7 11 -&amp;gt; 2 13 17 -&amp;gt; 2 19 23 29 31 37 41 43 47 53 59 61 67 71 73 79 83 89 97 101 103 107 109 113 127 131 137 139 149 151 157 163 167 173 ... 857 859 863 877 881 883 887 907 911 919 929 953 967 971 977 Total average value of each row: 163 / 60 = 2.71666... ≈ e 出典: reddit まさかと思ってコメントを見てみたら、ここでネタバレしますけど、この数列はに収束してなかった。 なぜこうなるのか 違いも数もランダムな列で上のように平均をとると、に収束する。上のような素数の数列はある程度違いも数もランダムな列と類似する。 をランダムな数でも独立同分布でランダムな連続確立変数とする。上のように違いが増加するような数列をとると、列に項が2つある確率が、3つある確率が、4つある確率が、5つある確率が…という風な数列になる。 この数列の合計はとなる。 素数の並びはランダムではない 素数の平均の数列がに収束しないということは、つまり素数の並びは完全にランダムではないといえるのではないだろうか?</summary></entry><entry><title type="html">Java並列化</title><link href="http://localhost:4000/programming/java%E4%B8%A6%E5%88%97%E5%8C%96/" rel="alternate" type="text/html" title="Java並列化" /><published>2019-07-09T22:00:00+10:00</published><updated>2019-07-09T22:00:00+10:00</updated><id>http://localhost:4000/programming/%20java%E4%B8%A6%E5%88%97%E5%8C%96</id><content type="html" xml:base="http://localhost:4000/programming/java%E4%B8%A6%E5%88%97%E5%8C%96/">&lt;h1 id=&quot;はじめに&quot;&gt;はじめに&lt;/h1&gt;
+&lt;p&gt;素数の平均の数列が&lt;script type=&quot;math/tex&quot;&gt;e&lt;/script&gt;に収束しないということは、つまり素数の並びは完全にランダムではないといえるのではないだろうか?&lt;/p&gt;</content><author><name>RW</name></author><category term="number_theory" /><summary type="html">素数を素数の間()が増加するように並べ続けたときの列の項の平均が に収束する(かもしれない)という投稿をRedditの\r\maths板で見つけた。 どういうこと? は素数の間隔がというように増加してないからノーカウント。はOK。このような素数の並びの項の合計の平均はに収束するかも?という投稿。以下は977までの素数までの平均。 2 3 5 -&amp;gt; 3 7 11 -&amp;gt; 2 13 17 -&amp;gt; 2 19 23 29 31 37 41 43 47 53 59 61 67 71 73 79 83 89 97 101 103 107 109 113 127 131 137 139 149 151 157 163 167 173 ... 857 859 863 877 881 883 887 907 911 919 929 953 967 971 977 Total average value of each row: 163 / 60 = 2.71666... ≈ e 出典: reddit まさかと思ってコメントを見てみたら、ここでネタバレしますけど、この数列はに収束してなかった。 なぜこうなるのか 違いも数もランダムな列で上のように平均をとると、に収束する。上のような素数の数列はある程度違いも数もランダムな列と類似する。 をランダムな数の数列でを独立同分布でランダムな連続確立変数とする。上のように違いが増加するような数列だけをとると、列に項が2つある確率が、3つある確率が、4つある確率が、5つある確率が…という風な数列になる。 この数列の合計はとなる。 素数の並びはランダムではない 素数の平均の数列がに収束しないということは、つまり素数の並びは完全にランダムではないといえるのではないだろうか?</summary></entry><entry><title type="html">Java並列化</title><link href="http://localhost:4000/programming/java%E4%B8%A6%E5%88%97%E5%8C%96/" rel="alternate" type="text/html" title="Java並列化" /><published>2019-07-09T22:00:00+10:00</published><updated>2019-07-09T22:00:00+10:00</updated><id>http://localhost:4000/programming/%20java%E4%B8%A6%E5%88%97%E5%8C%96</id><content type="html" xml:base="http://localhost:4000/programming/java%E4%B8%A6%E5%88%97%E5%8C%96/">&lt;h1 id=&quot;はじめに&quot;&gt;はじめに&lt;/h1&gt;
 
 &lt;p&gt;本記事ではJavaにおける並列処理を主に個人の備忘録、勉強用として雑に記しています。気が向いたら更新します。主にJavaの並列化に使うキーワードを紹介しています。&lt;/p&gt;
 

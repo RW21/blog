@@ -1,0 +1,489 @@
+<!doctype html>
+<!--
+  Minimal Mistakes Jekyll Theme 4.16.5 by Michael Rose
+  Copyright 2013-2019 Michael Rose - mademistakes.com | @mmistakes
+  Free for personal and commercial use under the MIT license
+  https://github.com/mmistakes/minimal-mistakes/blob/master/LICENSE
+-->
+<html lang="ja" class="no-js">
+  <head>
+    <meta charset="utf-8">
+
+<!-- begin _includes/seo.html --><title>無向グラフをクローンする - RW21 Blog</title>
+<meta name="description" content="無向グラフとは無向グラフのデータ構造のクローンは簡単そうに見えて意外と簡単にはできません。下手に実装すると大変効率の悪いプログラムになってしまいます。本記事ではクローンしたいグラフのノードの一つを入力にとって、それと同じグラフを持つ入力されたノードのコピーを返す関数を作ります。有向グラフ/無向グラフグラフには有向グラフと無向グラフがあり、無向グラフはノードとノードの間の辺が対面通行のグラフです。有向グラフはノード間の辺が一方通行のグラフです。出典: e-education.psu.eduノードの定義まず、ノードを以下のように定義します。# Pythonclass Node:    def __init__(self, val: int, neighbors: list):        self.val = val        self.neighbors = neighbors使用するアルゴリズムとデータ構造データ構造をクローンするにはまずそのデータ構造を走査する必要があります。例えば二次元配列のクローンをするには必ず全ての要素を走査します。グラフのようなデータ構造を走査するアルゴリズムにはBFS(幅優先探索)とDFS(深さ優先探索)というのがあります。グラフのデータ構造は深さより幅が大きいことを想定して、ここではBFSを使います。しかし、BFSでグラフを探索しただけではノード間の辺の関係を記録することは難しいです。そこで、ハッシュテーブルを使います。BFS  根ノードを空のキューに加える。  ノードをキューの先頭から取り出し、以下の処理を行う。          ノードが探索対象であれば、探索をやめ結果を返す。      そうでない場合、ノードの子で未探索のものを全てキューに追加する。        もしキューが空ならば、グラフ内の全てのノードに対して処理が行われたので、探索をやめ”not found”と結果を返す。  2に戻る。出典: wikipediaハッシュテーブル皆大好きな万能データ構造のハッシュテーブルです。難しいアルゴリズムの問題ではとりあえずハッシュテーブルを使おうとしますね。この問題ではハッシュテーブルはオリジナルのノードをキー、コピーを値として保存します。アルゴリズム  入力されたノードをキューに追加し、ノードをキー、ノードのコピーを値としてハッシュテーブルに保存する。このクローニングはキューが空になるまで続けます。  ノードをキューから取得する。  取得したノードに隣接したノード(node.neighbors)をイテレートする。  隣接しているノードがハッシュテーブルにない場合は、そのノードのコピーをハッシュテーブルに追加し、そのノードをキューに追加する。  クローンされた隣接のノードを取得したノードのneighborsとして追加する。Pythonコードfrom collections import dequedef cloneGraph(node: Node) -&gt; Node:        # 入力されたノードのクローン        copy_node = Node(node.val, [])        # キューとハッシュテーブルの作成        hash_ = dict()        queue = deque()        queue.append(node)        hash_[node] = copy_node        while queue:            node = queue.popleft()                        for neighbor in node.neighbors:                if neighbor not in hash_:                    queue.append(neighbor)                    hash_[neighbor] = Node(neighbor.val, [])                hash_[node].neighbors.append(hash_[neighbor])                        return copy_node時間計算量/空間計算量時間計算量 = O(ノードの数 + 辺の数)空間計算量 = O(ノードの数 + 辺の数)">
+
+
+
+<meta property="og:type" content="article">
+<meta property="og:locale" content="ja_JP">
+<meta property="og:site_name" content="RW21 Blog">
+<meta property="og:title" content="無向グラフをクローンする">
+<meta property="og:url" content="http://localhost:4000/programming/%E7%84%A1%E5%90%91%E3%82%B0%E3%83%A9%E3%83%95%E3%82%92%E3%82%AF%E3%83%AD%E3%83%BC%E3%83%B3%E3%81%99%E3%82%8B/">
+
+
+  <meta property="og:description" content="無向グラフとは無向グラフのデータ構造のクローンは簡単そうに見えて意外と簡単にはできません。下手に実装すると大変効率の悪いプログラムになってしまいます。本記事ではクローンしたいグラフのノードの一つを入力にとって、それと同じグラフを持つ入力されたノードのコピーを返す関数を作ります。有向グラフ/無向グラフグラフには有向グラフと無向グラフがあり、無向グラフはノードとノードの間の辺が対面通行のグラフです。有向グラフはノード間の辺が一方通行のグラフです。出典: e-education.psu.eduノードの定義まず、ノードを以下のように定義します。# Pythonclass Node:    def __init__(self, val: int, neighbors: list):        self.val = val        self.neighbors = neighbors使用するアルゴリズムとデータ構造データ構造をクローンするにはまずそのデータ構造を走査する必要があります。例えば二次元配列のクローンをするには必ず全ての要素を走査します。グラフのようなデータ構造を走査するアルゴリズムにはBFS(幅優先探索)とDFS(深さ優先探索)というのがあります。グラフのデータ構造は深さより幅が大きいことを想定して、ここではBFSを使います。しかし、BFSでグラフを探索しただけではノード間の辺の関係を記録することは難しいです。そこで、ハッシュテーブルを使います。BFS  根ノードを空のキューに加える。  ノードをキューの先頭から取り出し、以下の処理を行う。          ノードが探索対象であれば、探索をやめ結果を返す。      そうでない場合、ノードの子で未探索のものを全てキューに追加する。        もしキューが空ならば、グラフ内の全てのノードに対して処理が行われたので、探索をやめ”not found”と結果を返す。  2に戻る。出典: wikipediaハッシュテーブル皆大好きな万能データ構造のハッシュテーブルです。難しいアルゴリズムの問題ではとりあえずハッシュテーブルを使おうとしますね。この問題ではハッシュテーブルはオリジナルのノードをキー、コピーを値として保存します。アルゴリズム  入力されたノードをキューに追加し、ノードをキー、ノードのコピーを値としてハッシュテーブルに保存する。このクローニングはキューが空になるまで続けます。  ノードをキューから取得する。  取得したノードに隣接したノード(node.neighbors)をイテレートする。  隣接しているノードがハッシュテーブルにない場合は、そのノードのコピーをハッシュテーブルに追加し、そのノードをキューに追加する。  クローンされた隣接のノードを取得したノードのneighborsとして追加する。Pythonコードfrom collections import dequedef cloneGraph(node: Node) -&gt; Node:        # 入力されたノードのクローン        copy_node = Node(node.val, [])        # キューとハッシュテーブルの作成        hash_ = dict()        queue = deque()        queue.append(node)        hash_[node] = copy_node        while queue:            node = queue.popleft()                        for neighbor in node.neighbors:                if neighbor not in hash_:                    queue.append(neighbor)                    hash_[neighbor] = Node(neighbor.val, [])                hash_[node].neighbors.append(hash_[neighbor])                        return copy_node時間計算量/空間計算量時間計算量 = O(ノードの数 + 辺の数)空間計算量 = O(ノードの数 + 辺の数)">
+
+
+
+
+
+
+
+  <meta property="article:published_time" content="2019-08-01T22:00:00+10:00">
+
+
+
+
+
+
+<link rel="canonical" href="http://localhost:4000/programming/%E7%84%A1%E5%90%91%E3%82%B0%E3%83%A9%E3%83%95%E3%82%92%E3%82%AF%E3%83%AD%E3%83%BC%E3%83%B3%E3%81%99%E3%82%8B/">
+
+
+
+
+
+
+
+
+
+
+
+
+
+<!-- end _includes/seo.html -->
+
+
+<link href="/feed.xml" type="application/atom+xml" rel="alternate" title="RW21 Blog Feed">
+
+<!-- https://t.co/dKP3o1e -->
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<script>
+  document.documentElement.className = document.documentElement.className.replace(/\bno-js\b/g, '') + ' js ';
+</script>
+
+<!-- For all browsers -->
+<link rel="stylesheet" href="/assets/css/main.css">
+
+<!--[if IE ]>
+  <style>
+    /* old IE unsupported flexbox fixes */
+    .greedy-nav .site-title {
+      padding-right: 3em;
+    }
+    .greedy-nav button {
+      position: absolute;
+      top: 0;
+      right: 0;
+      height: 100%;
+    }
+  </style>
+<![endif]-->
+
+
+
+    <!-- start custom head snippets -->
+
+<!-- insert favicons. use https://realfavicongenerator.net/ -->
+
+<!-- end custom head snippets -->
+
+  </head>
+
+  <body class="layout--single">
+    <nav class="skip-links">
+  <h2 class="screen-reader-text">Skip links</h2>
+  <ul>
+    <li><a href="#site-nav" class="screen-reader-shortcut">Skip to primary navigation</a></li>
+    <li><a href="#main" class="screen-reader-shortcut">Skip to content</a></li>
+    <li><a href="#footer" class="screen-reader-shortcut">Skip to footer</a></li>
+  </ul>
+</nav>
+
+    <!--[if lt IE 9]>
+<div class="notice--danger align-center" style="margin: 0;">You are using an <strong>outdated</strong> browser. Please <a href="https://browsehappy.com/">upgrade your browser</a> to improve your experience.</div>
+<![endif]-->
+
+    
+
+<div class="masthead">
+  <div class="masthead__inner-wrap">
+    <div class="masthead__menu">
+      <nav id="site-nav" class="greedy-nav">
+        
+        <a class="site-title" href="/">
+          RW21 Blog
+          
+        </a>
+        <ul class="visible-links"><li class="masthead__menu-item">
+              <a href="/posts/" >Posts</a>
+            </li><li class="masthead__menu-item">
+              <a href="/categories/" >Categories</a>
+            </li><li class="masthead__menu-item">
+              <a href="/tags/" >Tags</a>
+            </li><li class="masthead__menu-item">
+              <a href="/about/" >About</a>
+            </li></ul>
+        
+        <button class="search__toggle" type="button">
+          <span class="visually-hidden">Toggle search</span>
+          <svg class="icon" width="16" height="16" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 15.99 16">
+            <path d="M15.5,13.12L13.19,10.8a1.69,1.69,0,0,0-1.28-.55l-0.06-.06A6.5,6.5,0,0,0,5.77,0,6.5,6.5,0,0,0,2.46,11.59a6.47,6.47,0,0,0,7.74.26l0.05,0.05a1.65,1.65,0,0,0,.5,1.24l2.38,2.38A1.68,1.68,0,0,0,15.5,13.12ZM6.4,2A4.41,4.41,0,1,1,2,6.4,4.43,4.43,0,0,1,6.4,2Z" transform="translate(-.01)"></path>
+          </svg>
+        </button>
+        
+        <button class="greedy-nav__toggle hidden" type="button">
+          <span class="visually-hidden">Toggle menu</span>
+          <div class="navicon"></div>
+        </button>
+        <ul class="hidden-links hidden"></ul>
+      </nav>
+    </div>
+  </div>
+</div>
+
+
+    <div class="initial-content">
+      
+
+
+
+<div id="main" role="main">
+  
+  <div class="sidebar sticky">
+  
+
+
+<div itemscope itemtype="https://schema.org/Person">
+
+  
+
+  <div class="author__content">
+    
+      <h3 class="author__name" itemprop="name"></h3>
+    
+    
+  </div>
+
+  <div class="author__urls-wrapper">
+    <button class="btn btn--inverse">Follow</button>
+    <ul class="author__urls social-icons">
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      <!--
+  <li>
+    <a href="http://link-to-whatever-social-network.com/user/" itemprop="sameAs" rel="nofollow noopener noreferrer">
+      <i class="fas fa-fw" aria-hidden="true"></i> Custom Social Profile Link
+    </a>
+  </li>
+-->
+    </ul>
+  </div>
+</div>
+
+  
+  </div>
+
+
+  <article class="page" itemscope itemtype="https://schema.org/CreativeWork">
+    <meta itemprop="headline" content="無向グラフをクローンする">
+    <meta itemprop="description" content="無向グラフとは無向グラフのデータ構造のクローンは簡単そうに見えて意外と簡単にはできません。下手に実装すると大変効率の悪いプログラムになってしまいます。本記事ではクローンしたいグラフのノードの一つを入力にとって、それと同じグラフを持つ入力されたノードのコピーを返す関数を作ります。有向グラフ/無向グラフグラフには有向グラフと無向グラフがあり、無向グラフはノードとノードの間の辺が対面通行のグラフです。有向グラフはノード間の辺が一方通行のグラフです。出典: e-education.psu.eduノードの定義まず、ノードを以下のように定義します。# Pythonclass Node:    def __init__(self, val: int, neighbors: list):        self.val = val        self.neighbors = neighbors使用するアルゴリズムとデータ構造データ構造をクローンするにはまずそのデータ構造を走査する必要があります。例えば二次元配列のクローンをするには必ず全ての要素を走査します。グラフのようなデータ構造を走査するアルゴリズムにはBFS(幅優先探索)とDFS(深さ優先探索)というのがあります。グラフのデータ構造は深さより幅が大きいことを想定して、ここではBFSを使います。しかし、BFSでグラフを探索しただけではノード間の辺の関係を記録することは難しいです。そこで、ハッシュテーブルを使います。BFS  根ノードを空のキューに加える。  ノードをキューの先頭から取り出し、以下の処理を行う。          ノードが探索対象であれば、探索をやめ結果を返す。      そうでない場合、ノードの子で未探索のものを全てキューに追加する。        もしキューが空ならば、グラフ内の全てのノードに対して処理が行われたので、探索をやめ”not found”と結果を返す。  2に戻る。出典: wikipediaハッシュテーブル皆大好きな万能データ構造のハッシュテーブルです。難しいアルゴリズムの問題ではとりあえずハッシュテーブルを使おうとしますね。この問題ではハッシュテーブルはオリジナルのノードをキー、コピーを値として保存します。アルゴリズム  入力されたノードをキューに追加し、ノードをキー、ノードのコピーを値としてハッシュテーブルに保存する。このクローニングはキューが空になるまで続けます。  ノードをキューから取得する。  取得したノードに隣接したノード(node.neighbors)をイテレートする。  隣接しているノードがハッシュテーブルにない場合は、そのノードのコピーをハッシュテーブルに追加し、そのノードをキューに追加する。  クローンされた隣接のノードを取得したノードのneighborsとして追加する。Pythonコードfrom collections import dequedef cloneGraph(node: Node) -&gt; Node:        # 入力されたノードのクローン        copy_node = Node(node.val, [])        # キューとハッシュテーブルの作成        hash_ = dict()        queue = deque()        queue.append(node)        hash_[node] = copy_node        while queue:            node = queue.popleft()                        for neighbor in node.neighbors:                if neighbor not in hash_:                    queue.append(neighbor)                    hash_[neighbor] = Node(neighbor.val, [])                hash_[node].neighbors.append(hash_[neighbor])                        return copy_node時間計算量/空間計算量時間計算量 = O(ノードの数 + 辺の数)空間計算量 = O(ノードの数 + 辺の数)">
+    <meta itemprop="datePublished" content="August 01, 2019">
+    
+
+    <div class="page__inner-wrap">
+      
+        <header>
+          <h1 id="page-title" class="page__title" itemprop="headline">無向グラフをクローンする
+</h1>
+          
+        </header>
+      
+
+      <section class="page__content" itemprop="text">
+        
+        <h1 id="無向グラフとは">無向グラフとは</h1>
+
+<p>無向グラフのデータ構造のクローンは簡単そうに見えて意外と簡単にはできません。下手に実装すると大変効率の悪いプログラムになってしまいます。</p>
+
+<p>本記事ではクローンしたいグラフのノードの一つを入力にとって、それと同じグラフを持つ入力されたノードのコピーを返す関数を作ります。</p>
+
+<h2 id="有向グラフ無向グラフ">有向グラフ/無向グラフ</h2>
+
+<p>グラフには有向グラフと無向グラフがあり、無向グラフはノードとノードの間の辺が対面通行のグラフです。有向グラフはノード間の辺が一方通行のグラフです。</p>
+
+<p><img src="/assets/images/2019/undirected_directed_graph.jpg" alt="" /></p>
+
+<p>出典: <a href="https://www.e-education.psu.edu/geog597i_02/node/832">e-education.psu.edu</a></p>
+
+<h2 id="ノードの定義">ノードの定義</h2>
+
+<p>まず、ノードを以下のように定義します。</p>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c"># Python</span>
+
+<span class="k">class</span> <span class="nc">Node</span><span class="p">:</span>
+    <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">val</span><span class="p">:</span> <span class="nb">int</span><span class="p">,</span> <span class="n">neighbors</span><span class="p">:</span> <span class="nb">list</span><span class="p">):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">val</span> <span class="o">=</span> <span class="n">val</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">neighbors</span> <span class="o">=</span> <span class="n">neighbors</span>
+</code></pre></div></div>
+
+<h1 id="使用するアルゴリズムとデータ構造">使用するアルゴリズムとデータ構造</h1>
+
+<p>データ構造をクローンするにはまずそのデータ構造を走査する必要があります。例えば二次元配列のクローンをするには必ず全ての要素を走査します。グラフのようなデータ構造を走査するアルゴリズムにはBFS(幅優先探索)とDFS(深さ優先探索)というのがあります。グラフのデータ構造は深さより幅が大きいことを想定して、ここではBFSを使います。しかし、BFSでグラフを探索しただけではノード間の辺の関係を記録することは難しいです。そこで、ハッシュテーブルを使います。</p>
+
+<h2 id="bfs">BFS</h2>
+
+<ol>
+  <li>根ノードを空のキューに加える。</li>
+  <li>ノードをキューの先頭から取り出し、以下の処理を行う。
+    <ul>
+      <li>ノードが探索対象であれば、探索をやめ結果を返す。</li>
+      <li>そうでない場合、ノードの子で未探索のものを全てキューに追加する。</li>
+    </ul>
+  </li>
+  <li>もしキューが空ならば、グラフ内の全てのノードに対して処理が行われたので、探索をやめ”not found”と結果を返す。</li>
+  <li>2に戻る。</li>
+</ol>
+
+<p>出典: <a href="https://ja.wikipedia.org/wiki/%E5%B9%85%E5%84%AA%E5%85%88%E6%8E%A2%E7%B4%A2">wikipedia</a></p>
+
+<h2 id="ハッシュテーブル">ハッシュテーブル</h2>
+
+<p>皆大好きな万能データ構造のハッシュテーブルです。難しいアルゴリズムの問題ではとりあえずハッシュテーブルを使おうとしますね。この問題ではハッシュテーブルはオリジナルのノードをキー、コピーを値として保存します。</p>
+
+<h1 id="アルゴリズム">アルゴリズム</h1>
+
+<ol>
+  <li>入力されたノードをキューに追加し、ノードをキー、ノードのコピーを値としてハッシュテーブルに保存する。このクローニングはキューが空になるまで続けます。</li>
+  <li>ノードをキューから取得する。</li>
+  <li>取得したノードに隣接したノード(<code class="highlighter-rouge">node.neighbors</code>)をイテレートする。</li>
+  <li>隣接しているノードがハッシュテーブルにない場合は、そのノードのコピーをハッシュテーブルに追加し、そのノードをキューに追加する。</li>
+  <li>クローンされた隣接のノードを取得したノードの<code class="highlighter-rouge">neighbors</code>として追加する。</li>
+</ol>
+
+<h2 id="pythonコード">Pythonコード</h2>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kn">from</span> <span class="nn">collections</span> <span class="kn">import</span> <span class="n">deque</span>
+
+<span class="k">def</span> <span class="nf">cloneGraph</span><span class="p">(</span><span class="n">node</span><span class="p">:</span> <span class="n">Node</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Node</span><span class="p">:</span>
+        <span class="c"># 入力されたノードのクローン</span>
+        <span class="n">copy_node</span> <span class="o">=</span> <span class="n">Node</span><span class="p">(</span><span class="n">node</span><span class="o">.</span><span class="n">val</span><span class="p">,</span> <span class="p">[])</span>
+
+        <span class="c"># キューとハッシュテーブルの作成</span>
+        <span class="n">hash_</span> <span class="o">=</span> <span class="nb">dict</span><span class="p">()</span>
+        <span class="n">queue</span> <span class="o">=</span> <span class="n">deque</span><span class="p">()</span>
+
+        <span class="n">queue</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">node</span><span class="p">)</span>
+        <span class="n">hash_</span><span class="p">[</span><span class="n">node</span><span class="p">]</span> <span class="o">=</span> <span class="n">copy_node</span>
+
+        <span class="k">while</span> <span class="n">queue</span><span class="p">:</span>
+            <span class="n">node</span> <span class="o">=</span> <span class="n">queue</span><span class="o">.</span><span class="n">popleft</span><span class="p">()</span>
+            
+            <span class="k">for</span> <span class="n">neighbor</span> <span class="ow">in</span> <span class="n">node</span><span class="o">.</span><span class="n">neighbors</span><span class="p">:</span>
+                <span class="k">if</span> <span class="n">neighbor</span> <span class="ow">not</span> <span class="ow">in</span> <span class="n">hash_</span><span class="p">:</span>
+                    <span class="n">queue</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">neighbor</span><span class="p">)</span>
+                    <span class="n">hash_</span><span class="p">[</span><span class="n">neighbor</span><span class="p">]</span> <span class="o">=</span> <span class="n">Node</span><span class="p">(</span><span class="n">neighbor</span><span class="o">.</span><span class="n">val</span><span class="p">,</span> <span class="p">[])</span>
+
+                <span class="n">hash_</span><span class="p">[</span><span class="n">node</span><span class="p">]</span><span class="o">.</span><span class="n">neighbors</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">hash_</span><span class="p">[</span><span class="n">neighbor</span><span class="p">])</span>
+                
+        <span class="k">return</span> <span class="n">copy_node</span>
+</code></pre></div></div>
+
+<h2 id="時間計算量空間計算量">時間計算量/空間計算量</h2>
+
+<p>時間計算量 = O(ノードの数 + 辺の数)</p>
+
+<p>空間計算量 = O(ノードの数 + 辺の数)</p>
+
+        
+      </section>
+
+      <footer class="page__meta">
+        
+        
+  
+
+
+  
+  
+  
+
+  <p class="page__taxonomy">
+    <strong><i class="fas fa-fw fa-tags" aria-hidden="true"></i> Tags: </strong>
+    <span itemprop="keywords">
+    
+      
+      
+      <a href="/tags/#algorithm" class="page__taxonomy-item" rel="tag">algorithm</a><span class="sep">, </span>
+    
+      
+      
+      <a href="/tags/#data-structure" class="page__taxonomy-item" rel="tag">data_structure</a>
+    
+    </span>
+  </p>
+
+
+
+
+  
+
+
+  
+  
+  
+
+  <p class="page__taxonomy">
+    <strong><i class="fas fa-fw fa-folder-open" aria-hidden="true"></i> Categories: </strong>
+    <span itemprop="keywords">
+    
+      
+      
+      <a href="/categories/#programming" class="page__taxonomy-item" rel="tag">programming</a>
+    
+    </span>
+  </p>
+
+
+        
+          <p class="page__date"><strong><i class="fas fa-fw fa-calendar-alt" aria-hidden="true"></i> Updated:</strong> <time datetime="2019-08-01T22:00:00+10:00">August 01, 2019</time></p>
+        
+      </footer>
+
+      
+
+      
+  <nav class="pagination">
+    
+      <a href="/maths/e-from-prime/" class="pagination--pager" title="素数の並びからeが⁉
+">Previous</a>
+    
+    
+      <a href="#" class="pagination--pager disabled">Next</a>
+    
+  </nav>
+
+    </div>
+
+    
+  </article>
+
+  
+  
+</div>
+
+    </div>
+
+    
+      <div class="search-content">
+        <div class="search-content__inner-wrap"><form class="search-content__form" onkeydown="return event.key != 'Enter';">
+    <label class="sr-only" for="search">
+      Enter your search term...
+    </label>
+    <input type="search" id="search" class="search-input" tabindex="-1" placeholder="Enter your search term..." />
+  </form>
+  <div id="results" class="results"></div></div>
+
+      </div>
+    
+
+    <div id="footer" class="page__footer">
+      <footer>
+        <!-- start custom footer snippets -->
+
+<!-- end custom footer snippets -->
+        <div class="page__footer-follow">
+  <ul class="social-icons">
+    
+
+    
+      
+        
+          <li><a href="https://twitter.com/RinzeWatanabe" rel="nofollow noopener noreferrer"><i class="fab fa-fw fa-twitter-square" aria-hidden="true"></i> Twitter</a></li>
+        
+      
+        
+          <li><a href="https://github.com/RW21" rel="nofollow noopener noreferrer"><i class="fab fa-fw fa-github" aria-hidden="true"></i> GitHub</a></li>
+        
+      
+    
+
+    <li><a href="/feed.xml"><i class="fas fa-fw fa-rss-square" aria-hidden="true"></i> Feed</a></li>
+  </ul>
+</div>
+
+<div class="page__footer-copyright">&copy; 2019 RW21 Blog. Powered by <a href="https://jekyllrb.com" rel="nofollow">Jekyll</a> &amp; <a href="https://mademistakes.com/work/minimal-mistakes-jekyll-theme/" rel="nofollow">Minimal Mistakes</a>.</div>
+
+      </footer>
+    </div>
+
+    
+  <script src="/assets/js/main.min.js"></script>
+  <script src="https://kit.fontawesome.com/4eee35f757.js"></script>
+
+
+
+
+<script src="/assets/js/lunr/lunr.min.js"></script>
+<script src="/assets/js/lunr/lunr-store.js"></script>
+<script src="/assets/js/lunr/lunr-en.js"></script>
+
+
+
+
+
+
+
+  </body>
+</html>

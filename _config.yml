@@ -95,10 +95,10 @@ defaults:
     values:
       layout: single
       author_profile: true
-      read_time: true
-      comments: true
-      share: true
-      related: true
+      read_time: false
+      comments: false
+      share: false
+      related: false
   # _pages
   - scope:
       path: "_pages"
@@ -113,3 +113,7 @@ category_archive:
 tag_archive:
   type: liquid
   path: /tags/
+
+minimal_mistakes_skin: "sunrise"
+
+locale: "ja-JP"
