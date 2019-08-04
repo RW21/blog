@@ -10,7 +10,7 @@
     <meta charset="utf-8">
 
 <!-- begin _includes/seo.html --><title>無向グラフをクローンする - RW21 Blog</title>
-<meta name="description" content="無向グラフとは無向グラフのデータ構造のクローンは簡単そうに見えて意外と簡単にはできません。下手に実装すると大変効率の悪いプログラムになってしまいます。本記事ではクローンしたいグラフのノードの一つを入力にとって、それと同じグラフを持つ入力されたノードのコピーを返す関数を作ります。有向グラフ/無向グラフグラフには有向グラフと無向グラフがあり、無向グラフはノードとノードの間の辺が対面通行のグラフです。有向グラフはノード間の辺が一方通行のグラフです。出典: e-education.psu.eduノードの定義まず、ノードを以下のように定義します。# Pythonclass Node:    def __init__(self, val: int, neighbors: list):        self.val = val        self.neighbors = neighbors使用するアルゴリズムとデータ構造データ構造をクローンするにはまずそのデータ構造を走査する必要があります。例えば二次元配列のクローンをするには必ず全ての要素を走査します。グラフのようなデータ構造を走査するアルゴリズムにはBFS(幅優先探索)とDFS(深さ優先探索)というのがあります。グラフのデータ構造は深さより幅が大きいことを想定して、ここではBFSを使います。しかし、BFSでグラフを探索しただけではノード間の辺の関係を記録することは難しいです。そこで、ハッシュテーブルを使います。BFS  根ノードを空のキューに加える。  ノードをキューの先頭から取り出し、以下の処理を行う。          ノードが探索対象であれば、探索をやめ結果を返す。      そうでない場合、ノードの子で未探索のものを全てキューに追加する。        もしキューが空ならば、グラフ内の全てのノードに対して処理が行われたので、探索をやめ”not found”と結果を返す。  2に戻る。出典: wikipediaハッシュテーブル皆大好きな万能データ構造のハッシュテーブルです。難しいアルゴリズムの問題ではとりあえずハッシュテーブルを使おうとしますね。この問題ではハッシュテーブルはオリジナルのノードをキー、コピーを値として保存します。アルゴリズム  入力されたノードをキューに追加し、ノードをキー、ノードのコピーを値としてハッシュテーブルに保存する。このクローニングはキューが空になるまで続けます。  ノードをキューから取得する。  取得したノードに隣接したノード(node.neighbors)をイテレートする。  隣接しているノードがハッシュテーブルにない場合は、そのノードのコピーをハッシュテーブルに追加し、そのノードをキューに追加する。  クローンされた隣接のノードを取得したノードのneighborsとして追加する。Pythonコードfrom collections import dequedef cloneGraph(node: Node) -&gt; Node:        # 入力されたノードのクローン        copy_node = Node(node.val, [])        # キューとハッシュテーブルの作成        hash_ = dict()        queue = deque()        queue.append(node)        hash_[node] = copy_node        while queue:            node = queue.popleft()                        for neighbor in node.neighbors:                if neighbor not in hash_:                    queue.append(neighbor)                    hash_[neighbor] = Node(neighbor.val, [])                hash_[node].neighbors.append(hash_[neighbor])                        return copy_node時間計算量/空間計算量時間計算量 = O(ノードの数 + 辺の数)空間計算量 = O(ノードの数 + 辺の数)">
+<meta name="description" content="BFSとハッシュテーブルを使った無向グラフのクローン。">
 
 
 
@@ -21,7 +21,7 @@
 <meta property="og:url" content="http://localhost:4000/programming/%E7%84%A1%E5%90%91%E3%82%B0%E3%83%A9%E3%83%95%E3%82%92%E3%82%AF%E3%83%AD%E3%83%BC%E3%83%B3%E3%81%99%E3%82%8B/">
 
 
-  <meta property="og:description" content="無向グラフとは無向グラフのデータ構造のクローンは簡単そうに見えて意外と簡単にはできません。下手に実装すると大変効率の悪いプログラムになってしまいます。本記事ではクローンしたいグラフのノードの一つを入力にとって、それと同じグラフを持つ入力されたノードのコピーを返す関数を作ります。有向グラフ/無向グラフグラフには有向グラフと無向グラフがあり、無向グラフはノードとノードの間の辺が対面通行のグラフです。有向グラフはノード間の辺が一方通行のグラフです。出典: e-education.psu.eduノードの定義まず、ノードを以下のように定義します。# Pythonclass Node:    def __init__(self, val: int, neighbors: list):        self.val = val        self.neighbors = neighbors使用するアルゴリズムとデータ構造データ構造をクローンするにはまずそのデータ構造を走査する必要があります。例えば二次元配列のクローンをするには必ず全ての要素を走査します。グラフのようなデータ構造を走査するアルゴリズムにはBFS(幅優先探索)とDFS(深さ優先探索)というのがあります。グラフのデータ構造は深さより幅が大きいことを想定して、ここではBFSを使います。しかし、BFSでグラフを探索しただけではノード間の辺の関係を記録することは難しいです。そこで、ハッシュテーブルを使います。BFS  根ノードを空のキューに加える。  ノードをキューの先頭から取り出し、以下の処理を行う。          ノードが探索対象であれば、探索をやめ結果を返す。      そうでない場合、ノードの子で未探索のものを全てキューに追加する。        もしキューが空ならば、グラフ内の全てのノードに対して処理が行われたので、探索をやめ”not found”と結果を返す。  2に戻る。出典: wikipediaハッシュテーブル皆大好きな万能データ構造のハッシュテーブルです。難しいアルゴリズムの問題ではとりあえずハッシュテーブルを使おうとしますね。この問題ではハッシュテーブルはオリジナルのノードをキー、コピーを値として保存します。アルゴリズム  入力されたノードをキューに追加し、ノードをキー、ノードのコピーを値としてハッシュテーブルに保存する。このクローニングはキューが空になるまで続けます。  ノードをキューから取得する。  取得したノードに隣接したノード(node.neighbors)をイテレートする。  隣接しているノードがハッシュテーブルにない場合は、そのノードのコピーをハッシュテーブルに追加し、そのノードをキューに追加する。  クローンされた隣接のノードを取得したノードのneighborsとして追加する。Pythonコードfrom collections import dequedef cloneGraph(node: Node) -&gt; Node:        # 入力されたノードのクローン        copy_node = Node(node.val, [])        # キューとハッシュテーブルの作成        hash_ = dict()        queue = deque()        queue.append(node)        hash_[node] = copy_node        while queue:            node = queue.popleft()                        for neighbor in node.neighbors:                if neighbor not in hash_:                    queue.append(neighbor)                    hash_[neighbor] = Node(neighbor.val, [])                hash_[node].neighbors.append(hash_[neighbor])                        return copy_node時間計算量/空間計算量時間計算量 = O(ノードの数 + 辺の数)空間計算量 = O(ノードの数 + 辺の数)">
+  <meta property="og:description" content="BFSとハッシュテーブルを使った無向グラフのクローン。">
 
 
 
@@ -237,7 +237,7 @@
 
   <article class="page" itemscope itemtype="https://schema.org/CreativeWork">
     <meta itemprop="headline" content="無向グラフをクローンする">
-    <meta itemprop="description" content="無向グラフとは無向グラフのデータ構造のクローンは簡単そうに見えて意外と簡単にはできません。下手に実装すると大変効率の悪いプログラムになってしまいます。本記事ではクローンしたいグラフのノードの一つを入力にとって、それと同じグラフを持つ入力されたノードのコピーを返す関数を作ります。有向グラフ/無向グラフグラフには有向グラフと無向グラフがあり、無向グラフはノードとノードの間の辺が対面通行のグラフです。有向グラフはノード間の辺が一方通行のグラフです。出典: e-education.psu.eduノードの定義まず、ノードを以下のように定義します。# Pythonclass Node:    def __init__(self, val: int, neighbors: list):        self.val = val        self.neighbors = neighbors使用するアルゴリズムとデータ構造データ構造をクローンするにはまずそのデータ構造を走査する必要があります。例えば二次元配列のクローンをするには必ず全ての要素を走査します。グラフのようなデータ構造を走査するアルゴリズムにはBFS(幅優先探索)とDFS(深さ優先探索)というのがあります。グラフのデータ構造は深さより幅が大きいことを想定して、ここではBFSを使います。しかし、BFSでグラフを探索しただけではノード間の辺の関係を記録することは難しいです。そこで、ハッシュテーブルを使います。BFS  根ノードを空のキューに加える。  ノードをキューの先頭から取り出し、以下の処理を行う。          ノードが探索対象であれば、探索をやめ結果を返す。      そうでない場合、ノードの子で未探索のものを全てキューに追加する。        もしキューが空ならば、グラフ内の全てのノードに対して処理が行われたので、探索をやめ”not found”と結果を返す。  2に戻る。出典: wikipediaハッシュテーブル皆大好きな万能データ構造のハッシュテーブルです。難しいアルゴリズムの問題ではとりあえずハッシュテーブルを使おうとしますね。この問題ではハッシュテーブルはオリジナルのノードをキー、コピーを値として保存します。アルゴリズム  入力されたノードをキューに追加し、ノードをキー、ノードのコピーを値としてハッシュテーブルに保存する。このクローニングはキューが空になるまで続けます。  ノードをキューから取得する。  取得したノードに隣接したノード(node.neighbors)をイテレートする。  隣接しているノードがハッシュテーブルにない場合は、そのノードのコピーをハッシュテーブルに追加し、そのノードをキューに追加する。  クローンされた隣接のノードを取得したノードのneighborsとして追加する。Pythonコードfrom collections import dequedef cloneGraph(node: Node) -&gt; Node:        # 入力されたノードのクローン        copy_node = Node(node.val, [])        # キューとハッシュテーブルの作成        hash_ = dict()        queue = deque()        queue.append(node)        hash_[node] = copy_node        while queue:            node = queue.popleft()                        for neighbor in node.neighbors:                if neighbor not in hash_:                    queue.append(neighbor)                    hash_[neighbor] = Node(neighbor.val, [])                hash_[node].neighbors.append(hash_[neighbor])                        return copy_node時間計算量/空間計算量時間計算量 = O(ノードの数 + 辺の数)空間計算量 = O(ノードの数 + 辺の数)">
+    <meta itemprop="description" content="BFSとハッシュテーブルを使った無向グラフのクローン。">
     <meta itemprop="datePublished" content="August 01, 2019">
     
 
@@ -450,11 +450,15 @@
     
       
         
-          <li><a href="https://twitter.com/RinzeWatanabe" rel="nofollow noopener noreferrer"><i class="fab fa-fw fa-twitter-square" aria-hidden="true"></i> Twitter</a></li>
+          <li><a href="http://rinzewatanabe.com" rel="nofollow noopener noreferrer"><i class="fas fa-user-circle" aria-hidden="true"></i> RW</a></li>
         
       
         
           <li><a href="https://github.com/RW21" rel="nofollow noopener noreferrer"><i class="fab fa-fw fa-github" aria-hidden="true"></i> GitHub</a></li>
+        
+      
+        
+          <li><a href="https://twitter.com/RinzeWatanabe" rel="nofollow noopener noreferrer"><i class="fab fa-fw fa-twitter-square" aria-hidden="true"></i> Twitter</a></li>
         
       
     
