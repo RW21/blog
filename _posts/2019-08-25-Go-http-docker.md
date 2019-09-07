@@ -1,5 +1,5 @@
 ---
-title:  "GoのHTTPアプリをDockerコンテイナー化する"
+title:  "GoのHTTPアプリをDockerイメージに"
 date:   2019-08-25 22:00:00 +1000
 categories: programming
 tags: Go Docker
