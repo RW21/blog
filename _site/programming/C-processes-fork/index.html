@@ -9,34 +9,34 @@
   <head>
     <meta charset="utf-8">
 
-<!-- begin _includes/seo.html --><title>素数の並びからeが⁉ - RW21 Blog</title>
-<meta name="description" content="そんなわけなかった">
+<!-- begin _includes/seo.html --><title>C言語で複数プロセス間通信をする - RW21 Blog</title>
+<meta name="description" content="fork pipe を使ってプロセス間入出力">
 
 
 
 <meta property="og:type" content="article">
 <meta property="og:locale" content="ja_JP">
 <meta property="og:site_name" content="RW21 Blog">
-<meta property="og:title" content="素数の並びからeが⁉">
-<meta property="og:url" content="http://localhost:4000/maths/e-from-prime/">
+<meta property="og:title" content="C言語で複数プロセス間通信をする">
+<meta property="og:url" content="http://localhost:4000/programming/C-processes-fork/">
 
 
-  <meta property="og:description" content="そんなわけなかった">
-
-
-
-
-
-
-
-  <meta property="article:published_time" content="2019-07-13T22:00:00+10:00">
+  <meta property="og:description" content="fork pipe を使ってプロセス間入出力">
 
 
 
 
 
 
-<link rel="canonical" href="http://localhost:4000/maths/e-from-prime/">
+
+  <meta property="article:published_time" content="2019-09-27T22:00:00+10:00">
+
+
+
+
+
+
+<link rel="canonical" href="http://localhost:4000/programming/C-processes-fork/">
 
 
 
@@ -243,15 +243,15 @@
 
 
   <article class="page" itemscope itemtype="https://schema.org/CreativeWork">
-    <meta itemprop="headline" content="素数の並びからeが⁉">
-    <meta itemprop="description" content="そんなわけなかった">
-    <meta itemprop="datePublished" content="July 13, 2019">
+    <meta itemprop="headline" content="C言語で複数プロセス間通信をする">
+    <meta itemprop="description" content="fork pipe を使ってプロセス間入出力">
+    <meta itemprop="datePublished" content="September 27, 2019">
     
 
     <div class="page__inner-wrap">
       
         <header>
-          <h1 id="page-title" class="page__title" itemprop="headline">素数の並びからeが⁉
+          <h1 id="page-title" class="page__title" itemprop="headline">C言語で複数プロセス間通信をする
 </h1>
           
         </header>
@@ -259,55 +259,89 @@
 
       <section class="page__content" itemprop="text">
         
-        <script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/latest.js?config=TeX-MML-AM_CHTML" async=""></script>
+        <p>C99で複数のプロセスの間で通信をしたい!そういうときはパイプを使います。</p>
 
-<p>素数を素数の間(<script type="math/tex">P_{n+1}- P_{1}</script>)が増加するように並べ続けたときの列の項の平均が
-<script type="math/tex">e</script>に収束する(かもしれない)という投稿を<a href="https://www.reddit.com/r/math/comments/cbd0a7/found_e_in_the_primes_maybe/">Reddit</a>の\r\maths板で見つけた。</p>
+<h2 id="子プロセスの準備">子プロセスの準備</h2>
 
-<h1 id="どういうこと">どういうこと?</h1>
+<p>親から子プロセスへの出力用にファイルディスクリプタを準備します。</p>
 
-<p><script type="math/tex">3,5,7,11,13</script>は素数の間隔が<script type="math/tex">2,2,3,2</script>というように増加してないからノーカウント。<script type="math/tex">19,23,29</script>はOK。このような素数の並びの項の合計の平均は<script type="math/tex">e</script>に収束するかも?という投稿。以下は977までの素数までの平均。</p>
+<pre><code class="language-C">// N = num of child processes
 
-<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>2 3 5 -&gt; 3
-7 11 -&gt; 2
-13 17 -&gt; 2 
-19 23 29
-31 37
-41 43 47 53
-59 61 67
-71 73 79
-83 89 97
-101 103 107
-109 113 127
-131 137
-139 149
-151 157
-163 167 173
-...
-857 859 863 877
-881 883 887 907
-911 919 929
-953 967
-971 977
+// 親プロセスの入力用のファイルディスクリプタ
+int fdOut[2 * N];
 
-Total average value of each row: 163 / 60 = 2.71666... ≈ e
+//　親プロセスの出力用ファイルディスクリプタ
+int fdIn[2 * N];
+</code></pre>
+
+<p>パイプを作る。</p>
+
+<pre><code class="language-C">for (int i = 0; i &lt; N; i++) {
+    pipe(&amp;fdOut[2*i]);
+    pipe(&amp;fdIn[2*i]);
+}
+</code></pre>
+
+<p>各子プロセスを作る。<code class="language-plaintext highlighter-rouge">dup2</code>を使って子プロセスの標準出力、標準入力を親プロセスにつなげます。</p>
+
+<pre><code class="language-C">// does not check for errors
+
+for (int i = 0; i &lt; N; ++i) {
+    if (!fork()) {
+        // 子プロセスのstdoutを入力用パイプにつなぐ
+        dup2(fdIn[i + 1], 1);
+        // 子プロセスのstdoutを入力用パイプにつなぐ
+        dup2(fdOut[i], 0);
+
+        // 違うプログラマを立ち上げる
+        execvp(executableLocation, argArray);
+    }
+}
+</code></pre>
+
+<p>これで子プロセスの準備は完了。</p>
+
+<h2 id="子プロセスへ出力">子プロセスへ出力</h2>
+
+<p>親から子プロセスへ文字列を送る。</p>
+
+<pre><code class="language-C">// childNumber = n番目の子プロセス
+
+char* string = "Hello World";
+
+write(fdOut[childNumber * 2 + 1], string, sizeof(string));
+</code></pre>
+
+<p>もしくは、ファイルディスクリプタをファイルポインタとして開いてf系関数を使うことができます。</p>
+
+<pre><code class="language-C">FILE *file = fdopen(fdOut[childNumber * 2 + 1], "w");
+
+fprintf(file, "Hello World");
+
+fclose(file);
+</code></pre>
+
+<p>子プロセスは標準入力が親プロセスとつながってるので、fgetsを使って入力文字列を受け取ることができます。</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>char *string = malloc(sizeof(char) * 128);
+
+fgets(string, 128, stdin);
 </code></pre></div></div>
 
-<p>出典: <a href="https://www.reddit.com/r/math/comments/cbd0a7/found_e_in_the_primes_maybe/">reddit</a></p>
+<h2 id="子プロセスから入力">子プロセスから入力</h2>
 
-<p>まさかと思ってコメントを見てみたら、ここでネタバレしますけど、この数列は<script type="math/tex">e</script>に収束してなかった。</p>
+<p>子から親プロセスへ文字列を送る。子プロセスは<code class="language-plaintext highlighter-rouge">stdout</code>が親プロセスとつながってるので<code class="language-plaintext highlighter-rouge">fprint</code>で簡単に送れます。</p>
 
-<h1 id="なぜこうなるのか">なぜこうなるのか</h1>
+<pre><code class="language-C">fprint("Bye World");
+</code></pre>
 
-<p>違いも数もランダムな列で上のように平均をとると、<script type="math/tex">e</script>に収束する。上のような素数の数列はある程度違いも数もランダムな列と類似する。</p>
+<p>親プロセスは以下のように子プロセスから受け取ります。</p>
 
-<p><script type="math/tex">a_i</script>をランダムな数の数列で<script type="math/tex">a_{n+1} - a_{n}</script>を独立同分布でランダムな連続確立変数とする。上のように違いが増加するような数列だけをとると、列に項が2つある確率が<script type="math/tex">1</script>、3つある確率が<script type="math/tex">1/2</script>、4つある確率が<script type="math/tex">1/6</script>、5つある確率が<script type="math/tex">1/24</script>…という風な数列になる。</p>
+<pre><code class="language-C">char* string = malloc(sizeof(char) * 128);
+read(fdIn[player * 2], string, sizeof(string));
+</code></pre>
 
-<p>この数列の合計は<script type="math/tex">\sum_{k=0}^{\infty} \frac{1}{k!} = e</script>となる。</p>
-
-<h2 id="素数の並びはランダムではない">素数の並びはランダムではない</h2>
-
-<p>素数の平均の数列が<script type="math/tex">e</script>に収束しないということは、つまり素数の並びは完全にランダムではないといえるのではないだろうか?</p>
+<p>もしくは上記と同じようにファイルポインタとして開いて扱うことができます。</p>
 
         
       </section>
@@ -328,7 +362,7 @@ Total average value of each row: 163 / 60 = 2.71666... ≈ e
     
       
       
-      <a href="/tags/#number-theory" class="page__taxonomy-item" rel="tag">number_theory</a>
+      <a href="/tags/#c" class="page__taxonomy-item" rel="tag">C</a>
     
     </span>
   </p>
@@ -349,14 +383,14 @@ Total average value of each row: 163 / 60 = 2.71666... ≈ e
     
       
       
-      <a href="/categories/#maths" class="page__taxonomy-item" rel="tag">maths</a>
+      <a href="/categories/#programming" class="page__taxonomy-item" rel="tag">programming</a>
     
     </span>
   </p>
 
 
         
-          <p class="page__date"><strong><i class="fas fa-fw fa-calendar-alt" aria-hidden="true"></i> Updated:</strong> <time datetime="2019-07-13T22:00:00+10:00">July 13, 2019</time></p>
+          <p class="page__date"><strong><i class="fas fa-fw fa-calendar-alt" aria-hidden="true"></i> Updated:</strong> <time datetime="2019-09-27T22:00:00+10:00">September 27, 2019</time></p>
         
       </footer>
 
@@ -365,11 +399,11 @@ Total average value of each row: 163 / 60 = 2.71666... ≈ e
       
   <nav class="pagination">
     
-      <a href="/programming/java%E4%B8%A6%E5%88%97%E5%8C%96/" class="pagination--pager" title="Java並列化
+      <a href="/programming/Go-http-docker/" class="pagination--pager" title="GoのHTTPアプリをDockerイメージに
 ">Previous</a>
     
     
-      <a href="/programming/%E7%84%A1%E5%90%91%E3%82%B0%E3%83%A9%E3%83%95%E3%82%92%E3%82%AF%E3%83%AD%E3%83%BC%E3%83%B3%E3%81%99%E3%82%8B/" class="pagination--pager" title="無向グラフをクローンする
+      <a href="/programming/Advent-of-code%E3%81%AE%E3%81%99%E3%81%99%E3%82%81/" class="pagination--pager" title="Advent of Codeのすすめ
 ">Next</a>
     
   </nav>

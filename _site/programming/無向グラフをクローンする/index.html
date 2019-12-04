@@ -1,6 +1,6 @@
 <!doctype html>
 <!--
-  Minimal Mistakes Jekyll Theme 4.16.5 by Michael Rose
+  Minimal Mistakes Jekyll Theme 4.17.2 by Michael Rose
   Copyright 2013-2019 Michael Rose - mademistakes.com | @mmistakes
   Free for personal and commercial use under the MIT license
   https://github.com/mmistakes/minimal-mistakes/blob/master/LICENSE
@@ -10,7 +10,7 @@
     <meta charset="utf-8">
 
 <!-- begin _includes/seo.html --><title>無向グラフをクローンする - RW21 Blog</title>
-<meta name="description" content="BFSとハッシュテーブルを使った無向グラフのクローン。">
+<meta name="description" content="BFSとハッシュテーブルを使った無向グラフのクローン">
 
 
 
@@ -21,7 +21,7 @@
 <meta property="og:url" content="http://localhost:4000/programming/%E7%84%A1%E5%90%91%E3%82%B0%E3%83%A9%E3%83%95%E3%82%92%E3%82%AF%E3%83%AD%E3%83%BC%E3%83%B3%E3%81%99%E3%82%8B/">
 
 
-  <meta property="og:description" content="BFSとハッシュテーブルを使った無向グラフのクローン。">
+  <meta property="og:description" content="BFSとハッシュテーブルを使った無向グラフのクローン">
 
 
 
@@ -41,9 +41,16 @@
 
 
 
-
-
-
+<script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    
+      "@type": "Person",
+      "name": null,
+      "url": "http://localhost:4000/"
+    
+  }
+</script>
 
 
 
@@ -65,7 +72,7 @@
 <!-- For all browsers -->
 <link rel="stylesheet" href="/assets/css/main.css">
 
-<!--[if IE ]>
+<!--[if IE]>
   <style>
     /* old IE unsupported flexbox fixes */
     .greedy-nav .site-title {
@@ -237,7 +244,7 @@
 
   <article class="page" itemscope itemtype="https://schema.org/CreativeWork">
     <meta itemprop="headline" content="無向グラフをクローンする">
-    <meta itemprop="description" content="BFSとハッシュテーブルを使った無向グラフのクローン。">
+    <meta itemprop="description" content="BFSとハッシュテーブルを使った無向グラフのクローン">
     <meta itemprop="datePublished" content="August 01, 2019">
     
 
@@ -270,8 +277,8 @@
 
 <p>まず、ノードを以下のように定義します。</p>
 
-<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c"># Python</span>
-
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1"># Python
+</span>
 <span class="k">class</span> <span class="nc">Node</span><span class="p">:</span>
     <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">val</span><span class="p">:</span> <span class="nb">int</span><span class="p">,</span> <span class="n">neighbors</span><span class="p">:</span> <span class="nb">list</span><span class="p">):</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">val</span> <span class="o">=</span> <span class="n">val</span>
@@ -307,9 +314,9 @@
 <ol>
   <li>入力されたノードをキューに追加し、ノードをキー、ノードのコピーを値としてハッシュテーブルに保存する。このクローニングはキューが空になるまで続けます。</li>
   <li>ノードをキューから取得する。</li>
-  <li>取得したノードに隣接したノード(<code class="highlighter-rouge">node.neighbors</code>)をイテレートする。</li>
+  <li>取得したノードに隣接したノード(<code class="language-plaintext highlighter-rouge">node.neighbors</code>)をイテレートする。</li>
   <li>隣接しているノードがハッシュテーブルにない場合は、そのノードのコピーをハッシュテーブルに追加し、そのノードをキューに追加する。</li>
-  <li>クローンされた隣接のノードを取得したノードの<code class="highlighter-rouge">neighbors</code>として追加する。</li>
+  <li>クローンされた隣接のノードを取得したノードの<code class="language-plaintext highlighter-rouge">neighbors</code>として追加する。</li>
 </ol>
 
 <h2 id="pythonコード">Pythonコード</h2>
@@ -317,11 +324,11 @@
 <div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kn">from</span> <span class="nn">collections</span> <span class="kn">import</span> <span class="n">deque</span>
 
 <span class="k">def</span> <span class="nf">cloneGraph</span><span class="p">(</span><span class="n">node</span><span class="p">:</span> <span class="n">Node</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Node</span><span class="p">:</span>
-        <span class="c"># 入力されたノードのクローン</span>
-        <span class="n">copy_node</span> <span class="o">=</span> <span class="n">Node</span><span class="p">(</span><span class="n">node</span><span class="o">.</span><span class="n">val</span><span class="p">,</span> <span class="p">[])</span>
+        <span class="c1"># 入力されたノードのクローン
+</span>        <span class="n">copy_node</span> <span class="o">=</span> <span class="n">Node</span><span class="p">(</span><span class="n">node</span><span class="o">.</span><span class="n">val</span><span class="p">,</span> <span class="p">[])</span>
 
-        <span class="c"># キューとハッシュテーブルの作成</span>
-        <span class="n">hash_</span> <span class="o">=</span> <span class="nb">dict</span><span class="p">()</span>
+        <span class="c1"># キューとハッシュテーブルの作成
+</span>        <span class="n">hash_</span> <span class="o">=</span> <span class="nb">dict</span><span class="p">()</span>
         <span class="n">queue</span> <span class="o">=</span> <span class="n">deque</span><span class="p">()</span>
 
         <span class="n">queue</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">node</span><span class="p">)</span>
@@ -410,7 +417,8 @@
 ">Previous</a>
     
     
-      <a href="#" class="pagination--pager disabled">Next</a>
+      <a href="/programming/C%E8%A8%80%E8%AA%9E%E3%81%AE%E5%A4%89%E6%95%B0/" class="pagination--pager" title="C言語のメモリ領域
+">Next</a>
     
   </nav>
 

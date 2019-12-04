@@ -5,7 +5,7 @@ date:   2019-07-13 22:00:00 +1000
 categories: maths
 tags: number_theory
 author: "RW"
-excerpt: "そんなわけなかった。"
+excerpt: "そんなわけなかった"
 ---
 <script src='https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/latest.js?config=TeX-MML-AM_CHTML' async></script>
 

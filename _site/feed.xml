@@ -1,4 +1,193 @@
-<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="3.8.5">Jekyll</generator><link href="http://localhost:4000/feed.xml" rel="self" type="application/atom+xml" /><link href="http://localhost:4000/" rel="alternate" type="text/html" /><updated>2019-08-04T16:00:02+10:00</updated><id>http://localhost:4000/feed.xml</id><title type="html">RW21 Blog</title><subtitle>Write an awesome description for your new site here. You can edit this line in _config.yml. It will appear in your document head meta (for Google search results) and in your feed.xml site description.</subtitle><entry><title type="html">無向グラフをクローンする</title><link href="http://localhost:4000/programming/%E7%84%A1%E5%90%91%E3%82%B0%E3%83%A9%E3%83%95%E3%82%92%E3%82%AF%E3%83%AD%E3%83%BC%E3%83%B3%E3%81%99%E3%82%8B/" rel="alternate" type="text/html" title="無向グラフをクローンする" /><published>2019-08-01T22:00:00+10:00</published><updated>2019-08-01T22:00:00+10:00</updated><id>http://localhost:4000/programming/%E7%84%A1%E5%90%91%E3%82%B0%E3%83%A9%E3%83%95%E3%82%92%E3%82%AF%E3%83%AD%E3%83%BC%E3%83%B3%E3%81%99%E3%82%8B</id><content type="html" xml:base="http://localhost:4000/programming/%E7%84%A1%E5%90%91%E3%82%B0%E3%83%A9%E3%83%95%E3%82%92%E3%82%AF%E3%83%AD%E3%83%BC%E3%83%B3%E3%81%99%E3%82%8B/">&lt;h1 id=&quot;無向グラフとは&quot;&gt;無向グラフとは&lt;/h1&gt;
+<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="3.8.5">Jekyll</generator><link href="http://localhost:4000/feed.xml" rel="self" type="application/atom+xml" /><link href="http://localhost:4000/" rel="alternate" type="text/html" /><updated>2019-12-04T20:02:56+10:00</updated><id>http://localhost:4000/feed.xml</id><title type="html">RW21 Blog</title><subtitle>Write an awesome description for your new site here. You can edit this line in _config.yml. It will appear in your document head meta (for Google search results) and in your feed.xml site description.</subtitle><entry><title type="html">Advent of Codeのすすめ</title><link href="http://localhost:4000/programming/Advent-of-code%E3%81%AE%E3%81%99%E3%81%99%E3%82%81/" rel="alternate" type="text/html" title="Advent of Codeのすすめ" /><published>2019-12-01T22:00:00+10:00</published><updated>2019-12-01T22:00:00+10:00</updated><id>http://localhost:4000/programming/Advent-of-code%E3%81%AE%E3%81%99%E3%81%99%E3%82%81</id><content type="html" xml:base="http://localhost:4000/programming/Advent-of-code%E3%81%AE%E3%81%99%E3%81%99%E3%82%81/">&lt;p&gt;毎年クリスマスシーズンに行われる&lt;a href=&quot;https://adventofcode.com/&quot;&gt;Advent of Code&lt;/a&gt;というのをやってます。ちなみに自分は初耳なんですけど、&lt;a href=&quot;https://en.wikipedia.org/wiki/Advent&quot;&gt;advent&lt;/a&gt;というのは12月1日から24日までのキリスト教のキリストの再臨を準備する期間のことなんですね。&lt;/p&gt;
+
+&lt;p&gt;Advent of Codeというのは毎年開催されてる、Advent中に毎日コードを使って様々なパズルみたいな問題を解くものです。問題の回答にはコードの提出は含まれてません、つまり、どんなマイナーな言語、どんなやり方でやっても問題ないわけです。これらの問題は一つの物語になっていて、やっていて面白いです。今年(2019)の物語はサンタさんがロケットを使って宇宙にプレゼントを届けるような話だと思います。&lt;/p&gt;
+
+&lt;p&gt;Advent of Codeの問題は全て英語で、一つ一つがかなり分かりづらいです。問題の難易度は様々でそれぞれ2つのパートに分かれてます。最初のパートを正解すれば、次のパートが出てきます。&lt;/p&gt;
+
+&lt;p&gt;自分のおすすめの挑み方は、新しいプログラミング言語の勉強として解くことです。出てくる問題は、ファイルIO、OOP、コントロールフロー、データ構造などの使い道が試され新しい言語の熟練度を上げるのに最適です。私は今これでRubyを勉強してます。コードは&lt;a href=&quot;https://github.com/RW21/advent-of-code-2019&quot;&gt;こちら&lt;/a&gt;。&lt;/p&gt;</content><author><name>RW</name></author><category term="event" /><summary type="html">Advent of Codeとは</summary></entry><entry><title type="html">C言語で複数プロセス間通信をする</title><link href="http://localhost:4000/programming/C-processes-fork/" rel="alternate" type="text/html" title="C言語で複数プロセス間通信をする" /><published>2019-09-27T22:00:00+10:00</published><updated>2019-09-27T22:00:00+10:00</updated><id>http://localhost:4000/programming/C-processes-fork</id><content type="html" xml:base="http://localhost:4000/programming/C-processes-fork/">&lt;p&gt;C99で複数のプロセスの間で通信をしたい!そういうときはパイプを使います。&lt;/p&gt;
+
+&lt;h2 id=&quot;子プロセスの準備&quot;&gt;子プロセスの準備&lt;/h2&gt;
+
+&lt;p&gt;親から子プロセスへの出力用にファイルディスクリプタを準備します。&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&quot;language-C&quot;&gt;// N = num of child processes
+
+// 親プロセスの入力用のファイルディスクリプタ
+int fdOut[2 * N];
+
+//　親プロセスの出力用ファイルディスクリプタ
+int fdIn[2 * N];
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;パイプを作る。&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&quot;language-C&quot;&gt;for (int i = 0; i &amp;lt; N; i++) {
+    pipe(&amp;amp;fdOut[2*i]);
+    pipe(&amp;amp;fdIn[2*i]);
+}
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;各子プロセスを作る。&lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;dup2&lt;/code&gt;を使って子プロセスの標準出力、標準入力を親プロセスにつなげます。&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&quot;language-C&quot;&gt;// does not check for errors
+
+for (int i = 0; i &amp;lt; N; ++i) {
+    if (!fork()) {
+        // 子プロセスのstdoutを入力用パイプにつなぐ
+        dup2(fdIn[i + 1], 1);
+        // 子プロセスのstdoutを入力用パイプにつなぐ
+        dup2(fdOut[i], 0);
+
+        // 違うプログラマを立ち上げる
+        execvp(executableLocation, argArray);
+    }
+}
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;これで子プロセスの準備は完了。&lt;/p&gt;
+
+&lt;h2 id=&quot;子プロセスへ出力&quot;&gt;子プロセスへ出力&lt;/h2&gt;
+
+&lt;p&gt;親から子プロセスへ文字列を送る。&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&quot;language-C&quot;&gt;// childNumber = n番目の子プロセス
+
+char* string = &quot;Hello World&quot;;
+
+write(fdOut[childNumber * 2 + 1], string, sizeof(string));
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;もしくは、ファイルディスクリプタをファイルポインタとして開いてf系関数を使うことができます。&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&quot;language-C&quot;&gt;FILE *file = fdopen(fdOut[childNumber * 2 + 1], &quot;w&quot;);
+
+fprintf(file, &quot;Hello World&quot;);
+
+fclose(file);
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;子プロセスは標準入力が親プロセスとつながってるので、fgetsを使って入力文字列を受け取ることができます。&lt;/p&gt;
+
+&lt;div class=&quot;language-plaintext highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;char *string = malloc(sizeof(char) * 128);
+
+fgets(string, 128, stdin);
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;h2 id=&quot;子プロセスから入力&quot;&gt;子プロセスから入力&lt;/h2&gt;
+
+&lt;p&gt;子から親プロセスへ文字列を送る。子プロセスは&lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;stdout&lt;/code&gt;が親プロセスとつながってるので&lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;fprint&lt;/code&gt;で簡単に送れます。&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&quot;language-C&quot;&gt;fprint(&quot;Bye World&quot;);
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;親プロセスは以下のように子プロセスから受け取ります。&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&quot;language-C&quot;&gt;char* string = malloc(sizeof(char) * 128);
+read(fdIn[player * 2], string, sizeof(string));
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;もしくは上記と同じようにファイルポインタとして開いて扱うことができます。&lt;/p&gt;</content><author><name>RW</name></author><category term="C" /><summary type="html">`fork` `pipe` を使ってプロセス間入出力</summary></entry><entry><title type="html">GoのHTTPアプリをDockerイメージに</title><link href="http://localhost:4000/programming/Go-http-docker/" rel="alternate" type="text/html" title="GoのHTTPアプリをDockerイメージに" /><published>2019-08-25T22:00:00+10:00</published><updated>2019-08-25T22:00:00+10:00</updated><id>http://localhost:4000/programming/Go-http-docker</id><content type="html" xml:base="http://localhost:4000/programming/Go-http-docker/">&lt;p&gt;SparkRDDのノードをDockerで運用することになったのでついでに久しぶりに使うDockerの基本的なところをおさらい。&lt;/p&gt;
+
+&lt;h2 id=&quot;goで簡単なhttpサーバーを立ち上げる&quot;&gt;Goで簡単なHTTPサーバーを立ち上げる&lt;/h2&gt;
+
+&lt;div class=&quot;language-go highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;k&quot;&gt;package&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;main&lt;/span&gt;
+
+&lt;span class=&quot;k&quot;&gt;import&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;
+	&lt;span class=&quot;s&quot;&gt;&quot;fmt&quot;&lt;/span&gt;
+	&lt;span class=&quot;s&quot;&gt;&quot;net/http&quot;&lt;/span&gt;
+&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+
+&lt;span class=&quot;k&quot;&gt;func&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;main&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;()&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;
+	&lt;span class=&quot;n&quot;&gt;http&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;HandleFunc&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&quot;/&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;func&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;w&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;http&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;ResponseWriter&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;r&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;*&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;http&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;Request&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;
+		&lt;span class=&quot;n&quot;&gt;_&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;_&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;fmt&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;Fprint&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;w&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;&quot;Hello World&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+	&lt;span class=&quot;p&quot;&gt;})&lt;/span&gt;
+
+	&lt;span class=&quot;n&quot;&gt;_&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;http&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;ListenAndServe&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&quot;:3000&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;no&quot;&gt;nil&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+&lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;&lt;a href=&quot;http://localhost:3000/&quot;&gt;localhost:3000&lt;/a&gt;にHello Worldが表示されるはずです。&lt;/p&gt;
+
+&lt;div class=&quot;language-bash highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;nv&quot;&gt;$ &lt;/span&gt;curl http://localhost:3000
+&lt;span class=&quot;c&quot;&gt;# Hello World&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;h2 id=&quot;dockerfileを書く&quot;&gt;Dockerfileを書く&lt;/h2&gt;
+
+&lt;div class=&quot;language-dockerfile highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;k&quot;&gt;FROM&lt;/span&gt;&lt;span class=&quot;s&quot;&gt; golang:latest&lt;/span&gt;
+
+&lt;span class=&quot;k&quot;&gt;COPY&lt;/span&gt;&lt;span class=&quot;s&quot;&gt; main.go /go/src&lt;/span&gt;
+&lt;span class=&quot;k&quot;&gt;WORKDIR&lt;/span&gt;&lt;span class=&quot;s&quot;&gt; /go/src&lt;/span&gt;
+
+&lt;span class=&quot;k&quot;&gt;RUN &lt;/span&gt;go build main.go
+
+&lt;span class=&quot;k&quot;&gt;EXPOSE&lt;/span&gt;&lt;span class=&quot;s&quot;&gt; 3000&lt;/span&gt;
+
+&lt;span class=&quot;k&quot;&gt;CMD&lt;/span&gt;&lt;span class=&quot;s&quot;&gt; [&quot;./main&quot;]&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;続く…&lt;/p&gt;</content><author><name>RW</name></author><category term="Go" /><category term="Docker" /><summary type="html">Dockerfileを作ろう</summary></entry><entry><title type="html">C言語のメモリ領域</title><link href="http://localhost:4000/programming/C%E8%A8%80%E8%AA%9E%E3%81%AE%E5%A4%89%E6%95%B0/" rel="alternate" type="text/html" title="C言語のメモリ領域" /><published>2019-08-02T22:00:00+10:00</published><updated>2019-08-02T22:00:00+10:00</updated><id>http://localhost:4000/programming/C%E8%A8%80%E8%AA%9E%E3%81%AE%E5%A4%89%E6%95%B0</id><content type="html" xml:base="http://localhost:4000/programming/C%E8%A8%80%E8%AA%9E%E3%81%AE%E5%A4%89%E6%95%B0/">&lt;h1 id=&quot;c言語の変数は一体どこに保存されているのか&quot;&gt;C言語の変数は一体どこに保存されているのか&lt;/h1&gt;
+
+&lt;p&gt;C言語の変数はすべてテキスト領域(code segment)、データ領域(静的領域、data segment)、そしてお馴染みのスタック領域とヒープ領域のどれかに保存されます。&lt;/p&gt;
+
+&lt;h2 id=&quot;領域に分ける理由&quot;&gt;領域に分ける理由&lt;/h2&gt;
+
+&lt;p&gt;このような複数の領域に分割されたのは、アドレスレジスタがアクセスを許されるアドレス以上にアクセスをするという動機があります。メモリアドレスをずらして分割をすることで、16bitのアドレスレジスタは本来アクセスできる64kb以上の1mbのメモリ空間にアクセスができるようになります。このような仕組みが初めて実装されたのはIntel 8086 CPUからだそうです。&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;/assets/images/2019/memory.png&quot; alt=&quot;&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;出典: &lt;a href=&quot;https://brain.cc.kogakuin.ac.jp/~kanamaru/lecture/MP/final/part06/node8.html&quot;&gt;brain.cc.kogakuin.ac.jp&lt;/a&gt;&lt;/p&gt;
+
+&lt;h1 id=&quot;テキスト領域&quot;&gt;テキスト領域&lt;/h1&gt;
+
+&lt;p&gt;コード領域とも呼ばれます。この領域には機械語に翻訳されたCのプログラムが保存されます。テキスト領域のメモリは一番低番地に保存されます。テキスト領域の大きさはコンパイルが終わった後に決まり、固定されます。&lt;/p&gt;
+
+&lt;h2 id=&quot;なぜ最低番地&quot;&gt;なぜ最低番地?&lt;/h2&gt;
+
+&lt;p&gt;ヒープとスタックのオーバーフローがテキスト領域を侵すのを防ぐため一番低番地になっています。&lt;/p&gt;
+
+&lt;h1 id=&quot;データ領域&quot;&gt;データ領域&lt;/h1&gt;
+
+&lt;p&gt;データ領域にはグローバル変数と静的変数が保存されます。データ領域はさらに、初期化されてない変数(例:&lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;char c;&lt;/code&gt;)を保管するbssと初期化されてる変数(例:&lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;int i = 1;&lt;/code&gt;)を保存するdata領域に分けることができます。bssのほうがメモリの高番地に位置してます。データ領域の大きさもコンパイル後に固定されます。&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;/assets/images/2019/memory2.jpg&quot; alt=&quot;&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;出典: &lt;a href=&quot;https://electronics.stackexchange.com/users/1322/tcrosley&quot;&gt;tcrosley&lt;/a&gt;&lt;/p&gt;
+
+&lt;h1 id=&quot;スタックヒープ領域&quot;&gt;スタック/ヒープ領域&lt;/h1&gt;
+
+&lt;p&gt;スタック領域はLIFO(last in first out)ですべてのローカル変数が保存されます。&lt;/p&gt;
+
+&lt;p&gt;ヒープには動的メモリ確保で確保されたメモリが高番地に向かって保存されます。スタックとヒープが重なるとOSにより、スタックオーバーフロー、もしくは&lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;malloc()&lt;/code&gt;などの失敗が起こります。&lt;/p&gt;
+
+&lt;h1 id=&quot;tldr&quot;&gt;TL;DR&lt;/h1&gt;
+
+&lt;p&gt;メモリの低番地から順に:&lt;/p&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;テキスト領域 (機械語に翻訳されたC)&lt;/li&gt;
+  &lt;li&gt;データ領域
+    &lt;ul&gt;
+      &lt;li&gt;data (初期化された変数)&lt;/li&gt;
+      &lt;li&gt;BSS (初期化されてない変数)&lt;/li&gt;
+    &lt;/ul&gt;
+  &lt;/li&gt;
+  &lt;li&gt;ヒープ (動的メモリ)&lt;/li&gt;
+  &lt;li&gt;スタック (ローカル変数)&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h1 id=&quot;標準規格&quot;&gt;標準、規格&lt;/h1&gt;
+
+&lt;p&gt;このようなルールみたいな仕切りでCのメモリ管理は成り立っているのに、意外なことにC言語のメモリ領域は規格で定まってなく、実は業界が勝手作り上げた標準(らしきもの)なのです。なので、OSやコンパイラにより領域の使い方が違う場合もあるでしょう。&lt;/p&gt;
+
+&lt;h1 id=&quot;参考&quot;&gt;参考&lt;/h1&gt;
+&lt;ul&gt;
+  &lt;li&gt;&lt;a href=&quot;https://brain.cc.kogakuin.ac.jp/~kanamaru/lecture/MP/final/part06/node8.html&quot;&gt;https://brain.cc.kogakuin.ac.jp/~kanamaru/lecture/MP/final/part06/node8.html&lt;/a&gt;&lt;/li&gt;
+  &lt;li&gt;&lt;a href=&quot;https://stackoverflow.com/questions/47301556/difference-between-stack-segment-and-uninitialized-data-segment&quot;&gt;https://stackoverflow.com/questions/47301556/difference-between-stack-segment-and-uninitialized-data-segment&lt;/a&gt;&lt;/li&gt;
+  &lt;li&gt;&lt;a href=&quot;https://electronics.stackexchange.com/questions/237740/what-resides-in-the-different-memory-types-of-a-microcontroller/237759#237759&quot;&gt;https://electronics.stackexchange.com/questions/237740/what-resides-in-the-different-memory-types-of-a-microcontroller/237759#237759&lt;/a&gt;&lt;/li&gt;
+  &lt;li&gt;&lt;a href=&quot;http://www.cs.uwm.edu/classes/cs315/Bacon/Lecture/HTML/ch10s04.html&quot;&gt;http://www.cs.uwm.edu/classes/cs315/Bacon/Lecture/HTML/ch10s04.html&lt;/a&gt;&lt;/li&gt;
+  &lt;li&gt;&lt;a href=&quot;https://en.wikipedia.org/wiki/Data_segment&quot;&gt;https://en.wikipedia.org/wiki/Data_segment&lt;/a&gt;&lt;/li&gt;
+&lt;/ul&gt;</content><author><name>RW</name></author><category term="C" /><summary type="html">テキスト、データ、ヒープ、スタック領域について</summary></entry><entry><title type="html">無向グラフをクローンする</title><link href="http://localhost:4000/programming/%E7%84%A1%E5%90%91%E3%82%B0%E3%83%A9%E3%83%95%E3%82%92%E3%82%AF%E3%83%AD%E3%83%BC%E3%83%B3%E3%81%99%E3%82%8B/" rel="alternate" type="text/html" title="無向グラフをクローンする" /><published>2019-08-01T22:00:00+10:00</published><updated>2019-08-01T22:00:00+10:00</updated><id>http://localhost:4000/programming/%E7%84%A1%E5%90%91%E3%82%B0%E3%83%A9%E3%83%95%E3%82%92%E3%82%AF%E3%83%AD%E3%83%BC%E3%83%B3%E3%81%99%E3%82%8B</id><content type="html" xml:base="http://localhost:4000/programming/%E7%84%A1%E5%90%91%E3%82%B0%E3%83%A9%E3%83%95%E3%82%92%E3%82%AF%E3%83%AD%E3%83%BC%E3%83%B3%E3%81%99%E3%82%8B/">&lt;h1 id=&quot;無向グラフとは&quot;&gt;無向グラフとは&lt;/h1&gt;
 
 &lt;p&gt;無向グラフのデータ構造のクローンは簡単そうに見えて意外と簡単にはできません。下手に実装すると大変効率の悪いプログラムになってしまいます。&lt;/p&gt;
 
@@ -16,8 +205,8 @@
 
 &lt;p&gt;まず、ノードを以下のように定義します。&lt;/p&gt;
 
-&lt;div class=&quot;language-python highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;c&quot;&gt;# Python&lt;/span&gt;
-
+&lt;div class=&quot;language-python highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;c1&quot;&gt;# Python
+&lt;/span&gt;
 &lt;span class=&quot;k&quot;&gt;class&lt;/span&gt; &lt;span class=&quot;nc&quot;&gt;Node&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt;
     &lt;span class=&quot;k&quot;&gt;def&lt;/span&gt; &lt;span class=&quot;nf&quot;&gt;__init__&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;bp&quot;&gt;self&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;val&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;nb&quot;&gt;int&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;neighbors&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;nb&quot;&gt;list&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;):&lt;/span&gt;
         &lt;span class=&quot;bp&quot;&gt;self&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;val&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;val&lt;/span&gt;
@@ -53,9 +242,9 @@
 &lt;ol&gt;
   &lt;li&gt;入力されたノードをキューに追加し、ノードをキー、ノードのコピーを値としてハッシュテーブルに保存する。このクローニングはキューが空になるまで続けます。&lt;/li&gt;
   &lt;li&gt;ノードをキューから取得する。&lt;/li&gt;
-  &lt;li&gt;取得したノードに隣接したノード(&lt;code class=&quot;highlighter-rouge&quot;&gt;node.neighbors&lt;/code&gt;)をイテレートする。&lt;/li&gt;
+  &lt;li&gt;取得したノードに隣接したノード(&lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;node.neighbors&lt;/code&gt;)をイテレートする。&lt;/li&gt;
   &lt;li&gt;隣接しているノードがハッシュテーブルにない場合は、そのノードのコピーをハッシュテーブルに追加し、そのノードをキューに追加する。&lt;/li&gt;
-  &lt;li&gt;クローンされた隣接のノードを取得したノードの&lt;code class=&quot;highlighter-rouge&quot;&gt;neighbors&lt;/code&gt;として追加する。&lt;/li&gt;
+  &lt;li&gt;クローンされた隣接のノードを取得したノードの&lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;neighbors&lt;/code&gt;として追加する。&lt;/li&gt;
 &lt;/ol&gt;
 
 &lt;h2 id=&quot;pythonコード&quot;&gt;Pythonコード&lt;/h2&gt;
@@ -63,11 +252,11 @@
 &lt;div class=&quot;language-python highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;kn&quot;&gt;from&lt;/span&gt; &lt;span class=&quot;nn&quot;&gt;collections&lt;/span&gt; &lt;span class=&quot;kn&quot;&gt;import&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;deque&lt;/span&gt;
 
 &lt;span class=&quot;k&quot;&gt;def&lt;/span&gt; &lt;span class=&quot;nf&quot;&gt;cloneGraph&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;node&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;Node&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;-&amp;gt;&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;Node&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt;
-        &lt;span class=&quot;c&quot;&gt;# 入力されたノードのクローン&lt;/span&gt;
-        &lt;span class=&quot;n&quot;&gt;copy_node&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;Node&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;node&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;val&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;[])&lt;/span&gt;
+        &lt;span class=&quot;c1&quot;&gt;# 入力されたノードのクローン
+&lt;/span&gt;        &lt;span class=&quot;n&quot;&gt;copy_node&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;Node&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;node&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;val&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;[])&lt;/span&gt;
 
-        &lt;span class=&quot;c&quot;&gt;# キューとハッシュテーブルの作成&lt;/span&gt;
-        &lt;span class=&quot;n&quot;&gt;hash_&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;nb&quot;&gt;dict&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;()&lt;/span&gt;
+        &lt;span class=&quot;c1&quot;&gt;# キューとハッシュテーブルの作成
+&lt;/span&gt;        &lt;span class=&quot;n&quot;&gt;hash_&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;nb&quot;&gt;dict&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;()&lt;/span&gt;
         &lt;span class=&quot;n&quot;&gt;queue&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;deque&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;()&lt;/span&gt;
 
         &lt;span class=&quot;n&quot;&gt;queue&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;append&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;node&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
@@ -90,7 +279,7 @@
 
 &lt;p&gt;時間計算量 = O(ノードの数 + 辺の数)&lt;/p&gt;
 
-&lt;p&gt;空間計算量 = O(ノードの数 + 辺の数)&lt;/p&gt;</content><author><name>RW</name></author><category term="data_structure" /><category term="algorithm" /><summary type="html">BFSとハッシュテーブルを使った無向グラフのクローン。</summary></entry><entry><title type="html">素数の並びからeが⁉</title><link href="http://localhost:4000/maths/e-from-prime/" rel="alternate" type="text/html" title="素数の並びからeが⁉" /><published>2019-07-13T22:00:00+10:00</published><updated>2019-07-13T22:00:00+10:00</updated><id>http://localhost:4000/maths/%20e%20from%20prime</id><content type="html" xml:base="http://localhost:4000/maths/e-from-prime/">&lt;script src=&quot;https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/latest.js?config=TeX-MML-AM_CHTML&quot; async=&quot;&quot;&gt;&lt;/script&gt;
+&lt;p&gt;空間計算量 = O(ノードの数 + 辺の数)&lt;/p&gt;</content><author><name>RW</name></author><category term="data_structure" /><category term="algorithm" /><summary type="html">BFSとハッシュテーブルを使った無向グラフのクローン</summary></entry><entry><title type="html">素数の並びからeが⁉</title><link href="http://localhost:4000/maths/e-from-prime/" rel="alternate" type="text/html" title="素数の並びからeが⁉" /><published>2019-07-13T22:00:00+10:00</published><updated>2019-07-13T22:00:00+10:00</updated><id>http://localhost:4000/maths/%20e%20from%20prime</id><content type="html" xml:base="http://localhost:4000/maths/e-from-prime/">&lt;script src=&quot;https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/latest.js?config=TeX-MML-AM_CHTML&quot; async=&quot;&quot;&gt;&lt;/script&gt;
 
 &lt;p&gt;素数を素数の間(&lt;script type=&quot;math/tex&quot;&gt;P_{n+1}- P_{1}&lt;/script&gt;)が増加するように並べ続けたときの列の項の平均が
 &lt;script type=&quot;math/tex&quot;&gt;e&lt;/script&gt;に収束する(かもしれない)という投稿を&lt;a href=&quot;https://www.reddit.com/r/math/comments/cbd0a7/found_e_in_the_primes_maybe/&quot;&gt;Reddit&lt;/a&gt;の\r\maths板で見つけた。&lt;/p&gt;
@@ -99,7 +288,7 @@
 
 &lt;p&gt;&lt;script type=&quot;math/tex&quot;&gt;3,5,7,11,13&lt;/script&gt;は素数の間隔が&lt;script type=&quot;math/tex&quot;&gt;2,2,3,2&lt;/script&gt;というように増加してないからノーカウント。&lt;script type=&quot;math/tex&quot;&gt;19,23,29&lt;/script&gt;はOK。このような素数の並びの項の合計の平均は&lt;script type=&quot;math/tex&quot;&gt;e&lt;/script&gt;に収束するかも?という投稿。以下は977までの素数までの平均。&lt;/p&gt;
 
-&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;2 3 5 -&amp;gt; 3
+&lt;div class=&quot;language-plaintext highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;2 3 5 -&amp;gt; 3
 7 11 -&amp;gt; 2
 13 17 -&amp;gt; 2 
 19 23 29
@@ -138,7 +327,7 @@ Total average value of each row: 163 / 60 = 2.71666... ≈ e
 
 &lt;h2 id=&quot;素数の並びはランダムではない&quot;&gt;素数の並びはランダムではない&lt;/h2&gt;
 
-&lt;p&gt;素数の平均の数列が&lt;script type=&quot;math/tex&quot;&gt;e&lt;/script&gt;に収束しないということは、つまり素数の並びは完全にランダムではないといえるのではないだろうか?&lt;/p&gt;</content><author><name>RW</name></author><category term="number_theory" /><summary type="html">そんなわけなかった。</summary></entry><entry><title type="html">Java並列化</title><link href="http://localhost:4000/programming/java%E4%B8%A6%E5%88%97%E5%8C%96/" rel="alternate" type="text/html" title="Java並列化" /><published>2019-07-09T22:00:00+10:00</published><updated>2019-07-09T22:00:00+10:00</updated><id>http://localhost:4000/programming/%20java%E4%B8%A6%E5%88%97%E5%8C%96</id><content type="html" xml:base="http://localhost:4000/programming/java%E4%B8%A6%E5%88%97%E5%8C%96/">&lt;h1 id=&quot;はじめに&quot;&gt;はじめに&lt;/h1&gt;
+&lt;p&gt;素数の平均の数列が&lt;script type=&quot;math/tex&quot;&gt;e&lt;/script&gt;に収束しないということは、つまり素数の並びは完全にランダムではないといえるのではないだろうか?&lt;/p&gt;</content><author><name>RW</name></author><category term="number_theory" /><summary type="html">そんなわけなかった</summary></entry><entry><title type="html">Java並列化</title><link href="http://localhost:4000/programming/java%E4%B8%A6%E5%88%97%E5%8C%96/" rel="alternate" type="text/html" title="Java並列化" /><published>2019-07-09T22:00:00+10:00</published><updated>2019-07-09T22:00:00+10:00</updated><id>http://localhost:4000/programming/%20java%E4%B8%A6%E5%88%97%E5%8C%96</id><content type="html" xml:base="http://localhost:4000/programming/java%E4%B8%A6%E5%88%97%E5%8C%96/">&lt;h1 id=&quot;はじめに&quot;&gt;はじめに&lt;/h1&gt;
 
 &lt;p&gt;本記事ではJavaにおける並列処理を主に個人の備忘録、勉強用として雑に記しています。気が向いたら更新します。主にJavaの並列化に使うキーワードを紹介しています。&lt;/p&gt;
 
@@ -205,7 +394,7 @@ Total average value of each row: 163 / 60 = 2.71666... ≈ e
 
 &lt;p&gt;出典: &lt;a href=&quot;http://tutorials.jenkov.com/java-concurrency/concurrency-models.html#concurrency-models-and-distributed-system-similarities&quot;&gt;Jenkov.com&lt;/a&gt;&lt;/p&gt;
 
-&lt;p&gt;Delegatorがworkerにタスクを分散する方法です。Parallel worker モデルは最もJavaの並列処理に使われているモデルです。&lt;code class=&quot;highlighter-rouge&quot;&gt;java.util.concurrent&lt;/code&gt;パッケージに含まれているツールはこのモデルに基づいて作られています。&lt;/p&gt;
+&lt;p&gt;Delegatorがworkerにタスクを分散する方法です。Parallel worker モデルは最もJavaの並列処理に使われているモデルです。&lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;java.util.concurrent&lt;/code&gt;パッケージに含まれているツールはこのモデルに基づいて作られています。&lt;/p&gt;
 
 &lt;h3 id=&quot;利点欠点&quot;&gt;利点/欠点&lt;/h3&gt;
 
@@ -261,30 +450,30 @@ Total average value of each row: 163 / 60 = 2.71666... ≈ e
 
 &lt;div class=&quot;language-java highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;kd&quot;&gt;public&lt;/span&gt; &lt;span class=&quot;kd&quot;&gt;class&lt;/span&gt; &lt;span class=&quot;nc&quot;&gt;StartThread&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;{&lt;/span&gt;
 
-    &lt;span class=&quot;kd&quot;&gt;public&lt;/span&gt; &lt;span class=&quot;kd&quot;&gt;static&lt;/span&gt; &lt;span class=&quot;kt&quot;&gt;void&lt;/span&gt; &lt;span class=&quot;nf&quot;&gt;main&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;String&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;[]&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;args&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;{&lt;/span&gt;
-        &lt;span class=&quot;n&quot;&gt;Thread&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;myThread&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;new&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;Thread&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;();&lt;/span&gt;
+    &lt;span class=&quot;kd&quot;&gt;public&lt;/span&gt; &lt;span class=&quot;kd&quot;&gt;static&lt;/span&gt; &lt;span class=&quot;kt&quot;&gt;void&lt;/span&gt; &lt;span class=&quot;nf&quot;&gt;main&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nc&quot;&gt;String&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;[]&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;args&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;{&lt;/span&gt;
+        &lt;span class=&quot;nc&quot;&gt;Thread&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;myThread&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;new&lt;/span&gt; &lt;span class=&quot;nc&quot;&gt;Thread&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;();&lt;/span&gt;
         &lt;span class=&quot;n&quot;&gt;myThread&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;start&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;();&lt;/span&gt;
     &lt;span class=&quot;o&quot;&gt;}&lt;/span&gt; 
 &lt;span class=&quot;o&quot;&gt;}&lt;/span&gt;
 &lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
 
-&lt;p&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;myThread.start();&lt;/code&gt;でスレッドを始めています。しかしこれではスレッドは何もしていません。&lt;/p&gt;
+&lt;p&gt;&lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;myThread.start();&lt;/code&gt;でスレッドを始めています。しかしこれではスレッドは何もしていません。&lt;/p&gt;
 
 &lt;h2 id=&quot;runメソッドをオーバーライドしてスレッドでコードを動かす&quot;&gt;runメソッドをオーバーライドしてスレッドでコードを動かす&lt;/h2&gt;
 
-&lt;p&gt;スレッドに動くコードを指定するには&lt;code class=&quot;highlighter-rouge&quot;&gt;Thread&lt;/code&gt;のサブクラスを作り、&lt;code class=&quot;highlighter-rouge&quot;&gt;run&lt;/code&gt;メソッドをオーバーライドします。&lt;/p&gt;
+&lt;p&gt;スレッドに動くコードを指定するには&lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;Thread&lt;/code&gt;のサブクラスを作り、&lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;run&lt;/code&gt;メソッドをオーバーライドします。&lt;/p&gt;
 
 &lt;div class=&quot;language-java highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;kd&quot;&gt;public&lt;/span&gt; &lt;span class=&quot;kd&quot;&gt;class&lt;/span&gt; &lt;span class=&quot;nc&quot;&gt;StartThread&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;{&lt;/span&gt;
 
-    &lt;span class=&quot;kd&quot;&gt;public&lt;/span&gt; &lt;span class=&quot;kd&quot;&gt;static&lt;/span&gt; &lt;span class=&quot;kd&quot;&gt;class&lt;/span&gt; &lt;span class=&quot;nc&quot;&gt;MyThread&lt;/span&gt; &lt;span class=&quot;kd&quot;&gt;extends&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;Thread&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;{&lt;/span&gt;
+    &lt;span class=&quot;kd&quot;&gt;public&lt;/span&gt; &lt;span class=&quot;kd&quot;&gt;static&lt;/span&gt; &lt;span class=&quot;kd&quot;&gt;class&lt;/span&gt; &lt;span class=&quot;nc&quot;&gt;MyThread&lt;/span&gt; &lt;span class=&quot;kd&quot;&gt;extends&lt;/span&gt; &lt;span class=&quot;nc&quot;&gt;Thread&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;{&lt;/span&gt;
         &lt;span class=&quot;nd&quot;&gt;@Override&lt;/span&gt;
         &lt;span class=&quot;kd&quot;&gt;public&lt;/span&gt; &lt;span class=&quot;kt&quot;&gt;void&lt;/span&gt; &lt;span class=&quot;nf&quot;&gt;run&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;()&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;{&lt;/span&gt;
-            &lt;span class=&quot;n&quot;&gt;System&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;out&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;println&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&quot;Hello World&quot;&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;);&lt;/span&gt;
+            &lt;span class=&quot;nc&quot;&gt;System&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;out&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;println&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&quot;Hello World&quot;&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;);&lt;/span&gt;
         &lt;span class=&quot;o&quot;&gt;}&lt;/span&gt;
     &lt;span class=&quot;o&quot;&gt;}&lt;/span&gt;
 
-    &lt;span class=&quot;kd&quot;&gt;public&lt;/span&gt; &lt;span class=&quot;kd&quot;&gt;static&lt;/span&gt; &lt;span class=&quot;kt&quot;&gt;void&lt;/span&gt; &lt;span class=&quot;nf&quot;&gt;main&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;String&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;[]&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;args&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;{&lt;/span&gt;
-        &lt;span class=&quot;n&quot;&gt;Thread&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;myThread&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;new&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;MyThread&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;();&lt;/span&gt;
+    &lt;span class=&quot;kd&quot;&gt;public&lt;/span&gt; &lt;span class=&quot;kd&quot;&gt;static&lt;/span&gt; &lt;span class=&quot;kt&quot;&gt;void&lt;/span&gt; &lt;span class=&quot;nf&quot;&gt;main&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nc&quot;&gt;String&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;[]&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;args&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;{&lt;/span&gt;
+        &lt;span class=&quot;nc&quot;&gt;Thread&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;myThread&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;new&lt;/span&gt; &lt;span class=&quot;nc&quot;&gt;MyThread&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;();&lt;/span&gt;
 
         &lt;span class=&quot;n&quot;&gt;myThread&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;start&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;();&lt;/span&gt;
     &lt;span class=&quot;o&quot;&gt;}&lt;/span&gt;
@@ -294,19 +483,19 @@ Total average value of each row: 163 / 60 = 2.71666... ≈ e
 
 &lt;h2 id=&quot;runnableインターフェースでスレッドを実装&quot;&gt;Runnableインターフェースでスレッドを実装&lt;/h2&gt;
 
-&lt;p&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;Runnable&lt;/code&gt;をコンストラクタとして通してスレッドを作ることができます。&lt;/p&gt;
+&lt;p&gt;&lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;Runnable&lt;/code&gt;をコンストラクタとして通してスレッドを作ることができます。&lt;/p&gt;
 
 &lt;div class=&quot;language-java highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;kd&quot;&gt;public&lt;/span&gt; &lt;span class=&quot;kd&quot;&gt;class&lt;/span&gt; &lt;span class=&quot;nc&quot;&gt;StartThread&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;{&lt;/span&gt;
 
-    &lt;span class=&quot;kd&quot;&gt;public&lt;/span&gt; &lt;span class=&quot;kd&quot;&gt;static&lt;/span&gt; &lt;span class=&quot;kd&quot;&gt;class&lt;/span&gt; &lt;span class=&quot;nc&quot;&gt;MyRunnable&lt;/span&gt; &lt;span class=&quot;kd&quot;&gt;implements&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;Runnable&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;{&lt;/span&gt;
+    &lt;span class=&quot;kd&quot;&gt;public&lt;/span&gt; &lt;span class=&quot;kd&quot;&gt;static&lt;/span&gt; &lt;span class=&quot;kd&quot;&gt;class&lt;/span&gt; &lt;span class=&quot;nc&quot;&gt;MyRunnable&lt;/span&gt; &lt;span class=&quot;kd&quot;&gt;implements&lt;/span&gt; &lt;span class=&quot;nc&quot;&gt;Runnable&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;{&lt;/span&gt;
         &lt;span class=&quot;nd&quot;&gt;@Override&lt;/span&gt;
         &lt;span class=&quot;kd&quot;&gt;public&lt;/span&gt; &lt;span class=&quot;kt&quot;&gt;void&lt;/span&gt; &lt;span class=&quot;nf&quot;&gt;run&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;()&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;{&lt;/span&gt;
-            &lt;span class=&quot;n&quot;&gt;System&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;out&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;println&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&quot;Hello again&quot;&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;);&lt;/span&gt;
+            &lt;span class=&quot;nc&quot;&gt;System&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;out&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;println&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&quot;Hello again&quot;&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;);&lt;/span&gt;
         &lt;span class=&quot;o&quot;&gt;}&lt;/span&gt;
     &lt;span class=&quot;o&quot;&gt;}&lt;/span&gt;
 
-    &lt;span class=&quot;kd&quot;&gt;public&lt;/span&gt; &lt;span class=&quot;kd&quot;&gt;static&lt;/span&gt; &lt;span class=&quot;kt&quot;&gt;void&lt;/span&gt; &lt;span class=&quot;nf&quot;&gt;main&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;String&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;[]&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;args&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;{&lt;/span&gt;
-        &lt;span class=&quot;n&quot;&gt;Thread&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;myThread1&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;new&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;Thread&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;k&quot;&gt;new&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;MyRunnable&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;());&lt;/span&gt;
+    &lt;span class=&quot;kd&quot;&gt;public&lt;/span&gt; &lt;span class=&quot;kd&quot;&gt;static&lt;/span&gt; &lt;span class=&quot;kt&quot;&gt;void&lt;/span&gt; &lt;span class=&quot;nf&quot;&gt;main&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nc&quot;&gt;String&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;[]&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;args&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;{&lt;/span&gt;
+        &lt;span class=&quot;nc&quot;&gt;Thread&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;myThread1&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;new&lt;/span&gt; &lt;span class=&quot;nc&quot;&gt;Thread&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;k&quot;&gt;new&lt;/span&gt; &lt;span class=&quot;nc&quot;&gt;MyRunnable&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;());&lt;/span&gt;
 
         &lt;span class=&quot;n&quot;&gt;myThread1&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;start&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;();&lt;/span&gt;
     &lt;span class=&quot;o&quot;&gt;}&lt;/span&gt;
@@ -319,7 +508,7 @@ Total average value of each row: 163 / 60 = 2.71666... ≈ e
 &lt;ul&gt;
   &lt;li&gt;New
     &lt;ul&gt;
-      &lt;li&gt;スレッドが作られて、まだ実行(&lt;code class=&quot;highlighter-rouge&quot;&gt;run&lt;/code&gt;)されていない状態。&lt;/li&gt;
+      &lt;li&gt;スレッドが作られて、まだ実行(&lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;run&lt;/code&gt;)されていない状態。&lt;/li&gt;
     &lt;/ul&gt;
   &lt;/li&gt;
   &lt;li&gt;Runnable
@@ -362,11 +551,11 @@ Total average value of each row: 163 / 60 = 2.71666... ≈ e
   &lt;span class=&quot;o&quot;&gt;}&lt;/span&gt;
 &lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
 
-&lt;p&gt;上記のクラスでは&lt;code class=&quot;highlighter-rouge&quot;&gt;add&lt;/code&gt;メソッドがクリティカルセクションになります。&lt;/p&gt;
+&lt;p&gt;上記のクラスでは&lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;add&lt;/code&gt;メソッドがクリティカルセクションになります。&lt;/p&gt;
 
 &lt;h2 id=&quot;競合状態&quot;&gt;競合状態&lt;/h2&gt;
 
-&lt;p&gt;上のクリティカルセクションを2つのスレッドAとBで実行されます。まずスレッドAとBがレジスターに&lt;code class=&quot;highlighter-rouge&quot;&gt;this.count = 0&lt;/code&gt;を読み込みます。まずスレッドAが読み込まれた&lt;code class=&quot;highlighter-rouge&quot;&gt;this.count&lt;/code&gt;に2を足します。その後、スレッドBが読み込まれた&lt;code class=&quot;highlighter-rouge&quot;&gt;this.count&lt;/code&gt;に3を足します。この場合、最終的な結果は&lt;code class=&quot;highlighter-rouge&quot;&gt;this.count = 5&lt;/code&gt;ではなく、&lt;code class=&quot;highlighter-rouge&quot;&gt;this.count = 3&lt;/code&gt;になります。&lt;/p&gt;
+&lt;p&gt;上のクリティカルセクションを2つのスレッドAとBで実行されます。まずスレッドAとBがレジスターに&lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;this.count = 0&lt;/code&gt;を読み込みます。まずスレッドAが読み込まれた&lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;this.count&lt;/code&gt;に2を足します。その後、スレッドBが読み込まれた&lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;this.count&lt;/code&gt;に3を足します。この場合、最終的な結果は&lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;this.count = 5&lt;/code&gt;ではなく、&lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;this.count = 3&lt;/code&gt;になります。&lt;/p&gt;
 
 &lt;p&gt;上記のように複数のスレッドが同じリソースを取り合うことを競合状態といいます。&lt;/p&gt;
 
@@ -374,7 +563,7 @@ Total average value of each row: 163 / 60 = 2.71666... ≈ e
 
 &lt;p&gt;競合状態を防ぐ一つの方法にはクリティカルセクションを不可分操作(atomic)状態にするというのがあります。つまり、一つのスレッドが実行中には他のスレッドが実行できない状態にします。&lt;/p&gt;
 
-&lt;p&gt;これを実現するにはクリティカルセクションでスレッド同期を行います。スレッド同期を行うこと以外ではスレッドロックや&lt;code class=&quot;highlighter-rouge&quot;&gt;java.util.concurrent.atomic.AtomicInteger&lt;/code&gt;などの不可分操作変数を使うことができます。&lt;/p&gt;
+&lt;p&gt;これを実現するにはクリティカルセクションでスレッド同期を行います。スレッド同期を行うこと以外ではスレッドロックや&lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;java.util.concurrent.atomic.AtomicInteger&lt;/code&gt;などの不可分操作変数を使うことができます。&lt;/p&gt;
 
 &lt;h1 id=&quot;スレッドセーフと共有リソース&quot;&gt;スレッドセーフと共有リソース&lt;/h1&gt;
 
@@ -394,7 +583,7 @@ Total average value of each row: 163 / 60 = 2.71666... ≈ e
 
 &lt;h1 id=&quot;synchronizedキーワードで同期ブロック&quot;&gt;synchronizedキーワードで同期ブロック&lt;/h1&gt;
 
-&lt;p&gt;Javaの同期ブロックはすべて&lt;code class=&quot;highlighter-rouge&quot;&gt;synchronized&lt;/code&gt;のメソッド修飾子で実装できます。&lt;/p&gt;
+&lt;p&gt;Javaの同期ブロックはすべて&lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;synchronized&lt;/code&gt;のメソッド修飾子で実装できます。&lt;/p&gt;
 
 &lt;div class=&quot;language-java highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;  &lt;span class=&quot;kd&quot;&gt;public&lt;/span&gt; &lt;span class=&quot;kd&quot;&gt;synchronized&lt;/span&gt; &lt;span class=&quot;kt&quot;&gt;void&lt;/span&gt; &lt;span class=&quot;nf&quot;&gt;add&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;kt&quot;&gt;int&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;value&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;){&lt;/span&gt;
       &lt;span class=&quot;k&quot;&gt;this&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;count&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;+=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;value&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;;&lt;/span&gt;
@@ -415,7 +604,7 @@ Total average value of each row: 163 / 60 = 2.71666... ≈ e
 
 &lt;h1 id=&quot;volatileキーワード&quot;&gt;volatileキーワード&lt;/h1&gt;
 
-&lt;p&gt;Volatileとは揮発性という意味です。プログラミングにおいては値が変更されていないようにみえてもアクセスする度に変わっているという意味になります。Javaの&lt;code class=&quot;highlighter-rouge&quot;&gt;volatile&lt;/code&gt;キーワードは変数がCPUキャッシュにではなくメインメモリに保存されていることを保証をします。&lt;/p&gt;
+&lt;p&gt;Volatileとは揮発性という意味です。プログラミングにおいては値が変更されていないようにみえてもアクセスする度に変わっているという意味になります。Javaの&lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;volatile&lt;/code&gt;キーワードは変数がCPUキャッシュにではなくメインメモリに保存されていることを保証をします。&lt;/p&gt;
 
 &lt;p&gt;例えば以下のような共有されている変数があるとします。&lt;/p&gt;
 
@@ -426,7 +615,7 @@ Total average value of each row: 163 / 60 = 2.71666... ≈ e
 &lt;span class=&quot;o&quot;&gt;}&lt;/span&gt;
 &lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
 
-&lt;p&gt;スレッド1は&lt;code class=&quot;highlighter-rouge&quot;&gt;counter&lt;/code&gt;をインクリメントします。スレッド1とスレッド2は度々&lt;code class=&quot;highlighter-rouge&quot;&gt;counter&lt;/code&gt;を読みます。もし&lt;code class=&quot;highlighter-rouge&quot;&gt;counter&lt;/code&gt;が&lt;code class=&quot;highlighter-rouge&quot;&gt;volatile&lt;/code&gt;だと宣言されていない場合は、メインメモリからではなく、CPUキャッシュから値が読まれる恐れがあります。以下の図がこのシチューションを表しています。&lt;/p&gt;
+&lt;p&gt;スレッド1は&lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;counter&lt;/code&gt;をインクリメントします。スレッド1とスレッド2は度々&lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;counter&lt;/code&gt;を読みます。もし&lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;counter&lt;/code&gt;が&lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;volatile&lt;/code&gt;だと宣言されていない場合は、メインメモリからではなく、CPUキャッシュから値が読まれる恐れがあります。以下の図がこのシチューションを表しています。&lt;/p&gt;
 
 &lt;p&gt;&lt;img src=&quot;/assets/images/2019/java-volatile-2.png&quot; alt=&quot;&quot; /&gt;&lt;/p&gt;
 
@@ -434,27 +623,27 @@ Total average value of each row: 163 / 60 = 2.71666... ≈ e
 
 &lt;h2 id=&quot;volatileだけでは十分じゃない場合&quot;&gt;volatileだけでは十分じゃない場合&lt;/h2&gt;
 
-&lt;p&gt;スレッドが&lt;code class=&quot;highlighter-rouge&quot;&gt;volatile&lt;/code&gt;な変数を読み込んで、それを元に新しい値に更新してしまうと、その変数は固定されるのを保証されません。変数を読み込んで書き込むまでの間に他のスレッドが書き込む可能性があり、競合状態が発生します。&lt;/p&gt;
+&lt;p&gt;スレッドが&lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;volatile&lt;/code&gt;な変数を読み込んで、それを元に新しい値に更新してしまうと、その変数は固定されるのを保証されません。変数を読み込んで書き込むまでの間に他のスレッドが書き込む可能性があり、競合状態が発生します。&lt;/p&gt;
 
 &lt;h1 id=&quot;threadlocal&quot;&gt;ThreadLocal&lt;/h1&gt;
 
-&lt;p&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;ThreadLocal&lt;/code&gt;クラスは一つのスレッドにしか読み書きできない変数を作るのに使います。もし2つのスレッドが同じ&lt;code class=&quot;highlighter-rouge&quot;&gt;ThreadLocal&lt;/code&gt;の参照を読み込むと2つのスレッドは互いの&lt;code class=&quot;highlighter-rouge&quot;&gt;ThreadLocal&lt;/code&gt;変数にアクセスできません。&lt;/p&gt;
+&lt;p&gt;&lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;ThreadLocal&lt;/code&gt;クラスは一つのスレッドにしか読み書きできない変数を作るのに使います。もし2つのスレッドが同じ&lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;ThreadLocal&lt;/code&gt;の参照を読み込むと2つのスレッドは互いの&lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;ThreadLocal&lt;/code&gt;変数にアクセスできません。&lt;/p&gt;
 
-&lt;h2 id=&quot;threadlocal変数の作成&quot;&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;ThreadLocal&lt;/code&gt;変数の作成&lt;/h2&gt;
+&lt;h2 id=&quot;threadlocal変数の作成&quot;&gt;&lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;ThreadLocal&lt;/code&gt;変数の作成&lt;/h2&gt;
 
-&lt;div class=&quot;language-java highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;kd&quot;&gt;private&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;ThreadLocal&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;myThreadLocal&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;new&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;ThreadLocal&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;();&lt;/span&gt;
+&lt;div class=&quot;language-java highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;kd&quot;&gt;private&lt;/span&gt; &lt;span class=&quot;nc&quot;&gt;ThreadLocal&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;myThreadLocal&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;new&lt;/span&gt; &lt;span class=&quot;nc&quot;&gt;ThreadLocal&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;();&lt;/span&gt;
 &lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
 
-&lt;h2 id=&quot;threadlocal変数へのアクセス&quot;&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;ThreadLocal&lt;/code&gt;変数へのアクセス&lt;/h2&gt;
+&lt;h2 id=&quot;threadlocal変数へのアクセス&quot;&gt;&lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;ThreadLocal&lt;/code&gt;変数へのアクセス&lt;/h2&gt;
 
-&lt;p&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;ThreadLocal&lt;/code&gt;変数が作成されると以下のように値を設定できます。&lt;/p&gt;
+&lt;p&gt;&lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;ThreadLocal&lt;/code&gt;変数が作成されると以下のように値を設定できます。&lt;/p&gt;
 
 &lt;div class=&quot;language-java highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;n&quot;&gt;myThreadLocal&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;set&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&quot;A thread local value&quot;&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;);&lt;/span&gt;
 &lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
 
 &lt;p&gt;値を読み込むには:&lt;/p&gt;
 
-&lt;div class=&quot;language-java highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;n&quot;&gt;String&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;threadLocalValue&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;String&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;myThreadLocal&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;get&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;();&lt;/span&gt;
+&lt;div class=&quot;language-java highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;nc&quot;&gt;String&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;threadLocalValue&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nc&quot;&gt;String&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;myThreadLocal&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;get&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;();&lt;/span&gt;
 &lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
 
 &lt;h1 id=&quot;スレッドシグナリング&quot;&gt;スレッドシグナリング&lt;/h1&gt;
@@ -484,7 +673,7 @@ Total average value of each row: 163 / 60 = 2.71666... ≈ e
 
 &lt;h2 id=&quot;wait-notify-notifyall&quot;&gt;wait() notify() notifyAll()&lt;/h2&gt;
 
-&lt;p&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;java.lang.Object&lt;/code&gt;にはシグナルを待機しているスレッドを非アクティブ化するメカニズムがあります。&lt;code class=&quot;highlighter-rouge&quot;&gt;wait()&lt;/code&gt;をオブジェクトに呼び出すスレッドは他のスレッドがそのオブジェクトが&lt;code class=&quot;highlighter-rouge&quot;&gt;notify()&lt;/code&gt;を実行するまで非アクティブになります。&lt;/p&gt;
+&lt;p&gt;&lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;java.lang.Object&lt;/code&gt;にはシグナルを待機しているスレッドを非アクティブ化するメカニズムがあります。&lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;wait()&lt;/code&gt;をオブジェクトに呼び出すスレッドは他のスレッドがそのオブジェクトが&lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;notify()&lt;/code&gt;を実行するまで非アクティブになります。&lt;/p&gt;
 
 &lt;h1 id=&quot;デッドロック&quot;&gt;デッドロック&lt;/h1&gt;
 
@@ -492,13 +681,13 @@ Total average value of each row: 163 / 60 = 2.71666... ≈ e
 
 &lt;h1 id=&quot;スレッド優先順位&quot;&gt;スレッド優先順位&lt;/h1&gt;
 
-&lt;p&gt;スレッドの優先順位は&lt;code class=&quot;highlighter-rouge&quot;&gt;setPriority&lt;/code&gt;で設定できます。設定が高いほうが先に実行されます。優先順位には1から10までintが使えます。&lt;/p&gt;
+&lt;p&gt;スレッドの優先順位は&lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;setPriority&lt;/code&gt;で設定できます。設定が高いほうが先に実行されます。優先順位には1から10までintが使えます。&lt;/p&gt;
 
 &lt;div class=&quot;language-java highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;kd&quot;&gt;public&lt;/span&gt; &lt;span class=&quot;kd&quot;&gt;class&lt;/span&gt; &lt;span class=&quot;nc&quot;&gt;StartThread&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;{&lt;/span&gt;
 
-    &lt;span class=&quot;kd&quot;&gt;public&lt;/span&gt; &lt;span class=&quot;kd&quot;&gt;static&lt;/span&gt; &lt;span class=&quot;kt&quot;&gt;void&lt;/span&gt; &lt;span class=&quot;nf&quot;&gt;main&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;String&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;[]&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;args&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;{&lt;/span&gt;
-        &lt;span class=&quot;n&quot;&gt;Thread&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;myThread&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;new&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;Thread&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;();&lt;/span&gt;
-        &lt;span class=&quot;n&quot;&gt;Thread&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;myThread1&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;new&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;Thread&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;();&lt;/span&gt;
+    &lt;span class=&quot;kd&quot;&gt;public&lt;/span&gt; &lt;span class=&quot;kd&quot;&gt;static&lt;/span&gt; &lt;span class=&quot;kt&quot;&gt;void&lt;/span&gt; &lt;span class=&quot;nf&quot;&gt;main&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nc&quot;&gt;String&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;[]&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;args&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;{&lt;/span&gt;
+        &lt;span class=&quot;nc&quot;&gt;Thread&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;myThread&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;new&lt;/span&gt; &lt;span class=&quot;nc&quot;&gt;Thread&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;();&lt;/span&gt;
+        &lt;span class=&quot;nc&quot;&gt;Thread&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;myThread1&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;new&lt;/span&gt; &lt;span class=&quot;nc&quot;&gt;Thread&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;();&lt;/span&gt;
 
         &lt;span class=&quot;n&quot;&gt;myThread&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;setPriority&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;5&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;);&lt;/span&gt;
         &lt;span class=&quot;n&quot;&gt;myThread&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;setPriority&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;1&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;);&lt;/span&gt;
@@ -506,11 +695,11 @@ Total average value of each row: 163 / 60 = 2.71666... ≈ e
 &lt;span class=&quot;o&quot;&gt;}&lt;/span&gt;
 &lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
 
-&lt;p&gt;上の場合は、&lt;code class=&quot;highlighter-rouge&quot;&gt;myThread&lt;/code&gt;が先に実行されます。&lt;/p&gt;
+&lt;p&gt;上の場合は、&lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;myThread&lt;/code&gt;が先に実行されます。&lt;/p&gt;
 
 &lt;h1 id=&quot;join&quot;&gt;join&lt;/h1&gt;
 
-&lt;p&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;join()&lt;/code&gt;メソッドでスレッドが終わるまで他のスレッドが実行されないよう保証します。&lt;code class=&quot;highlighter-rouge&quot;&gt;thread1.join()&lt;/code&gt;でthread1が実行中の時、thread1が実行を終えるまで他のスレッドを実行しません。イメージとしては、スレッド同士をつなげたいときに使います。&lt;/p&gt;
+&lt;p&gt;&lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;join()&lt;/code&gt;メソッドでスレッドが終わるまで他のスレッドが実行されないよう保証します。&lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;thread1.join()&lt;/code&gt;でthread1が実行中の時、thread1が実行を終えるまで他のスレッドを実行しません。イメージとしては、スレッド同士をつなげたいときに使います。&lt;/p&gt;
 
 &lt;h1 id=&quot;生産者消費者問題&quot;&gt;生産者消費者問題&lt;/h1&gt;
 
@@ -524,7 +713,7 @@ Total average value of each row: 163 / 60 = 2.71666... ≈ e
 
 &lt;p&gt;消費者スレッドはキューがいっぱいになると生産者スレッドをブロックします。(これ以上商品を足すのを防ぐため。)逆に、生産者スレッドはキューが空になると消費者スレッドをブロックするよう実装します。&lt;/p&gt;
 
-&lt;p&gt;これらはいちいちスレッドシグナリングを実行しなくても&lt;code class=&quot;highlighter-rouge&quot;&gt;java.util.concurrent.BlockingQueue&lt;/code&gt;で簡単に実装できてしまいます。&lt;/p&gt;
+&lt;p&gt;これらはいちいちスレッドシグナリングを実行しなくても&lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;java.util.concurrent.BlockingQueue&lt;/code&gt;で簡単に実装できてしまいます。&lt;/p&gt;
 
 &lt;p&gt;&lt;img src=&quot;/assets/images/2019/producer_consumer.jpg&quot; alt=&quot;&quot; /&gt;&lt;/p&gt;
 
@@ -534,7 +723,7 @@ Total average value of each row: 163 / 60 = 2.71666... ≈ e
   &lt;li&gt;&lt;a href=&quot;http://tutorials.jenkov.com/java-concurrency/index.html&quot;&gt;Jenkov.com&lt;/a&gt;&lt;/li&gt;
   &lt;li&gt;&lt;a href=&quot;https://docs.oracle.com/javase/tutorial/essential/concurrency/&quot;&gt;Java documentation&lt;/a&gt;&lt;/li&gt;
   &lt;li&gt;&lt;a href=&quot;https://winterbe.com/posts/2015/04/07/java8-concurrency-tutorial-thread-executor-examples/&quot;&gt;Winterbe&lt;/a&gt;&lt;/li&gt;
-&lt;/ul&gt;</content><author><name>RW</name></author><category term="Java" /><summary type="html">Javaの並列化について。</summary></entry><entry><title type="html">ブログを始める</title><link href="http://localhost:4000/personal/%E3%83%96%E3%83%AD%E3%82%B0%E3%81%AA%E3%81%A9/" rel="alternate" type="text/html" title="ブログを始める" /><published>2019-06-25T22:00:00+10:00</published><updated>2019-06-25T22:00:00+10:00</updated><id>http://localhost:4000/personal/%E3%83%96%E3%83%AD%E3%82%B0%E3%81%AA%E3%81%A9</id><content type="html" xml:base="http://localhost:4000/personal/%E3%83%96%E3%83%AD%E3%82%B0%E3%81%AA%E3%81%A9/">&lt;p&gt;Jenkyllでブログを始めることにした。ブログとはいっても個人的な備忘録などが中心になると思う。以下、ありきたりなブログの初投稿。&lt;/p&gt;
+&lt;/ul&gt;</content><author><name>RW</name></author><category term="Java" /><summary type="html">Javaの並列化について</summary></entry><entry><title type="html">ブログを始める</title><link href="http://localhost:4000/personal/%E3%83%96%E3%83%AD%E3%82%B0%E3%81%AA%E3%81%A9/" rel="alternate" type="text/html" title="ブログを始める" /><published>2019-06-25T22:00:00+10:00</published><updated>2019-06-25T22:00:00+10:00</updated><id>http://localhost:4000/personal/%E3%83%96%E3%83%AD%E3%82%B0%E3%81%AA%E3%81%A9</id><content type="html" xml:base="http://localhost:4000/personal/%E3%83%96%E3%83%AD%E3%82%B0%E3%81%AA%E3%81%A9/">&lt;p&gt;Jenkyllでブログを始めることにした。ブログとはいっても個人的な備忘録などが中心になると思う。以下、ありきたりなブログの初投稿。&lt;/p&gt;
 
 &lt;h1 id=&quot;jenkyll&quot;&gt;Jenkyll&lt;/h1&gt;
 &lt;p&gt;静的サイトジェネレーターのJenkyllとGithubPagesを使った。Jenkyllで色々なテーマを漁ったが自分にしっくり来るものがなかった。自分がブログに求めるのはカテゴリ分けと過去の投稿を簡単に振り返られるブログだがこれに合うテーマはなかなかない。(静的サイトだと難しいのだろう。)&lt;/p&gt;

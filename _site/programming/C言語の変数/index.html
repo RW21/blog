@@ -9,34 +9,34 @@
   <head>
     <meta charset="utf-8">
 
-<!-- begin _includes/seo.html --><title>素数の並びからeが⁉ - RW21 Blog</title>
-<meta name="description" content="そんなわけなかった">
+<!-- begin _includes/seo.html --><title>C言語のメモリ領域 - RW21 Blog</title>
+<meta name="description" content="テキスト、データ、ヒープ、スタック領域について">
 
 
 
 <meta property="og:type" content="article">
 <meta property="og:locale" content="ja_JP">
 <meta property="og:site_name" content="RW21 Blog">
-<meta property="og:title" content="素数の並びからeが⁉">
-<meta property="og:url" content="http://localhost:4000/maths/e-from-prime/">
+<meta property="og:title" content="C言語のメモリ領域">
+<meta property="og:url" content="http://localhost:4000/programming/C%E8%A8%80%E8%AA%9E%E3%81%AE%E5%A4%89%E6%95%B0/">
 
 
-  <meta property="og:description" content="そんなわけなかった">
-
-
-
-
-
-
-
-  <meta property="article:published_time" content="2019-07-13T22:00:00+10:00">
+  <meta property="og:description" content="テキスト、データ、ヒープ、スタック領域について">
 
 
 
 
 
 
-<link rel="canonical" href="http://localhost:4000/maths/e-from-prime/">
+
+  <meta property="article:published_time" content="2019-08-02T22:00:00+10:00">
+
+
+
+
+
+
+<link rel="canonical" href="http://localhost:4000/programming/C%E8%A8%80%E8%AA%9E%E3%81%AE%E5%A4%89%E6%95%B0/">
 
 
 
@@ -243,15 +243,15 @@
 
 
   <article class="page" itemscope itemtype="https://schema.org/CreativeWork">
-    <meta itemprop="headline" content="素数の並びからeが⁉">
-    <meta itemprop="description" content="そんなわけなかった">
-    <meta itemprop="datePublished" content="July 13, 2019">
+    <meta itemprop="headline" content="C言語のメモリ領域">
+    <meta itemprop="description" content="テキスト、データ、ヒープ、スタック領域について">
+    <meta itemprop="datePublished" content="August 02, 2019">
     
 
     <div class="page__inner-wrap">
       
         <header>
-          <h1 id="page-title" class="page__title" itemprop="headline">素数の並びからeが⁉
+          <h1 id="page-title" class="page__title" itemprop="headline">C言語のメモリ領域
 </h1>
           
         </header>
@@ -259,55 +259,68 @@
 
       <section class="page__content" itemprop="text">
         
-        <script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/latest.js?config=TeX-MML-AM_CHTML" async=""></script>
+        <h1 id="c言語の変数は一体どこに保存されているのか">C言語の変数は一体どこに保存されているのか</h1>
 
-<p>素数を素数の間(<script type="math/tex">P_{n+1}- P_{1}</script>)が増加するように並べ続けたときの列の項の平均が
-<script type="math/tex">e</script>に収束する(かもしれない)という投稿を<a href="https://www.reddit.com/r/math/comments/cbd0a7/found_e_in_the_primes_maybe/">Reddit</a>の\r\maths板で見つけた。</p>
+<p>C言語の変数はすべてテキスト領域(code segment)、データ領域(静的領域、data segment)、そしてお馴染みのスタック領域とヒープ領域のどれかに保存されます。</p>
 
-<h1 id="どういうこと">どういうこと?</h1>
+<h2 id="領域に分ける理由">領域に分ける理由</h2>
 
-<p><script type="math/tex">3,5,7,11,13</script>は素数の間隔が<script type="math/tex">2,2,3,2</script>というように増加してないからノーカウント。<script type="math/tex">19,23,29</script>はOK。このような素数の並びの項の合計の平均は<script type="math/tex">e</script>に収束するかも?という投稿。以下は977までの素数までの平均。</p>
+<p>このような複数の領域に分割されたのは、アドレスレジスタがアクセスを許されるアドレス以上にアクセスをするという動機があります。メモリアドレスをずらして分割をすることで、16bitのアドレスレジスタは本来アクセスできる64kb以上の1mbのメモリ空間にアクセスができるようになります。このような仕組みが初めて実装されたのはIntel 8086 CPUからだそうです。</p>
 
-<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>2 3 5 -&gt; 3
-7 11 -&gt; 2
-13 17 -&gt; 2 
-19 23 29
-31 37
-41 43 47 53
-59 61 67
-71 73 79
-83 89 97
-101 103 107
-109 113 127
-131 137
-139 149
-151 157
-163 167 173
-...
-857 859 863 877
-881 883 887 907
-911 919 929
-953 967
-971 977
+<p><img src="/assets/images/2019/memory.png" alt="" /></p>
 
-Total average value of each row: 163 / 60 = 2.71666... ≈ e
-</code></pre></div></div>
+<p>出典: <a href="https://brain.cc.kogakuin.ac.jp/~kanamaru/lecture/MP/final/part06/node8.html">brain.cc.kogakuin.ac.jp</a></p>
 
-<p>出典: <a href="https://www.reddit.com/r/math/comments/cbd0a7/found_e_in_the_primes_maybe/">reddit</a></p>
+<h1 id="テキスト領域">テキスト領域</h1>
 
-<p>まさかと思ってコメントを見てみたら、ここでネタバレしますけど、この数列は<script type="math/tex">e</script>に収束してなかった。</p>
+<p>コード領域とも呼ばれます。この領域には機械語に翻訳されたCのプログラムが保存されます。テキスト領域のメモリは一番低番地に保存されます。テキスト領域の大きさはコンパイルが終わった後に決まり、固定されます。</p>
 
-<h1 id="なぜこうなるのか">なぜこうなるのか</h1>
+<h2 id="なぜ最低番地">なぜ最低番地?</h2>
 
-<p>違いも数もランダムな列で上のように平均をとると、<script type="math/tex">e</script>に収束する。上のような素数の数列はある程度違いも数もランダムな列と類似する。</p>
+<p>ヒープとスタックのオーバーフローがテキスト領域を侵すのを防ぐため一番低番地になっています。</p>
 
-<p><script type="math/tex">a_i</script>をランダムな数の数列で<script type="math/tex">a_{n+1} - a_{n}</script>を独立同分布でランダムな連続確立変数とする。上のように違いが増加するような数列だけをとると、列に項が2つある確率が<script type="math/tex">1</script>、3つある確率が<script type="math/tex">1/2</script>、4つある確率が<script type="math/tex">1/6</script>、5つある確率が<script type="math/tex">1/24</script>…という風な数列になる。</p>
+<h1 id="データ領域">データ領域</h1>
 
-<p>この数列の合計は<script type="math/tex">\sum_{k=0}^{\infty} \frac{1}{k!} = e</script>となる。</p>
+<p>データ領域にはグローバル変数と静的変数が保存されます。データ領域はさらに、初期化されてない変数(例:<code class="language-plaintext highlighter-rouge">char c;</code>)を保管するbssと初期化されてる変数(例:<code class="language-plaintext highlighter-rouge">int i = 1;</code>)を保存するdata領域に分けることができます。bssのほうがメモリの高番地に位置してます。データ領域の大きさもコンパイル後に固定されます。</p>
 
-<h2 id="素数の並びはランダムではない">素数の並びはランダムではない</h2>
+<p><img src="/assets/images/2019/memory2.jpg" alt="" /></p>
 
-<p>素数の平均の数列が<script type="math/tex">e</script>に収束しないということは、つまり素数の並びは完全にランダムではないといえるのではないだろうか?</p>
+<p>出典: <a href="https://electronics.stackexchange.com/users/1322/tcrosley">tcrosley</a></p>
+
+<h1 id="スタックヒープ領域">スタック/ヒープ領域</h1>
+
+<p>スタック領域はLIFO(last in first out)ですべてのローカル変数が保存されます。</p>
+
+<p>ヒープには動的メモリ確保で確保されたメモリが高番地に向かって保存されます。スタックとヒープが重なるとOSにより、スタックオーバーフロー、もしくは<code class="language-plaintext highlighter-rouge">malloc()</code>などの失敗が起こります。</p>
+
+<h1 id="tldr">TL;DR</h1>
+
+<p>メモリの低番地から順に:</p>
+
+<ul>
+  <li>テキスト領域 (機械語に翻訳されたC)</li>
+  <li>データ領域
+    <ul>
+      <li>data (初期化された変数)</li>
+      <li>BSS (初期化されてない変数)</li>
+    </ul>
+  </li>
+  <li>ヒープ (動的メモリ)</li>
+  <li>スタック (ローカル変数)</li>
+</ul>
+
+<h1 id="標準規格">標準、規格</h1>
+
+<p>このようなルールみたいな仕切りでCのメモリ管理は成り立っているのに、意外なことにC言語のメモリ領域は規格で定まってなく、実は業界が勝手作り上げた標準(らしきもの)なのです。なので、OSやコンパイラにより領域の使い方が違う場合もあるでしょう。</p>
+
+<h1 id="参考">参考</h1>
+<ul>
+  <li><a href="https://brain.cc.kogakuin.ac.jp/~kanamaru/lecture/MP/final/part06/node8.html">https://brain.cc.kogakuin.ac.jp/~kanamaru/lecture/MP/final/part06/node8.html</a></li>
+  <li><a href="https://stackoverflow.com/questions/47301556/difference-between-stack-segment-and-uninitialized-data-segment">https://stackoverflow.com/questions/47301556/difference-between-stack-segment-and-uninitialized-data-segment</a></li>
+  <li><a href="https://electronics.stackexchange.com/questions/237740/what-resides-in-the-different-memory-types-of-a-microcontroller/237759#237759">https://electronics.stackexchange.com/questions/237740/what-resides-in-the-different-memory-types-of-a-microcontroller/237759#237759</a></li>
+  <li><a href="http://www.cs.uwm.edu/classes/cs315/Bacon/Lecture/HTML/ch10s04.html">http://www.cs.uwm.edu/classes/cs315/Bacon/Lecture/HTML/ch10s04.html</a></li>
+  <li><a href="https://en.wikipedia.org/wiki/Data_segment">https://en.wikipedia.org/wiki/Data_segment</a></li>
+</ul>
 
         
       </section>
@@ -328,7 +341,7 @@ Total average value of each row: 163 / 60 = 2.71666... ≈ e
     
       
       
-      <a href="/tags/#number-theory" class="page__taxonomy-item" rel="tag">number_theory</a>
+      <a href="/tags/#c" class="page__taxonomy-item" rel="tag">C</a>
     
     </span>
   </p>
@@ -349,14 +362,14 @@ Total average value of each row: 163 / 60 = 2.71666... ≈ e
     
       
       
-      <a href="/categories/#maths" class="page__taxonomy-item" rel="tag">maths</a>
+      <a href="/categories/#programming" class="page__taxonomy-item" rel="tag">programming</a>
     
     </span>
   </p>
 
 
         
-          <p class="page__date"><strong><i class="fas fa-fw fa-calendar-alt" aria-hidden="true"></i> Updated:</strong> <time datetime="2019-07-13T22:00:00+10:00">July 13, 2019</time></p>
+          <p class="page__date"><strong><i class="fas fa-fw fa-calendar-alt" aria-hidden="true"></i> Updated:</strong> <time datetime="2019-08-02T22:00:00+10:00">August 02, 2019</time></p>
         
       </footer>
 
@@ -365,11 +378,11 @@ Total average value of each row: 163 / 60 = 2.71666... ≈ e
       
   <nav class="pagination">
     
-      <a href="/programming/java%E4%B8%A6%E5%88%97%E5%8C%96/" class="pagination--pager" title="Java並列化
+      <a href="/programming/%E7%84%A1%E5%90%91%E3%82%B0%E3%83%A9%E3%83%95%E3%82%92%E3%82%AF%E3%83%AD%E3%83%BC%E3%83%B3%E3%81%99%E3%82%8B/" class="pagination--pager" title="無向グラフをクローンする
 ">Previous</a>
     
     
-      <a href="/programming/%E7%84%A1%E5%90%91%E3%82%B0%E3%83%A9%E3%83%95%E3%82%92%E3%82%AF%E3%83%AD%E3%83%BC%E3%83%B3%E3%81%99%E3%82%8B/" class="pagination--pager" title="無向グラフをクローンする
+      <a href="/programming/Go-http-docker/" class="pagination--pager" title="GoのHTTPアプリをDockerイメージに
 ">Next</a>
     
   </nav>

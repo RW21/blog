@@ -1,6 +1,6 @@
 <!doctype html>
 <!--
-  Minimal Mistakes Jekyll Theme 4.16.5 by Michael Rose
+  Minimal Mistakes Jekyll Theme 4.17.2 by Michael Rose
   Copyright 2013-2019 Michael Rose - mademistakes.com | @mmistakes
   Free for personal and commercial use under the MIT license
   https://github.com/mmistakes/minimal-mistakes/blob/master/LICENSE
@@ -10,7 +10,7 @@
     <meta charset="utf-8">
 
 <!-- begin _includes/seo.html --><title>Java並列化 - RW21 Blog</title>
-<meta name="description" content="Javaの並列化について。">
+<meta name="description" content="Javaの並列化について">
 
 
 
@@ -21,7 +21,7 @@
 <meta property="og:url" content="http://localhost:4000/programming/java%E4%B8%A6%E5%88%97%E5%8C%96/">
 
 
-  <meta property="og:description" content="Javaの並列化について。">
+  <meta property="og:description" content="Javaの並列化について">
 
 
 
@@ -41,9 +41,16 @@
 
 
 
-
-
-
+<script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    
+      "@type": "Person",
+      "name": null,
+      "url": "http://localhost:4000/"
+    
+  }
+</script>
 
 
 
@@ -65,7 +72,7 @@
 <!-- For all browsers -->
 <link rel="stylesheet" href="/assets/css/main.css">
 
-<!--[if IE ]>
+<!--[if IE]>
   <style>
     /* old IE unsupported flexbox fixes */
     .greedy-nav .site-title {
@@ -237,7 +244,7 @@
 
   <article class="page" itemscope itemtype="https://schema.org/CreativeWork">
     <meta itemprop="headline" content="Java並列化">
-    <meta itemprop="description" content="Javaの並列化について。">
+    <meta itemprop="description" content="Javaの並列化について">
     <meta itemprop="datePublished" content="July 09, 2019">
     
 
@@ -405,7 +412,7 @@
 
 <p>出典: <a href="http://tutorials.jenkov.com/java-concurrency/concurrency-models.html#concurrency-models-and-distributed-system-similarities">Jenkov.com</a></p>
 
-<p>Delegatorがworkerにタスクを分散する方法です。Parallel worker モデルは最もJavaの並列処理に使われているモデルです。<code class="highlighter-rouge">java.util.concurrent</code>パッケージに含まれているツールはこのモデルに基づいて作られています。</p>
+<p>Delegatorがworkerにタスクを分散する方法です。Parallel worker モデルは最もJavaの並列処理に使われているモデルです。<code class="language-plaintext highlighter-rouge">java.util.concurrent</code>パッケージに含まれているツールはこのモデルに基づいて作られています。</p>
 
 <h3 id="利点欠点">利点/欠点</h3>
 
@@ -461,30 +468,30 @@
 
 <div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kd">public</span> <span class="kd">class</span> <span class="nc">StartThread</span> <span class="o">{</span>
 
-    <span class="kd">public</span> <span class="kd">static</span> <span class="kt">void</span> <span class="nf">main</span><span class="o">(</span><span class="n">String</span><span class="o">[]</span> <span class="n">args</span><span class="o">)</span> <span class="o">{</span>
-        <span class="n">Thread</span> <span class="n">myThread</span> <span class="o">=</span> <span class="k">new</span> <span class="n">Thread</span><span class="o">();</span>
+    <span class="kd">public</span> <span class="kd">static</span> <span class="kt">void</span> <span class="nf">main</span><span class="o">(</span><span class="nc">String</span><span class="o">[]</span> <span class="n">args</span><span class="o">)</span> <span class="o">{</span>
+        <span class="nc">Thread</span> <span class="n">myThread</span> <span class="o">=</span> <span class="k">new</span> <span class="nc">Thread</span><span class="o">();</span>
         <span class="n">myThread</span><span class="o">.</span><span class="na">start</span><span class="o">();</span>
     <span class="o">}</span> 
 <span class="o">}</span>
 </code></pre></div></div>
 
-<p><code class="highlighter-rouge">myThread.start();</code>でスレッドを始めています。しかしこれではスレッドは何もしていません。</p>
+<p><code class="language-plaintext highlighter-rouge">myThread.start();</code>でスレッドを始めています。しかしこれではスレッドは何もしていません。</p>
 
 <h2 id="runメソッドをオーバーライドしてスレッドでコードを動かす">runメソッドをオーバーライドしてスレッドでコードを動かす</h2>
 
-<p>スレッドに動くコードを指定するには<code class="highlighter-rouge">Thread</code>のサブクラスを作り、<code class="highlighter-rouge">run</code>メソッドをオーバーライドします。</p>
+<p>スレッドに動くコードを指定するには<code class="language-plaintext highlighter-rouge">Thread</code>のサブクラスを作り、<code class="language-plaintext highlighter-rouge">run</code>メソッドをオーバーライドします。</p>
 
 <div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kd">public</span> <span class="kd">class</span> <span class="nc">StartThread</span> <span class="o">{</span>
 
-    <span class="kd">public</span> <span class="kd">static</span> <span class="kd">class</span> <span class="nc">MyThread</span> <span class="kd">extends</span> <span class="n">Thread</span> <span class="o">{</span>
+    <span class="kd">public</span> <span class="kd">static</span> <span class="kd">class</span> <span class="nc">MyThread</span> <span class="kd">extends</span> <span class="nc">Thread</span> <span class="o">{</span>
         <span class="nd">@Override</span>
         <span class="kd">public</span> <span class="kt">void</span> <span class="nf">run</span><span class="o">()</span> <span class="o">{</span>
-            <span class="n">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="s">"Hello World"</span><span class="o">);</span>
+            <span class="nc">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="s">"Hello World"</span><span class="o">);</span>
         <span class="o">}</span>
     <span class="o">}</span>
 
-    <span class="kd">public</span> <span class="kd">static</span> <span class="kt">void</span> <span class="nf">main</span><span class="o">(</span><span class="n">String</span><span class="o">[]</span> <span class="n">args</span><span class="o">)</span> <span class="o">{</span>
-        <span class="n">Thread</span> <span class="n">myThread</span> <span class="o">=</span> <span class="k">new</span> <span class="n">MyThread</span><span class="o">();</span>
+    <span class="kd">public</span> <span class="kd">static</span> <span class="kt">void</span> <span class="nf">main</span><span class="o">(</span><span class="nc">String</span><span class="o">[]</span> <span class="n">args</span><span class="o">)</span> <span class="o">{</span>
+        <span class="nc">Thread</span> <span class="n">myThread</span> <span class="o">=</span> <span class="k">new</span> <span class="nc">MyThread</span><span class="o">();</span>
 
         <span class="n">myThread</span><span class="o">.</span><span class="na">start</span><span class="o">();</span>
     <span class="o">}</span>
@@ -494,19 +501,19 @@
 
 <h2 id="runnableインターフェースでスレッドを実装">Runnableインターフェースでスレッドを実装</h2>
 
-<p><code class="highlighter-rouge">Runnable</code>をコンストラクタとして通してスレッドを作ることができます。</p>
+<p><code class="language-plaintext highlighter-rouge">Runnable</code>をコンストラクタとして通してスレッドを作ることができます。</p>
 
 <div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kd">public</span> <span class="kd">class</span> <span class="nc">StartThread</span> <span class="o">{</span>
 
-    <span class="kd">public</span> <span class="kd">static</span> <span class="kd">class</span> <span class="nc">MyRunnable</span> <span class="kd">implements</span> <span class="n">Runnable</span> <span class="o">{</span>
+    <span class="kd">public</span> <span class="kd">static</span> <span class="kd">class</span> <span class="nc">MyRunnable</span> <span class="kd">implements</span> <span class="nc">Runnable</span> <span class="o">{</span>
         <span class="nd">@Override</span>
         <span class="kd">public</span> <span class="kt">void</span> <span class="nf">run</span><span class="o">()</span> <span class="o">{</span>
-            <span class="n">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="s">"Hello again"</span><span class="o">);</span>
+            <span class="nc">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="s">"Hello again"</span><span class="o">);</span>
         <span class="o">}</span>
     <span class="o">}</span>
 
-    <span class="kd">public</span> <span class="kd">static</span> <span class="kt">void</span> <span class="nf">main</span><span class="o">(</span><span class="n">String</span><span class="o">[]</span> <span class="n">args</span><span class="o">)</span> <span class="o">{</span>
-        <span class="n">Thread</span> <span class="n">myThread1</span> <span class="o">=</span> <span class="k">new</span> <span class="n">Thread</span><span class="o">(</span><span class="k">new</span> <span class="n">MyRunnable</span><span class="o">());</span>
+    <span class="kd">public</span> <span class="kd">static</span> <span class="kt">void</span> <span class="nf">main</span><span class="o">(</span><span class="nc">String</span><span class="o">[]</span> <span class="n">args</span><span class="o">)</span> <span class="o">{</span>
+        <span class="nc">Thread</span> <span class="n">myThread1</span> <span class="o">=</span> <span class="k">new</span> <span class="nc">Thread</span><span class="o">(</span><span class="k">new</span> <span class="nc">MyRunnable</span><span class="o">());</span>
 
         <span class="n">myThread1</span><span class="o">.</span><span class="na">start</span><span class="o">();</span>
     <span class="o">}</span>
@@ -519,7 +526,7 @@
 <ul>
   <li>New
     <ul>
-      <li>スレッドが作られて、まだ実行(<code class="highlighter-rouge">run</code>)されていない状態。</li>
+      <li>スレッドが作られて、まだ実行(<code class="language-plaintext highlighter-rouge">run</code>)されていない状態。</li>
     </ul>
   </li>
   <li>Runnable
@@ -562,11 +569,11 @@
   <span class="o">}</span>
 </code></pre></div></div>
 
-<p>上記のクラスでは<code class="highlighter-rouge">add</code>メソッドがクリティカルセクションになります。</p>
+<p>上記のクラスでは<code class="language-plaintext highlighter-rouge">add</code>メソッドがクリティカルセクションになります。</p>
 
 <h2 id="競合状態">競合状態</h2>
 
-<p>上のクリティカルセクションを2つのスレッドAとBで実行されます。まずスレッドAとBがレジスターに<code class="highlighter-rouge">this.count = 0</code>を読み込みます。まずスレッドAが読み込まれた<code class="highlighter-rouge">this.count</code>に2を足します。その後、スレッドBが読み込まれた<code class="highlighter-rouge">this.count</code>に3を足します。この場合、最終的な結果は<code class="highlighter-rouge">this.count = 5</code>ではなく、<code class="highlighter-rouge">this.count = 3</code>になります。</p>
+<p>上のクリティカルセクションを2つのスレッドAとBで実行されます。まずスレッドAとBがレジスターに<code class="language-plaintext highlighter-rouge">this.count = 0</code>を読み込みます。まずスレッドAが読み込まれた<code class="language-plaintext highlighter-rouge">this.count</code>に2を足します。その後、スレッドBが読み込まれた<code class="language-plaintext highlighter-rouge">this.count</code>に3を足します。この場合、最終的な結果は<code class="language-plaintext highlighter-rouge">this.count = 5</code>ではなく、<code class="language-plaintext highlighter-rouge">this.count = 3</code>になります。</p>
 
 <p>上記のように複数のスレッドが同じリソースを取り合うことを競合状態といいます。</p>
 
@@ -574,7 +581,7 @@
 
 <p>競合状態を防ぐ一つの方法にはクリティカルセクションを不可分操作(atomic)状態にするというのがあります。つまり、一つのスレッドが実行中には他のスレッドが実行できない状態にします。</p>
 
-<p>これを実現するにはクリティカルセクションでスレッド同期を行います。スレッド同期を行うこと以外ではスレッドロックや<code class="highlighter-rouge">java.util.concurrent.atomic.AtomicInteger</code>などの不可分操作変数を使うことができます。</p>
+<p>これを実現するにはクリティカルセクションでスレッド同期を行います。スレッド同期を行うこと以外ではスレッドロックや<code class="language-plaintext highlighter-rouge">java.util.concurrent.atomic.AtomicInteger</code>などの不可分操作変数を使うことができます。</p>
 
 <h1 id="スレッドセーフと共有リソース">スレッドセーフと共有リソース</h1>
 
@@ -594,7 +601,7 @@
 
 <h1 id="synchronizedキーワードで同期ブロック">synchronizedキーワードで同期ブロック</h1>
 
-<p>Javaの同期ブロックはすべて<code class="highlighter-rouge">synchronized</code>のメソッド修飾子で実装できます。</p>
+<p>Javaの同期ブロックはすべて<code class="language-plaintext highlighter-rouge">synchronized</code>のメソッド修飾子で実装できます。</p>
 
 <div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code>  <span class="kd">public</span> <span class="kd">synchronized</span> <span class="kt">void</span> <span class="nf">add</span><span class="o">(</span><span class="kt">int</span> <span class="n">value</span><span class="o">){</span>
       <span class="k">this</span><span class="o">.</span><span class="na">count</span> <span class="o">+=</span> <span class="n">value</span><span class="o">;</span>
@@ -615,7 +622,7 @@
 
 <h1 id="volatileキーワード">volatileキーワード</h1>
 
-<p>Volatileとは揮発性という意味です。プログラミングにおいては値が変更されていないようにみえてもアクセスする度に変わっているという意味になります。Javaの<code class="highlighter-rouge">volatile</code>キーワードは変数がCPUキャッシュにではなくメインメモリに保存されていることを保証をします。</p>
+<p>Volatileとは揮発性という意味です。プログラミングにおいては値が変更されていないようにみえてもアクセスする度に変わっているという意味になります。Javaの<code class="language-plaintext highlighter-rouge">volatile</code>キーワードは変数がCPUキャッシュにではなくメインメモリに保存されていることを保証をします。</p>
 
 <p>例えば以下のような共有されている変数があるとします。</p>
 
@@ -626,7 +633,7 @@
 <span class="o">}</span>
 </code></pre></div></div>
 
-<p>スレッド1は<code class="highlighter-rouge">counter</code>をインクリメントします。スレッド1とスレッド2は度々<code class="highlighter-rouge">counter</code>を読みます。もし<code class="highlighter-rouge">counter</code>が<code class="highlighter-rouge">volatile</code>だと宣言されていない場合は、メインメモリからではなく、CPUキャッシュから値が読まれる恐れがあります。以下の図がこのシチューションを表しています。</p>
+<p>スレッド1は<code class="language-plaintext highlighter-rouge">counter</code>をインクリメントします。スレッド1とスレッド2は度々<code class="language-plaintext highlighter-rouge">counter</code>を読みます。もし<code class="language-plaintext highlighter-rouge">counter</code>が<code class="language-plaintext highlighter-rouge">volatile</code>だと宣言されていない場合は、メインメモリからではなく、CPUキャッシュから値が読まれる恐れがあります。以下の図がこのシチューションを表しています。</p>
 
 <p><img src="/assets/images/2019/java-volatile-2.png" alt="" /></p>
 
@@ -634,27 +641,27 @@
 
 <h2 id="volatileだけでは十分じゃない場合">volatileだけでは十分じゃない場合</h2>
 
-<p>スレッドが<code class="highlighter-rouge">volatile</code>な変数を読み込んで、それを元に新しい値に更新してしまうと、その変数は固定されるのを保証されません。変数を読み込んで書き込むまでの間に他のスレッドが書き込む可能性があり、競合状態が発生します。</p>
+<p>スレッドが<code class="language-plaintext highlighter-rouge">volatile</code>な変数を読み込んで、それを元に新しい値に更新してしまうと、その変数は固定されるのを保証されません。変数を読み込んで書き込むまでの間に他のスレッドが書き込む可能性があり、競合状態が発生します。</p>
 
 <h1 id="threadlocal">ThreadLocal</h1>
 
-<p><code class="highlighter-rouge">ThreadLocal</code>クラスは一つのスレッドにしか読み書きできない変数を作るのに使います。もし2つのスレッドが同じ<code class="highlighter-rouge">ThreadLocal</code>の参照を読み込むと2つのスレッドは互いの<code class="highlighter-rouge">ThreadLocal</code>変数にアクセスできません。</p>
+<p><code class="language-plaintext highlighter-rouge">ThreadLocal</code>クラスは一つのスレッドにしか読み書きできない変数を作るのに使います。もし2つのスレッドが同じ<code class="language-plaintext highlighter-rouge">ThreadLocal</code>の参照を読み込むと2つのスレッドは互いの<code class="language-plaintext highlighter-rouge">ThreadLocal</code>変数にアクセスできません。</p>
 
-<h2 id="threadlocal変数の作成"><code class="highlighter-rouge">ThreadLocal</code>変数の作成</h2>
+<h2 id="threadlocal変数の作成"><code class="language-plaintext highlighter-rouge">ThreadLocal</code>変数の作成</h2>
 
-<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kd">private</span> <span class="n">ThreadLocal</span> <span class="n">myThreadLocal</span> <span class="o">=</span> <span class="k">new</span> <span class="n">ThreadLocal</span><span class="o">();</span>
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kd">private</span> <span class="nc">ThreadLocal</span> <span class="n">myThreadLocal</span> <span class="o">=</span> <span class="k">new</span> <span class="nc">ThreadLocal</span><span class="o">();</span>
 </code></pre></div></div>
 
-<h2 id="threadlocal変数へのアクセス"><code class="highlighter-rouge">ThreadLocal</code>変数へのアクセス</h2>
+<h2 id="threadlocal変数へのアクセス"><code class="language-plaintext highlighter-rouge">ThreadLocal</code>変数へのアクセス</h2>
 
-<p><code class="highlighter-rouge">ThreadLocal</code>変数が作成されると以下のように値を設定できます。</p>
+<p><code class="language-plaintext highlighter-rouge">ThreadLocal</code>変数が作成されると以下のように値を設定できます。</p>
 
 <div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">myThreadLocal</span><span class="o">.</span><span class="na">set</span><span class="o">(</span><span class="s">"A thread local value"</span><span class="o">);</span>
 </code></pre></div></div>
 
 <p>値を読み込むには:</p>
 
-<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">String</span> <span class="n">threadLocalValue</span> <span class="o">=</span> <span class="o">(</span><span class="n">String</span><span class="o">)</span> <span class="n">myThreadLocal</span><span class="o">.</span><span class="na">get</span><span class="o">();</span>
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nc">String</span> <span class="n">threadLocalValue</span> <span class="o">=</span> <span class="o">(</span><span class="nc">String</span><span class="o">)</span> <span class="n">myThreadLocal</span><span class="o">.</span><span class="na">get</span><span class="o">();</span>
 </code></pre></div></div>
 
 <h1 id="スレッドシグナリング">スレッドシグナリング</h1>
@@ -684,7 +691,7 @@
 
 <h2 id="wait-notify-notifyall">wait() notify() notifyAll()</h2>
 
-<p><code class="highlighter-rouge">java.lang.Object</code>にはシグナルを待機しているスレッドを非アクティブ化するメカニズムがあります。<code class="highlighter-rouge">wait()</code>をオブジェクトに呼び出すスレッドは他のスレッドがそのオブジェクトが<code class="highlighter-rouge">notify()</code>を実行するまで非アクティブになります。</p>
+<p><code class="language-plaintext highlighter-rouge">java.lang.Object</code>にはシグナルを待機しているスレッドを非アクティブ化するメカニズムがあります。<code class="language-plaintext highlighter-rouge">wait()</code>をオブジェクトに呼び出すスレッドは他のスレッドがそのオブジェクトが<code class="language-plaintext highlighter-rouge">notify()</code>を実行するまで非アクティブになります。</p>
 
 <h1 id="デッドロック">デッドロック</h1>
 
@@ -692,13 +699,13 @@
 
 <h1 id="スレッド優先順位">スレッド優先順位</h1>
 
-<p>スレッドの優先順位は<code class="highlighter-rouge">setPriority</code>で設定できます。設定が高いほうが先に実行されます。優先順位には1から10までintが使えます。</p>
+<p>スレッドの優先順位は<code class="language-plaintext highlighter-rouge">setPriority</code>で設定できます。設定が高いほうが先に実行されます。優先順位には1から10までintが使えます。</p>
 
 <div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kd">public</span> <span class="kd">class</span> <span class="nc">StartThread</span> <span class="o">{</span>
 
-    <span class="kd">public</span> <span class="kd">static</span> <span class="kt">void</span> <span class="nf">main</span><span class="o">(</span><span class="n">String</span><span class="o">[]</span> <span class="n">args</span><span class="o">)</span> <span class="o">{</span>
-        <span class="n">Thread</span> <span class="n">myThread</span> <span class="o">=</span> <span class="k">new</span> <span class="n">Thread</span><span class="o">();</span>
-        <span class="n">Thread</span> <span class="n">myThread1</span> <span class="o">=</span> <span class="k">new</span> <span class="n">Thread</span><span class="o">();</span>
+    <span class="kd">public</span> <span class="kd">static</span> <span class="kt">void</span> <span class="nf">main</span><span class="o">(</span><span class="nc">String</span><span class="o">[]</span> <span class="n">args</span><span class="o">)</span> <span class="o">{</span>
+        <span class="nc">Thread</span> <span class="n">myThread</span> <span class="o">=</span> <span class="k">new</span> <span class="nc">Thread</span><span class="o">();</span>
+        <span class="nc">Thread</span> <span class="n">myThread1</span> <span class="o">=</span> <span class="k">new</span> <span class="nc">Thread</span><span class="o">();</span>
 
         <span class="n">myThread</span><span class="o">.</span><span class="na">setPriority</span><span class="o">(</span><span class="mi">5</span><span class="o">);</span>
         <span class="n">myThread</span><span class="o">.</span><span class="na">setPriority</span><span class="o">(</span><span class="mi">1</span><span class="o">);</span>
@@ -706,11 +713,11 @@
 <span class="o">}</span>
 </code></pre></div></div>
 
-<p>上の場合は、<code class="highlighter-rouge">myThread</code>が先に実行されます。</p>
+<p>上の場合は、<code class="language-plaintext highlighter-rouge">myThread</code>が先に実行されます。</p>
 
 <h1 id="join">join</h1>
 
-<p><code class="highlighter-rouge">join()</code>メソッドでスレッドが終わるまで他のスレッドが実行されないよう保証します。<code class="highlighter-rouge">thread1.join()</code>でthread1が実行中の時、thread1が実行を終えるまで他のスレッドを実行しません。イメージとしては、スレッド同士をつなげたいときに使います。</p>
+<p><code class="language-plaintext highlighter-rouge">join()</code>メソッドでスレッドが終わるまで他のスレッドが実行されないよう保証します。<code class="language-plaintext highlighter-rouge">thread1.join()</code>でthread1が実行中の時、thread1が実行を終えるまで他のスレッドを実行しません。イメージとしては、スレッド同士をつなげたいときに使います。</p>
 
 <h1 id="生産者消費者問題">生産者消費者問題</h1>
 
@@ -724,7 +731,7 @@
 
 <p>消費者スレッドはキューがいっぱいになると生産者スレッドをブロックします。(これ以上商品を足すのを防ぐため。)逆に、生産者スレッドはキューが空になると消費者スレッドをブロックするよう実装します。</p>
 
-<p>これらはいちいちスレッドシグナリングを実行しなくても<code class="highlighter-rouge">java.util.concurrent.BlockingQueue</code>で簡単に実装できてしまいます。</p>
+<p>これらはいちいちスレッドシグナリングを実行しなくても<code class="language-plaintext highlighter-rouge">java.util.concurrent.BlockingQueue</code>で簡単に実装できてしまいます。</p>
 
 <p><img src="/assets/images/2019/producer_consumer.jpg" alt="" /></p>
 
