@@ -2,7 +2,7 @@
 title:  "Advent of Codeのすすめ"
 date:   2019-12-01 22:00:00 +1000
 categories: programming
-tags: event
+tags: event Ruby
 author: "RW"
 excerpt: "Advent of Codeとは"
 ---
