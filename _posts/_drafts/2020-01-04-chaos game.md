@@ -26,7 +26,7 @@ excerpt: "Javaの並列化について"
 ```python
 cg = ChaosGameRegularPolygon(3)
 cg.chaos_game(100000, 0.5)
-cg.generate_heatmap(save=True)
+cg.generate_heatmap(save='sample.png')
 ```
 
 ![](../../assets/images/2020/chaos_game_1.png)
@@ -53,7 +53,7 @@ cg.generate_heatmap(save=True)
 
 何を変えるか:
 - 最初の多角形
-- 中点を取るのではなく、何かの係数を取る
+- 中点を取るのではなく、何かの係数を取る(係数とは)
 - 多次元への拡張
 - ランダムな頂点を選ぶのではなく、選べる頂点を制限する
   - 現在の頂点は次選べない
@@ -62,3 +62,14 @@ cg.generate_heatmap(save=True)
 
 ### 改変カオスゲームを試す
 
+5角形で、係数を0.5、制限を現在の頂点は次選べないことにします。
+
+```python
+cg = ChaosGameRegularPolygon(5)
+cg.chaos_game_restricted(1000000, 0.5, 2)
+cg.generate_heatmap(save='sample.png')
+```
+
+![](../../assets/images/2020/chaos_game_2.png)
+
+綺麗ですね(小並感)。雪の結晶みたいなフラクタルができました。
