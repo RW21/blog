@@ -1,10 +1,135 @@
-<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="3.8.5">Jekyll</generator><link href="http://localhost:4000/feed.xml" rel="self" type="application/atom+xml" /><link href="http://localhost:4000/" rel="alternate" type="text/html" /><updated>2019-12-09T10:56:02+10:00</updated><id>http://localhost:4000/feed.xml</id><title type="html">RW21 Blog</title><subtitle>Write an awesome description for your new site here. You can edit this line in _config.yml. It will appear in your document head meta (for Google search results) and in your feed.xml site description.</subtitle><entry><title type="html">Advent of Codeのすすめ</title><link href="http://localhost:4000/programming/Advent-of-code%E3%81%AE%E3%81%99%E3%81%99%E3%82%81/" rel="alternate" type="text/html" title="Advent of Codeのすすめ" /><published>2019-12-01T22:00:00+10:00</published><updated>2019-12-01T22:00:00+10:00</updated><id>http://localhost:4000/programming/Advent-of-code%E3%81%AE%E3%81%99%E3%81%99%E3%82%81</id><content type="html" xml:base="http://localhost:4000/programming/Advent-of-code%E3%81%AE%E3%81%99%E3%81%99%E3%82%81/">&lt;p&gt;毎年クリスマスシーズンに行われる&lt;a href=&quot;https://adventofcode.com/&quot;&gt;Advent of Code&lt;/a&gt;というのをやってます。ちなみに自分は初耳なんですけど、&lt;a href=&quot;https://en.wikipedia.org/wiki/Advent&quot;&gt;advent&lt;/a&gt;というのは12月1日から24日までのキリスト教のキリストの再臨を準備する期間のことなんですね。&lt;/p&gt;
+<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="3.8.5">Jekyll</generator><link href="http://localhost:4000/feed.xml" rel="self" type="application/atom+xml" /><link href="http://localhost:4000/" rel="alternate" type="text/html" /><updated>2020-01-05T10:48:56+09:00</updated><id>http://localhost:4000/feed.xml</id><title type="html">RW21 Blog</title><subtitle>Write an awesome description for your new site here. You can edit this line in _config.yml. It will appear in your document head meta (for Google search results) and in your feed.xml site description.</subtitle><entry><title type="html">カオスゲーム part1</title><link href="http://localhost:4000/maths/programming/chaos-game/" rel="alternate" type="text/html" title="カオスゲーム part1" /><published>2020-01-04T21:00:00+09:00</published><updated>2020-01-04T21:00:00+09:00</updated><id>http://localhost:4000/maths/programming/chaos%20game</id><content type="html" xml:base="http://localhost:4000/maths/programming/chaos-game/">&lt;p&gt;カオスゲームって知ってますか？カオスゲームは多角形内のランダムな点等をシードにするフラクタルの生成方法です。&lt;/p&gt;
+
+&lt;h2 id=&quot;メソッド&quot;&gt;メソッド&lt;/h2&gt;
+
+&lt;ol&gt;
+  &lt;li&gt;多角形内にランダムな点を取る。&lt;/li&gt;
+  &lt;li&gt;多角形のランダムな頂点から1.の点までの中心点を取る。&lt;/li&gt;
+  &lt;li&gt;1-2を繰り返す。&lt;/li&gt;
+&lt;/ol&gt;
+
+&lt;p&gt;このメソッドで最もスタンダードなフラクタルが生成できます。&lt;/p&gt;
+
+&lt;p&gt;例えば正三角形をベースに上のメソッドを使うと&lt;a href=&quot;https://ja.wikipedia.org/wiki/シェルピンスキーのギャスケット&quot;&gt;シェルピンスキーのギャスケット&lt;/a&gt;がフラクタルとして出現します。&lt;/p&gt;
+
+&lt;h2 id=&quot;シェルピンスキーのギャスケット&quot;&gt;シェルピンスキーのギャスケット&lt;/h2&gt;
+
+&lt;p&gt;自家製の&lt;a href=&quot;https://github.com/RW21/fractal-art&quot;&gt;カオスゲームフラクタル生成ライブラリ&lt;/a&gt;で作ったシェルピンスキーのギャスケットです。&lt;/p&gt;
+
+&lt;div class=&quot;language-python highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;n&quot;&gt;cg&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;ChaosGameRegularPolygon&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;3&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+&lt;span class=&quot;n&quot;&gt;cg&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;chaos_game&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;100000&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;mf&quot;&gt;0.5&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+&lt;span class=&quot;n&quot;&gt;cg&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;generate_heatmap&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;save&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;'sample.png'&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;&lt;img src=&quot;/assets/images/2020/chaos_game_1.png&quot; alt=&quot;&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;綺麗ですね(小並感)。&lt;/p&gt;
+
+&lt;p&gt;この自己相似的な図形を作る正規のメソッドは:&lt;/p&gt;
+
+&lt;div class=&quot;language-plaintext highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;正三角形を用意する。
+正三角形の各辺の中点を互いに結んでできた中央の正三角形を切り取る。
+残った正三角形に対して2の手順を無限に繰り返す。
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;以上の通りです。&lt;/p&gt;
+
+&lt;h2 id=&quot;シェルピンスキーのギャスケットが出現するわけ&quot;&gt;シェルピンスキーのギャスケットが出現するわけ&lt;/h2&gt;
+
+&lt;p&gt;&lt;img src=&quot;/assets/images/2020/chaos_game_5.jpg&quot; alt=&quot;&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;最初の点がどこでも、ステップを踏むごとに小さな三角形に移動していきます。これが何ステップも進むとミクロな見えない点に入り、繰り返されるとシェルピンスキーのギャスケットが出来ます。&lt;/p&gt;
+
+&lt;h2 id=&quot;改変カオスゲーム&quot;&gt;改変カオスゲーム&lt;/h2&gt;
+
+&lt;p&gt;上記のカオスゲームを少しばかり変えると様々なフラクタルができます。&lt;/p&gt;
+
+&lt;p&gt;何を変えるか:&lt;/p&gt;
+&lt;ul&gt;
+  &lt;li&gt;最初の多角形&lt;/li&gt;
+  &lt;li&gt;中点を取るのではなく、何かの係数を取る&lt;/li&gt;
+  &lt;li&gt;多次元への拡張&lt;/li&gt;
+  &lt;li&gt;ランダムな頂点を選ぶのではなく、選べる頂点を制限する
+    &lt;ul&gt;
+      &lt;li&gt;現在の頂点は次選べない&lt;/li&gt;
+      &lt;li&gt;次の頂点は現在から2つ以上離れてないといけない&lt;/li&gt;
+      &lt;li&gt;etc.&lt;/li&gt;
+    &lt;/ul&gt;
+  &lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h3 id=&quot;改変カオスゲームを試す&quot;&gt;改変カオスゲームを試す&lt;/h3&gt;
+
+&lt;p&gt;五角形で、係数を0.5、制限を現在の頂点は次選べないことにします。&lt;/p&gt;
+
+&lt;div class=&quot;language-python highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;n&quot;&gt;cg&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;ChaosGameRegularPolygon&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;5&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+&lt;span class=&quot;n&quot;&gt;cg&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;chaos_game_restricted&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;1000000&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;mf&quot;&gt;0.5&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;2&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+&lt;span class=&quot;n&quot;&gt;cg&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;generate_heatmap&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;save&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;'sample.png'&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;&lt;img src=&quot;/assets/images/2020/chaos_game_2.png&quot; alt=&quot;&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;綺麗ですね(小並感)。雪の結晶みたいなフラクタルができました。よく見ると、少し蜘蛛っぽくてキモいですね。&lt;/p&gt;
+
+&lt;p&gt;続いて、四角形で係数を0.5、制限を次の頂点は現在のから2つ離れてるのを選べないことにします。&lt;/p&gt;
+
+&lt;div class=&quot;language-python highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;n&quot;&gt;cg&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;ChaosGameRegularPolygon&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;4&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+&lt;span class=&quot;n&quot;&gt;cg&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;chaos_game_restricted&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;1000000&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;mf&quot;&gt;0.5&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;2&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+&lt;span class=&quot;n&quot;&gt;cg&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;generate_heatmap&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;save&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;'sample.png'&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;&lt;img src=&quot;/assets/images/2020/chaos_game_3.png&quot; alt=&quot;&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;綺麗ですね(小並感)。通常のカオスゲームでは四角形は以下のようなランダムなノイズしかできません。制限を設けると面白いフラクタルが色々出てきます。&lt;/p&gt;
+
+&lt;div class=&quot;language-python highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;n&quot;&gt;cg&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;ChaosGameRegularPolygon&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;4&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+&lt;span class=&quot;n&quot;&gt;cg&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;chaos_game&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;1000000&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;mf&quot;&gt;0.5&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+&lt;span class=&quot;n&quot;&gt;cg&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;generate_heatmap&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;save&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;'sample.png'&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;&lt;img src=&quot;/assets/images/2020/chaos_game_4.png&quot; alt=&quot;&quot; /&gt;&lt;/p&gt;
+
+&lt;h2 id=&quot;拡張&quot;&gt;拡張&lt;/h2&gt;
+
+&lt;p&gt;正多角形以外でカオスゲームをやったり、三次元、多次元の立体にカオスゲームを適用するとまた興味深いフラクタルが出てきます。これらは次回紹介したいと思います。&lt;/p&gt;</content><author><name>RW</name></author><category term="Python" /><category term="chaos" /><category term="fractal" /><summary type="html">カオスゲームの紹介</summary></entry><entry><title type="html">タスク管理をゲーム化するHabitica</title><link href="http://localhost:4000/productivity/task-management-habitica/" rel="alternate" type="text/html" title="タスク管理をゲーム化するHabitica" /><published>2019-12-08T21:00:00+09:00</published><updated>2019-12-08T21:00:00+09:00</updated><id>http://localhost:4000/productivity/task-management-habitica</id><content type="html" xml:base="http://localhost:4000/productivity/task-management-habitica/">&lt;p&gt;最近Habiticaというタスク管理をゲーム化するサービスを使い始めました。また、普通のタスク管理サービスとしても多機能です。&lt;/p&gt;
+
+&lt;p&gt;ただ、少し分かりにくいのが今のところ唯一の問題。それを踏まえても、今までで使ったタスク管理サービスの中では一番いい気がする。&lt;/p&gt;
+
+&lt;h2 id=&quot;ゲーム化&quot;&gt;ゲーム化&lt;/h2&gt;
+
+&lt;p&gt;Habiticaではキャラクターを作って、タスクを完了することで経験値がもらえ、敵にダメージを与えられます。経験値でレベルアップしたり、クラスを選んだりすることができ、この点はよくあるRPGゲームと同じ。&lt;/p&gt;
+
+&lt;h3 id=&quot;タスク&quot;&gt;タスク&lt;/h3&gt;
+
+&lt;p&gt;基本的にはDaily、Todo、Habitの3種類のタスクを設定できます。&lt;/p&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;Daily
+    &lt;ul&gt;
+      &lt;li&gt;定期的にやらないとダメージを受けるタスク。&lt;/li&gt;
+    &lt;/ul&gt;
+  &lt;/li&gt;
+  &lt;li&gt;Todo
+    &lt;ul&gt;
+      &lt;li&gt;普通のTodo&lt;/li&gt;
+    &lt;/ul&gt;
+  &lt;/li&gt;
+  &lt;li&gt;Habit
+    &lt;ul&gt;
+      &lt;li&gt;習慣にしたいタスク。ネガティブな習慣(ダメージを受ける)とポジティブな習慣の2つがある。&lt;/li&gt;
+    &lt;/ul&gt;
+  &lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h3 id=&quot;ゲーム化するメリット&quot;&gt;ゲーム化するメリット&lt;/h3&gt;
+
+&lt;p&gt;パーティーを組んでクエストをやる際に、自分の受けるダメージをパーティー全員が受けるので、連帯責任が生まれます。&lt;/p&gt;</content><author><name>RW</name></author><category term="app" /><category term="game" /><summary type="html">Habiticaの使い方など</summary></entry><entry><title type="html">Advent of Codeのすすめ</title><link href="http://localhost:4000/programming/Advent-of-code%E3%81%AE%E3%81%99%E3%81%99%E3%82%81/" rel="alternate" type="text/html" title="Advent of Codeのすすめ" /><published>2019-12-01T21:00:00+09:00</published><updated>2019-12-01T21:00:00+09:00</updated><id>http://localhost:4000/programming/Advent-of-code%E3%81%AE%E3%81%99%E3%81%99%E3%82%81</id><content type="html" xml:base="http://localhost:4000/programming/Advent-of-code%E3%81%AE%E3%81%99%E3%81%99%E3%82%81/">&lt;p&gt;毎年クリスマスシーズンに行われる&lt;a href=&quot;https://adventofcode.com/&quot;&gt;Advent of Code&lt;/a&gt;というのをやってます。ちなみに自分は初耳なんですけど、&lt;a href=&quot;https://en.wikipedia.org/wiki/Advent&quot;&gt;advent&lt;/a&gt;というのは12月1日から24日までのキリスト教のキリストの再臨を準備する期間のことなんですね。&lt;/p&gt;
 
 &lt;p&gt;Advent of Codeというのは毎年開催されてる、Advent中に毎日コードを使って様々なパズルみたいな問題を解くものです。問題の回答にはコードの提出は含まれてません、つまり、どんなマイナーな言語、どんなやり方でやっても問題ないわけです。これらの問題は一つの物語になっていて、やっていて面白いです。今年(2019)の物語はサンタさんがロケットを使って宇宙にプレゼントを届けるような話だと思います。&lt;/p&gt;
 
 &lt;p&gt;Advent of Codeの問題は全て英語で、一つ一つがかなり分かりづらいです。問題の難易度は様々でそれぞれ2つのパートに分かれてます。最初のパートを正解すれば、次のパートが出てきます。&lt;/p&gt;
 
-&lt;p&gt;自分のおすすめの挑み方は、新しいプログラミング言語の勉強として解くことです。出てくる問題は、ファイルIO、OOP、コントロールフロー、データ構造などの使い道が試され新しい言語の熟練度を上げるのに最適です。私は今これでRubyを勉強してます。コードは&lt;a href=&quot;https://github.com/RW21/advent-of-code-2019&quot;&gt;こちら&lt;/a&gt;。&lt;/p&gt;</content><author><name>RW</name></author><category term="event" /><category term="Ruby" /><summary type="html">Advent of Codeとは</summary></entry><entry><title type="html">C言語で複数プロセス間通信をする</title><link href="http://localhost:4000/programming/C-processes-fork/" rel="alternate" type="text/html" title="C言語で複数プロセス間通信をする" /><published>2019-09-27T22:00:00+10:00</published><updated>2019-09-27T22:00:00+10:00</updated><id>http://localhost:4000/programming/C-processes-fork</id><content type="html" xml:base="http://localhost:4000/programming/C-processes-fork/">&lt;p&gt;C99で複数のプロセスの間で通信をしたい!そういうときはパイプを使います。&lt;/p&gt;
+&lt;p&gt;自分のおすすめの挑み方は、新しいプログラミング言語の勉強として解くことです。出てくる問題は、ファイルIO、OOP、コントロールフロー、データ構造などの使い道が試され新しい言語の熟練度を上げるのに最適です。私は今これでRubyを勉強してます。コードは&lt;a href=&quot;https://github.com/RW21/advent-of-code-2019&quot;&gt;こちら&lt;/a&gt;。&lt;/p&gt;</content><author><name>RW</name></author><category term="event" /><category term="Ruby" /><summary type="html">Advent of Codeとは</summary></entry><entry><title type="html">C言語で複数プロセス間通信をする</title><link href="http://localhost:4000/programming/C-processes-fork/" rel="alternate" type="text/html" title="C言語で複数プロセス間通信をする" /><published>2019-09-27T21:00:00+09:00</published><updated>2019-09-27T21:00:00+09:00</updated><id>http://localhost:4000/programming/C-processes-fork</id><content type="html" xml:base="http://localhost:4000/programming/C-processes-fork/">&lt;p&gt;C99で複数のプロセスの間で通信をしたい!そういうときはパイプを使います。&lt;/p&gt;
 
 &lt;h2 id=&quot;子プロセスの準備&quot;&gt;子プロセスの準備&lt;/h2&gt;
 
@@ -86,7 +211,7 @@ fgets(string, 128, stdin);
 read(fdIn[player * 2], string, sizeof(string));
 &lt;/code&gt;&lt;/pre&gt;
 
-&lt;p&gt;もしくは上記と同じようにファイルポインタとして開いて扱うことができます。&lt;/p&gt;</content><author><name>RW</name></author><category term="C" /><summary type="html">`fork` `pipe` を使ってプロセス間入出力</summary></entry><entry><title type="html">GoのHTTPアプリをDockerイメージに</title><link href="http://localhost:4000/programming/Go-http-docker/" rel="alternate" type="text/html" title="GoのHTTPアプリをDockerイメージに" /><published>2019-08-25T22:00:00+10:00</published><updated>2019-08-25T22:00:00+10:00</updated><id>http://localhost:4000/programming/Go-http-docker</id><content type="html" xml:base="http://localhost:4000/programming/Go-http-docker/">&lt;p&gt;SparkRDDのノードをDockerで運用することになったのでついでに久しぶりに使うDockerの基本的なところをおさらい。&lt;/p&gt;
+&lt;p&gt;もしくは上記と同じようにファイルポインタとして開いて扱うことができます。&lt;/p&gt;</content><author><name>RW</name></author><category term="C" /><summary type="html">`fork` `pipe` を使ってプロセス間入出力</summary></entry><entry><title type="html">GoのHTTPアプリをDockerイメージに</title><link href="http://localhost:4000/programming/Go-http-docker/" rel="alternate" type="text/html" title="GoのHTTPアプリをDockerイメージに" /><published>2019-08-25T21:00:00+09:00</published><updated>2019-08-25T21:00:00+09:00</updated><id>http://localhost:4000/programming/Go-http-docker</id><content type="html" xml:base="http://localhost:4000/programming/Go-http-docker/">&lt;p&gt;SparkRDDのノードをDockerで運用することになったのでついでに久しぶりに使うDockerの基本的なところをおさらい。&lt;/p&gt;
 
 &lt;h2 id=&quot;goで簡単なhttpサーバーを立ち上げる&quot;&gt;Goで簡単なHTTPサーバーを立ち上げる&lt;/h2&gt;
 
@@ -126,7 +251,7 @@ read(fdIn[player * 2], string, sizeof(string));
 &lt;span class=&quot;k&quot;&gt;CMD&lt;/span&gt;&lt;span class=&quot;s&quot;&gt; [&quot;./main&quot;]&lt;/span&gt;
 &lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
 
-&lt;p&gt;続く…&lt;/p&gt;</content><author><name>RW</name></author><category term="Go" /><category term="Docker" /><summary type="html">Dockerfileを作ろう</summary></entry><entry><title type="html">C言語のメモリ領域</title><link href="http://localhost:4000/programming/C%E8%A8%80%E8%AA%9E%E3%81%AE%E5%A4%89%E6%95%B0/" rel="alternate" type="text/html" title="C言語のメモリ領域" /><published>2019-08-02T22:00:00+10:00</published><updated>2019-08-02T22:00:00+10:00</updated><id>http://localhost:4000/programming/C%E8%A8%80%E8%AA%9E%E3%81%AE%E5%A4%89%E6%95%B0</id><content type="html" xml:base="http://localhost:4000/programming/C%E8%A8%80%E8%AA%9E%E3%81%AE%E5%A4%89%E6%95%B0/">&lt;h1 id=&quot;c言語の変数は一体どこに保存されているのか&quot;&gt;C言語の変数は一体どこに保存されているのか&lt;/h1&gt;
+&lt;p&gt;続く…&lt;/p&gt;</content><author><name>RW</name></author><category term="Go" /><category term="Docker" /><summary type="html">Dockerfileを作ろう</summary></entry><entry><title type="html">C言語のメモリ領域</title><link href="http://localhost:4000/programming/C%E8%A8%80%E8%AA%9E%E3%81%AE%E5%A4%89%E6%95%B0/" rel="alternate" type="text/html" title="C言語のメモリ領域" /><published>2019-08-02T21:00:00+09:00</published><updated>2019-08-02T21:00:00+09:00</updated><id>http://localhost:4000/programming/C%E8%A8%80%E8%AA%9E%E3%81%AE%E5%A4%89%E6%95%B0</id><content type="html" xml:base="http://localhost:4000/programming/C%E8%A8%80%E8%AA%9E%E3%81%AE%E5%A4%89%E6%95%B0/">&lt;h1 id=&quot;c言語の変数は一体どこに保存されているのか&quot;&gt;C言語の変数は一体どこに保存されているのか&lt;/h1&gt;
 
 &lt;p&gt;C言語の変数はすべてテキスト領域(code segment)、データ領域(静的領域、data segment)、そしてお馴染みのスタック領域とヒープ領域のどれかに保存されます。&lt;/p&gt;
 
@@ -187,7 +312,7 @@ read(fdIn[player * 2], string, sizeof(string));
   &lt;li&gt;&lt;a href=&quot;https://electronics.stackexchange.com/questions/237740/what-resides-in-the-different-memory-types-of-a-microcontroller/237759#237759&quot;&gt;https://electronics.stackexchange.com/questions/237740/what-resides-in-the-different-memory-types-of-a-microcontroller/237759#237759&lt;/a&gt;&lt;/li&gt;
   &lt;li&gt;&lt;a href=&quot;http://www.cs.uwm.edu/classes/cs315/Bacon/Lecture/HTML/ch10s04.html&quot;&gt;http://www.cs.uwm.edu/classes/cs315/Bacon/Lecture/HTML/ch10s04.html&lt;/a&gt;&lt;/li&gt;
   &lt;li&gt;&lt;a href=&quot;https://en.wikipedia.org/wiki/Data_segment&quot;&gt;https://en.wikipedia.org/wiki/Data_segment&lt;/a&gt;&lt;/li&gt;
-&lt;/ul&gt;</content><author><name>RW</name></author><category term="C" /><summary type="html">テキスト、データ、ヒープ、スタック領域について</summary></entry><entry><title type="html">無向グラフをクローンする</title><link href="http://localhost:4000/programming/%E7%84%A1%E5%90%91%E3%82%B0%E3%83%A9%E3%83%95%E3%82%92%E3%82%AF%E3%83%AD%E3%83%BC%E3%83%B3%E3%81%99%E3%82%8B/" rel="alternate" type="text/html" title="無向グラフをクローンする" /><published>2019-08-01T22:00:00+10:00</published><updated>2019-08-01T22:00:00+10:00</updated><id>http://localhost:4000/programming/%E7%84%A1%E5%90%91%E3%82%B0%E3%83%A9%E3%83%95%E3%82%92%E3%82%AF%E3%83%AD%E3%83%BC%E3%83%B3%E3%81%99%E3%82%8B</id><content type="html" xml:base="http://localhost:4000/programming/%E7%84%A1%E5%90%91%E3%82%B0%E3%83%A9%E3%83%95%E3%82%92%E3%82%AF%E3%83%AD%E3%83%BC%E3%83%B3%E3%81%99%E3%82%8B/">&lt;h1 id=&quot;無向グラフとは&quot;&gt;無向グラフとは&lt;/h1&gt;
+&lt;/ul&gt;</content><author><name>RW</name></author><category term="C" /><summary type="html">テキスト、データ、ヒープ、スタック領域について</summary></entry><entry><title type="html">無向グラフをクローンする</title><link href="http://localhost:4000/programming/%E7%84%A1%E5%90%91%E3%82%B0%E3%83%A9%E3%83%95%E3%82%92%E3%82%AF%E3%83%AD%E3%83%BC%E3%83%B3%E3%81%99%E3%82%8B/" rel="alternate" type="text/html" title="無向グラフをクローンする" /><published>2019-08-01T21:00:00+09:00</published><updated>2019-08-01T21:00:00+09:00</updated><id>http://localhost:4000/programming/%E7%84%A1%E5%90%91%E3%82%B0%E3%83%A9%E3%83%95%E3%82%92%E3%82%AF%E3%83%AD%E3%83%BC%E3%83%B3%E3%81%99%E3%82%8B</id><content type="html" xml:base="http://localhost:4000/programming/%E7%84%A1%E5%90%91%E3%82%B0%E3%83%A9%E3%83%95%E3%82%92%E3%82%AF%E3%83%AD%E3%83%BC%E3%83%B3%E3%81%99%E3%82%8B/">&lt;h1 id=&quot;無向グラフとは&quot;&gt;無向グラフとは&lt;/h1&gt;
 
 &lt;p&gt;無向グラフのデータ構造のクローンは簡単そうに見えて意外と簡単にはできません。下手に実装すると大変効率の悪いプログラムになってしまいます。&lt;/p&gt;
 
@@ -279,7 +404,7 @@ read(fdIn[player * 2], string, sizeof(string));
 
 &lt;p&gt;時間計算量 = O(ノードの数 + 辺の数)&lt;/p&gt;
 
-&lt;p&gt;空間計算量 = O(ノードの数 + 辺の数)&lt;/p&gt;</content><author><name>RW</name></author><category term="data_structure" /><category term="algorithm" /><summary type="html">BFSとハッシュテーブルを使った無向グラフのクローン</summary></entry><entry><title type="html">素数の並びからeが⁉</title><link href="http://localhost:4000/maths/e-from-prime/" rel="alternate" type="text/html" title="素数の並びからeが⁉" /><published>2019-07-13T22:00:00+10:00</published><updated>2019-07-13T22:00:00+10:00</updated><id>http://localhost:4000/maths/%20e%20from%20prime</id><content type="html" xml:base="http://localhost:4000/maths/e-from-prime/">&lt;script src=&quot;https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/latest.js?config=TeX-MML-AM_CHTML&quot; async=&quot;&quot;&gt;&lt;/script&gt;
+&lt;p&gt;空間計算量 = O(ノードの数 + 辺の数)&lt;/p&gt;</content><author><name>RW</name></author><category term="data_structure" /><category term="algorithm" /><summary type="html">BFSとハッシュテーブルを使った無向グラフのクローン</summary></entry><entry><title type="html">素数の並びからeが⁉</title><link href="http://localhost:4000/maths/e-from-prime/" rel="alternate" type="text/html" title="素数の並びからeが⁉" /><published>2019-07-13T21:00:00+09:00</published><updated>2019-07-13T21:00:00+09:00</updated><id>http://localhost:4000/maths/%20e%20from%20prime</id><content type="html" xml:base="http://localhost:4000/maths/e-from-prime/">&lt;script src=&quot;https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/latest.js?config=TeX-MML-AM_CHTML&quot; async=&quot;&quot;&gt;&lt;/script&gt;
 
 &lt;p&gt;素数を素数の間(&lt;script type=&quot;math/tex&quot;&gt;P_{n+1}- P_{1}&lt;/script&gt;)が増加するように並べ続けたときの列の項の平均が
 &lt;script type=&quot;math/tex&quot;&gt;e&lt;/script&gt;に収束する(かもしれない)という投稿を&lt;a href=&quot;https://www.reddit.com/r/math/comments/cbd0a7/found_e_in_the_primes_maybe/&quot;&gt;Reddit&lt;/a&gt;の\r\maths板で見つけた。&lt;/p&gt;
@@ -327,7 +452,7 @@ Total average value of each row: 163 / 60 = 2.71666... ≈ e
 
 &lt;h2 id=&quot;素数の並びはランダムではない&quot;&gt;素数の並びはランダムではない&lt;/h2&gt;
 
-&lt;p&gt;素数の平均の数列が&lt;script type=&quot;math/tex&quot;&gt;e&lt;/script&gt;に収束しないということは、つまり素数の並びは完全にランダムではないといえるのではないだろうか?&lt;/p&gt;</content><author><name>RW</name></author><category term="number_theory" /><summary type="html">そんなわけなかった</summary></entry><entry><title type="html">Java並列化</title><link href="http://localhost:4000/programming/java%E4%B8%A6%E5%88%97%E5%8C%96/" rel="alternate" type="text/html" title="Java並列化" /><published>2019-07-09T22:00:00+10:00</published><updated>2019-07-09T22:00:00+10:00</updated><id>http://localhost:4000/programming/%20java%E4%B8%A6%E5%88%97%E5%8C%96</id><content type="html" xml:base="http://localhost:4000/programming/java%E4%B8%A6%E5%88%97%E5%8C%96/">&lt;h1 id=&quot;はじめに&quot;&gt;はじめに&lt;/h1&gt;
+&lt;p&gt;素数の平均の数列が&lt;script type=&quot;math/tex&quot;&gt;e&lt;/script&gt;に収束しないということは、つまり素数の並びは完全にランダムではないといえるのではないだろうか?&lt;/p&gt;</content><author><name>RW</name></author><category term="number_theory" /><summary type="html">そんなわけなかった</summary></entry><entry><title type="html">Java並列化</title><link href="http://localhost:4000/programming/java%E4%B8%A6%E5%88%97%E5%8C%96/" rel="alternate" type="text/html" title="Java並列化" /><published>2019-07-09T21:00:00+09:00</published><updated>2019-07-09T21:00:00+09:00</updated><id>http://localhost:4000/programming/%20java%E4%B8%A6%E5%88%97%E5%8C%96</id><content type="html" xml:base="http://localhost:4000/programming/java%E4%B8%A6%E5%88%97%E5%8C%96/">&lt;h1 id=&quot;はじめに&quot;&gt;はじめに&lt;/h1&gt;
 
 &lt;p&gt;本記事ではJavaにおける並列処理を主に個人の備忘録、勉強用として雑に記しています。気が向いたら更新します。主にJavaの並列化に使うキーワードを紹介しています。&lt;/p&gt;
 
@@ -723,7 +848,7 @@ Total average value of each row: 163 / 60 = 2.71666... ≈ e
   &lt;li&gt;&lt;a href=&quot;http://tutorials.jenkov.com/java-concurrency/index.html&quot;&gt;Jenkov.com&lt;/a&gt;&lt;/li&gt;
   &lt;li&gt;&lt;a href=&quot;https://docs.oracle.com/javase/tutorial/essential/concurrency/&quot;&gt;Java documentation&lt;/a&gt;&lt;/li&gt;
   &lt;li&gt;&lt;a href=&quot;https://winterbe.com/posts/2015/04/07/java8-concurrency-tutorial-thread-executor-examples/&quot;&gt;Winterbe&lt;/a&gt;&lt;/li&gt;
-&lt;/ul&gt;</content><author><name>RW</name></author><category term="Java" /><summary type="html">Javaの並列化について</summary></entry><entry><title type="html">ブログを始める</title><link href="http://localhost:4000/personal/%E3%83%96%E3%83%AD%E3%82%B0%E3%81%AA%E3%81%A9/" rel="alternate" type="text/html" title="ブログを始める" /><published>2019-06-25T22:00:00+10:00</published><updated>2019-06-25T22:00:00+10:00</updated><id>http://localhost:4000/personal/%E3%83%96%E3%83%AD%E3%82%B0%E3%81%AA%E3%81%A9</id><content type="html" xml:base="http://localhost:4000/personal/%E3%83%96%E3%83%AD%E3%82%B0%E3%81%AA%E3%81%A9/">&lt;p&gt;Jenkyllでブログを始めることにした。ブログとはいっても個人的な備忘録などが中心になると思う。以下、ありきたりなブログの初投稿。&lt;/p&gt;
+&lt;/ul&gt;</content><author><name>RW</name></author><category term="Java" /><summary type="html">Javaの並列化について</summary></entry><entry><title type="html">ブログを始める</title><link href="http://localhost:4000/personal/%E3%83%96%E3%83%AD%E3%82%B0%E3%81%AA%E3%81%A9/" rel="alternate" type="text/html" title="ブログを始める" /><published>2019-06-25T21:00:00+09:00</published><updated>2019-06-25T21:00:00+09:00</updated><id>http://localhost:4000/personal/%E3%83%96%E3%83%AD%E3%82%B0%E3%81%AA%E3%81%A9</id><content type="html" xml:base="http://localhost:4000/personal/%E3%83%96%E3%83%AD%E3%82%B0%E3%81%AA%E3%81%A9/">&lt;p&gt;Jenkyllでブログを始めることにした。ブログとはいっても個人的な備忘録などが中心になると思う。以下、ありきたりなブログの初投稿。&lt;/p&gt;
 
 &lt;h1 id=&quot;jenkyll&quot;&gt;Jenkyll&lt;/h1&gt;
 &lt;p&gt;静的サイトジェネレーターのJenkyllとGithubPagesを使った。Jenkyllで色々なテーマを漁ったが自分にしっくり来るものがなかった。自分がブログに求めるのはカテゴリ分けと過去の投稿を簡単に振り返られるブログだがこれに合うテーマはなかなかない。(静的サイトだと難しいのだろう。)&lt;/p&gt;

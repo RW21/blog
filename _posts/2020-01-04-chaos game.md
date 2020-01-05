@@ -1,6 +1,6 @@
 ---
-title:  "カオスゲーム part 1"
-date:   2019-01-04 22:00:00 +1000
+title:  "カオスゲーム part1"
+date:   2020-01-04 22:00:00 +1000
 categories: maths programming
 tags: Python chaos fractal
 author: "RW"

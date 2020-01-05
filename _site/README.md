@@ -1,2 +1,3 @@
 # RW21 Blog
-雑多なブログ
+
+雑多なブログです。https://rw21.github.io
