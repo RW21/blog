@@ -259,17 +259,17 @@
 
       <section class="page__content" itemprop="text">
         
-        <p>カオスゲームって知ってますか？カオスゲームは多角形内のランダムな点等をシードにするフラクタルの生成方法です。</p>
+        <p>カオスゲームって知ってますか？カオスゲームとは多角形内のランダムな点等をシードにするフラクタルの生成方法です。</p>
 
 <h2 id="メソッド">メソッド</h2>
 
 <ol>
-  <li>多角形内にランダムな点を取る。</li>
+  <li>多角形内のランダムな点を取る。</li>
   <li>多角形のランダムな頂点から1.の点までの中心点を取る。</li>
   <li>1-2を繰り返す。</li>
 </ol>
 
-<p>このメソッドで最もスタンダードなフラクタルが生成できます。</p>
+<p>このメソッドでスタンダードなフラクタルが生成できます。</p>
 
 <p>例えば正三角形をベースに上のメソッドを使うと<a href="https://ja.wikipedia.org/wiki/シェルピンスキーのギャスケット">シェルピンスキーのギャスケット</a>がフラクタルとして出現します。</p>
 
@@ -313,7 +313,7 @@
   <li>ランダムな頂点を選ぶのではなく、選べる頂点を制限する
     <ul>
       <li>現在の頂点は次選べない</li>
-      <li>次の頂点は現在から2つ以上離れてないといけない</li>
+      <li>次の頂点は現在のから2つ以上離れてないといけない</li>
       <li>etc.</li>
     </ul>
   </li>
@@ -341,7 +341,7 @@
 
 <p><img src="/assets/images/2020/chaos_game_3.png" alt="" /></p>
 
-<p>綺麗ですね(小並感)。通常のカオスゲームでは四角形は以下のようなランダムなノイズしかできません。制限を設けると面白いフラクタルが色々出てきます。</p>
+<p>綺麗ですね(小並感)。結晶みたいです。通常のカオスゲームでは四角形は以下のようなランダムなノイズしかできません。制限を設けると面白いフラクタルが色々出てきます。</p>
 
 <div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">cg</span> <span class="o">=</span> <span class="n">ChaosGameRegularPolygon</span><span class="p">(</span><span class="mi">4</span><span class="p">)</span>
 <span class="n">cg</span><span class="o">.</span><span class="n">chaos_game</span><span class="p">(</span><span class="mi">1000000</span><span class="p">,</span> <span class="mf">0.5</span><span class="p">)</span>

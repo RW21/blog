@@ -1,14 +1,14 @@
-<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="3.8.5">Jekyll</generator><link href="http://localhost:4000/feed.xml" rel="self" type="application/atom+xml" /><link href="http://localhost:4000/" rel="alternate" type="text/html" /><updated>2020-01-05T10:48:56+09:00</updated><id>http://localhost:4000/feed.xml</id><title type="html">RW21 Blog</title><subtitle>Write an awesome description for your new site here. You can edit this line in _config.yml. It will appear in your document head meta (for Google search results) and in your feed.xml site description.</subtitle><entry><title type="html">カオスゲーム part1</title><link href="http://localhost:4000/maths/programming/chaos-game/" rel="alternate" type="text/html" title="カオスゲーム part1" /><published>2020-01-04T21:00:00+09:00</published><updated>2020-01-04T21:00:00+09:00</updated><id>http://localhost:4000/maths/programming/chaos%20game</id><content type="html" xml:base="http://localhost:4000/maths/programming/chaos-game/">&lt;p&gt;カオスゲームって知ってますか？カオスゲームは多角形内のランダムな点等をシードにするフラクタルの生成方法です。&lt;/p&gt;
+<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="3.8.5">Jekyll</generator><link href="http://localhost:4000/feed.xml" rel="self" type="application/atom+xml" /><link href="http://localhost:4000/" rel="alternate" type="text/html" /><updated>2020-01-05T15:33:22+09:00</updated><id>http://localhost:4000/feed.xml</id><title type="html">RW21 Blog</title><subtitle>Write an awesome description for your new site here. You can edit this line in _config.yml. It will appear in your document head meta (for Google search results) and in your feed.xml site description.</subtitle><entry><title type="html">カオスゲーム part1</title><link href="http://localhost:4000/maths/programming/chaos-game/" rel="alternate" type="text/html" title="カオスゲーム part1" /><published>2020-01-04T21:00:00+09:00</published><updated>2020-01-04T21:00:00+09:00</updated><id>http://localhost:4000/maths/programming/chaos%20game</id><content type="html" xml:base="http://localhost:4000/maths/programming/chaos-game/">&lt;p&gt;カオスゲームって知ってますか？カオスゲームとは多角形内のランダムな点等をシードにするフラクタルの生成方法です。&lt;/p&gt;
 
 &lt;h2 id=&quot;メソッド&quot;&gt;メソッド&lt;/h2&gt;
 
 &lt;ol&gt;
-  &lt;li&gt;多角形内にランダムな点を取る。&lt;/li&gt;
+  &lt;li&gt;多角形内のランダムな点を取る。&lt;/li&gt;
   &lt;li&gt;多角形のランダムな頂点から1.の点までの中心点を取る。&lt;/li&gt;
   &lt;li&gt;1-2を繰り返す。&lt;/li&gt;
 &lt;/ol&gt;
 
-&lt;p&gt;このメソッドで最もスタンダードなフラクタルが生成できます。&lt;/p&gt;
+&lt;p&gt;このメソッドでスタンダードなフラクタルが生成できます。&lt;/p&gt;
 
 &lt;p&gt;例えば正三角形をベースに上のメソッドを使うと&lt;a href=&quot;https://ja.wikipedia.org/wiki/シェルピンスキーのギャスケット&quot;&gt;シェルピンスキーのギャスケット&lt;/a&gt;がフラクタルとして出現します。&lt;/p&gt;
 
@@ -52,7 +52,7 @@
   &lt;li&gt;ランダムな頂点を選ぶのではなく、選べる頂点を制限する
     &lt;ul&gt;
       &lt;li&gt;現在の頂点は次選べない&lt;/li&gt;
-      &lt;li&gt;次の頂点は現在から2つ以上離れてないといけない&lt;/li&gt;
+      &lt;li&gt;次の頂点は現在のから2つ以上離れてないといけない&lt;/li&gt;
       &lt;li&gt;etc.&lt;/li&gt;
     &lt;/ul&gt;
   &lt;/li&gt;
@@ -80,7 +80,7 @@
 
 &lt;p&gt;&lt;img src=&quot;/assets/images/2020/chaos_game_3.png&quot; alt=&quot;&quot; /&gt;&lt;/p&gt;
 
-&lt;p&gt;綺麗ですね(小並感)。通常のカオスゲームでは四角形は以下のようなランダムなノイズしかできません。制限を設けると面白いフラクタルが色々出てきます。&lt;/p&gt;
+&lt;p&gt;綺麗ですね(小並感)。結晶みたいです。通常のカオスゲームでは四角形は以下のようなランダムなノイズしかできません。制限を設けると面白いフラクタルが色々出てきます。&lt;/p&gt;
 
 &lt;div class=&quot;language-python highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;n&quot;&gt;cg&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;ChaosGameRegularPolygon&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;4&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
 &lt;span class=&quot;n&quot;&gt;cg&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;chaos_game&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;1000000&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;mf&quot;&gt;0.5&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
