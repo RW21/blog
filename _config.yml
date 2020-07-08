@@ -79,7 +79,7 @@ footer:
   links:
     - label: "RW"
       icon: "fas fa-user-circle"
-      url: "http://rinzewatanabe.com"
+      url: "https://rw21.github.io/me/"
     - label: "GitHub"
       icon: "fab fa-fw fa-github"
       url: "https://github.com/RW21"
