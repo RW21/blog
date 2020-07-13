@@ -124,3 +124,9 @@ tag_archive:
 
 
 locale: "ja-JP"
+
+analytics:
+  provider: "google-gtag"
+  google:
+    tracking_id: "UA-113864939-1"
+    anonymize_ip: false # default
