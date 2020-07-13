@@ -4,12 +4,12 @@ date:   2020-02-22 22:00:00 +1000
 categories: programming
 tags: creative English
 author: "RW"
-excerpt: Starting "creative programming"
+excerpt:
 ---
 
 <script src='https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/latest.js?config=TeX-MML-AM_CHTML' async></script>
 
-I've recently gotten into creative programming. Since doing my internship as a full stack web developer, I wanted to try something creative.
+I've recently gotten into creative programming. After doing a part time job as a full stack web developer, I wanted to try something creative.
 
 I have been working on a personal project, a [chaos game fractal generator library](https://github.com/RW21/chaosgame). My interest in generative art, artistic fractals has sparked as I see random fractals being generated with ease.
 

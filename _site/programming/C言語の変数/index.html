@@ -1,6 +1,6 @@
 <!doctype html>
 <!--
-  Minimal Mistakes Jekyll Theme 4.17.2 by Michael Rose
+  Minimal Mistakes Jekyll Theme 4.19.3 by Michael Rose
   Copyright 2013-2019 Michael Rose - mademistakes.com | @mmistakes
   Free for personal and commercial use under the MIT license
   https://github.com/mmistakes/minimal-mistakes/blob/master/LICENSE
@@ -12,6 +12,8 @@
 <!-- begin _includes/seo.html --><title>C言語のメモリ領域 - RW21 Blog</title>
 <meta name="description" content="テキスト、データ、ヒープ、スタック領域について">
 
+
+  <meta name="author" content="Billy Rick">
 
 
 <meta property="og:type" content="article">
@@ -29,7 +31,7 @@
 
 
 
-  <meta property="article:published_time" content="2019-08-02T21:00:00+09:00">
+  <meta property="article:published_time" content="2019-08-02T22:00:00+10:00">
 
 
 
@@ -71,6 +73,7 @@
 
 <!-- For all browsers -->
 <link rel="stylesheet" href="/assets/css/main.css">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@5/css/all.min.css">
 
 <!--[if IE]>
   <style>
@@ -123,13 +126,13 @@
           
         </a>
         <ul class="visible-links"><li class="masthead__menu-item">
-              <a href="/posts/" >Posts</a>
+              <a href="/posts/">Posts</a>
             </li><li class="masthead__menu-item">
-              <a href="/categories/" >Categories</a>
+              <a href="/categories/">Categories</a>
             </li><li class="masthead__menu-item">
-              <a href="/tags/" >Tags</a>
+              <a href="/tags/">Tags</a>
             </li><li class="masthead__menu-item">
-              <a href="/about/" >About</a>
+              <a href="/about/">About</a>
             </li></ul>
         
         <button class="search__toggle" type="button">
@@ -157,95 +160,12 @@
 
 <div id="main" role="main">
   
-  <div class="sidebar sticky">
-  
-
-
-<div itemscope itemtype="https://schema.org/Person">
-
-  
-
-  <div class="author__content">
-    
-      <h3 class="author__name" itemprop="name"></h3>
-    
-    
-  </div>
-
-  <div class="author__urls-wrapper">
-    <button class="btn btn--inverse">Follow</button>
-    <ul class="author__urls social-icons">
-      
-
-      
-
-      
-
-      
-
-      
-
-      
-
-      
-
-      
-
-      
-
-      
-
-      
-
-      
-
-      
-
-      
-
-      
-
-      
-
-      
-
-      
-
-      
-
-      
-
-      
-
-      
-
-      
-
-      
-
-      
-
-      
-
-      <!--
-  <li>
-    <a href="http://link-to-whatever-social-network.com/user/" itemprop="sameAs" rel="nofollow noopener noreferrer">
-      <i class="fas fa-fw" aria-hidden="true"></i> Custom Social Profile Link
-    </a>
-  </li>
--->
-    </ul>
-  </div>
-</div>
-
-  
-  </div>
 
 
   <article class="page" itemscope itemtype="https://schema.org/CreativeWork">
     <meta itemprop="headline" content="C言語のメモリ領域">
     <meta itemprop="description" content="テキスト、データ、ヒープ、スタック領域について">
-    <meta itemprop="datePublished" content="2019-08-02T21:00:00+09:00">
+    <meta itemprop="datePublished" content="2019-08-02T22:00:00+10:00">
     
 
     <div class="page__inner-wrap">
@@ -265,7 +185,7 @@
 
 <h2 id="領域に分ける理由">領域に分ける理由</h2>
 
-<p>このような複数の領域に分割されたのは、アドレスレジスタがアクセスを許されるアドレス以上にアクセスをするという動機があります。メモリアドレスをずらして分割をすることで、16bitのアドレスレジスタは本来アクセスできる64kb以上の1mbのメモリ空間にアクセスができるようになります。このような仕組みが初めて実装されたのはIntel 8086 CPUからだそうです。</p>
+<p>このような複数の領域に分割されたのは、アドレスレジスタがアクセスを許されるアドレス以上にアクセスをするという動機があります。メモリアドレスをずらして分割をすることで、16bitのアドレスレジスタは本来アクセスできる64kb以上の1mbのメモリ空間にアクセスができるようになります。ちなみに、このような仕組みが初めて実装されたのはIntel 8086 CPUからだそうです。</p>
 
 <p><img src="/assets/images/2019/memory.png" alt="" /></p>
 
@@ -311,7 +231,7 @@
 
 <h1 id="標準規格">標準、規格</h1>
 
-<p>このようなルールみたいな仕切りでCのメモリ管理は成り立っているのに、意外なことにC言語のメモリ領域は規格で定まってなく、実は業界が勝手作り上げた標準(らしきもの)なのです。なので、OSやコンパイラにより領域の使い方が違う場合もあるでしょう。</p>
+<p>このようなルールみたいな仕切りでCのメモリ管理は成り立っているのに、意外なことにC言語のメモリ領域は規格で定まってなく、実は業界が勝手作り上げた標準(らしきもの)なのです。なので、OSやコンパイラにより領域の使い方が違う場合があります。</p>
 
 <h1 id="参考">参考</h1>
 <ul>
@@ -369,8 +289,9 @@
 
 
         
-          <p class="page__date"><strong><i class="fas fa-fw fa-calendar-alt" aria-hidden="true"></i> Updated:</strong> <time datetime="2019-08-02T21:00:00+09:00">August 02, 2019</time></p>
-        
+  <p class="page__date"><strong><i class="fas fa-fw fa-calendar-alt" aria-hidden="true"></i> Updated:</strong> <time datetime="2019-08-02T22:00:00+10:00">August 2, 2019</time></p>
+
+
       </footer>
 
       
@@ -423,7 +344,7 @@
     
       
         
-          <li><a href="http://rinzewatanabe.com" rel="nofollow noopener noreferrer"><i class="fas fa-user-circle" aria-hidden="true"></i> RW</a></li>
+          <li><a href="https://rw21.github.io/me/" rel="nofollow noopener noreferrer"><i class="fas fa-user-circle" aria-hidden="true"></i> RW</a></li>
         
       
         
@@ -447,7 +368,6 @@
 
     
   <script src="/assets/js/main.min.js"></script>
-  <script src="https://kit.fontawesome.com/4eee35f757.js"></script>
 
 
 
