@@ -9,7 +9,7 @@ excerpt: Little Schemerで初心者は絶対躓くやつ
 
 ## 継続引き渡しスタイルでつまづいた
 
-Little SchemerというSchemeの本をやってて、継続引き渡しスタイルというのを見かけました。
+Little SchemerというSchemeの本をやってて、継続引き渡しスタイルというのを見かけました。Continuation-passing style (CPS)ともいいます。
 最近のコンパイラの講義で少し触ったものだったので、自分にとって新しいものではないのですが、僕みたいなLisp初心者はまず躓くと思います。実際僕も躓きました。Little Schemerは継続引き渡しスタイルの導入で急に難易度上がります。
 
 本記事ではRacket言語を使います。
@@ -72,6 +72,9 @@ Little SchemerというSchemeの本をやってて、継続引き渡しスタイ
 これらに共通するのは、実際にコンパイラ(インタープリター)が処理する順番で書かれてるということです。
 つまり、処理はすぐ行われるので、従来の再帰を使ったやり方と違って、スタックに積まれません。
 
+継続引き渡しスタイルは呼び出される関数が、呼び出した関数に戻り値を受け取るための関数が必要です。
+この関数のことをLittle Schemerに倣って、Collector関数と呼びます。
+
 ### `length-c`
 
 処理を順番に追ってみます。再帰で変数が同じでわかりづらくなるので、変えてます。
@@ -130,15 +133,16 @@ Little SchemerというSchemeの本をやってて、継続引き渡しスタイ
 ```
 
 これにcollector関数を加えたのがmultimember&coです。
-collector関数については、後々説明します。
 
 ### Collector関数
+
+`multirember&co`のCollector関数は
 
 ```racket
 (define (last-length x y) (length y))
 ```
 
-この関数を引数として、`multirember&co`の処理をみてみます。`last-length`はcollector関数です。
+この関数を最初の引数として、`multirember&co`の処理をみてみます。`last-length`はcollector関数です。
 
 1. 
 
@@ -210,3 +214,12 @@ collector関数については、後々説明します。
 
 このCollector関数は`a`と一致する要素を`seen`に追加して、一致しないのを`newlat`に追加します。
 紙に書いて処理を追ってみると案外簡単に理解できます。
+
+## 最後に
+
+最後にもう少し複雑なCollector関数を使ってる関数をみてみましょう。
+
+<script src="https://gist.github.com/RW21/13919fbdc1bf6e1c8580907cabcd4ff3.js"></script>
+
+(Friedman, Bibby and Matthias Felleisen, 2007)
+

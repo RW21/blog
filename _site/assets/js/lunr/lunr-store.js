@@ -58,4 +58,10 @@ var store = [{
         "tags": ["creative","English"],
         "url": "http://localhost:4000/programming/creative-programming/",
         "teaser": null
+      },{
+        "title": "レッツ継続引き渡しスタイル!!!",
+        "excerpt":"継続引き渡しスタイルでつまづいた Little SchemerというSchemeの本をやってて、継続引き渡しスタイルというのを見かけました。Continuation-passing style (CPS)ともいいます。 最近のコンパイラの講義で少し触ったものだったので、自分にとって新しいものではないのですが、僕みたいなLisp初心者はまず躓くと思います。実際僕も躓きました。Little Schemerは継続引き渡しスタイルの導入で急に難易度上がります。 本記事ではRacket言語を使います。 さて、継続引き渡しスタイルとは何だろう。コードを読んで理解するのが早いと思います。 (define (multirember&amp;co a lat k) (cond [(null? lat) (k '() '())] [(eq? (car lat) a) (multirember&amp;co a (cdr lat) (lambda (newlat seen) (k newlat (cons (car lat) seen))))] [else (multirember&amp;co a (cdr lat) (lambda (newlat seen) (k (cons (car lat) newlat)...","categories": ["programming"],
+        "tags": ["Scheme","Racket","Lisp"],
+        "url": "http://localhost:4000/programming/collector-function/",
+        "teaser": null
       }]
