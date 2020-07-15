@@ -85,7 +85,7 @@ Little SchemerというSchemeの本をやってて、継続引き渡しスタイ
 > (length-c '(1 2 3) identity)
 ```
 
-1. 
+1._ 
 ```racket
 (length-c '(2 3) 
 	(lambda (x) (identity (add1 x))))
@@ -144,8 +144,7 @@ Little SchemerというSchemeの本をやってて、継続引き渡しスタイ
 
 この関数を最初の引数として、`multirember&co`の処理をみてみます。`last-length`はcollector関数です。
 
-1. 
-
+1._ 
 ```racket
 (multirember&co 3 '(3 1 3) last-length)
 ```
@@ -215,11 +214,13 @@ Little SchemerというSchemeの本をやってて、継続引き渡しスタイ
 このCollector関数は`a`と一致する要素を`seen`に追加して、一致しないのを`newlat`に追加します。
 紙に書いて処理を追ってみると案外簡単に理解できます。
 
-## 最後に
+## 継続引き渡しスタイルは難読
 
-最後にもう少し複雑なCollector関数を使ってる関数をみてみましょう。
+もう少し複雑なCollector関数を使ってる関数です。二重再帰してます。
 
 <script src="https://gist.github.com/RW21/13919fbdc1bf6e1c8580907cabcd4ff3.js"></script>
 
 (Friedman, Bibby and Matthias Felleisen, 2007)
 
+
+自分はLisp初心者なんで分からないんですが、Lisperはこういうコードを書くものなのでしょうか。
