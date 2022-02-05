@@ -77,7 +77,7 @@ footer:
   links:
     - label: "RW"
       icon: "fas fa-user-circle"
-      url: "https://rw21.github.io/me/"
+      url: "https://rw21.github.io"
     - label: "GitHub"
       icon: "fab fa-fw fa-github"
       url: "https://github.com/RW21"
