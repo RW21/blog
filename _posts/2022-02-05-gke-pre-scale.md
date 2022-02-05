@@ -99,7 +99,7 @@ GCP actually recommends using images streaming to speedup autoscaling.
 
 ## Conclusion 
 
-By using combining the approaches above, I was able to prepare resources for sudden workloads in less than 30 seconds, whereas previously it would've taken a couple of minutes.
+By combining the approaches above, I was able to prepare resources for sudden workloads in less than 30 seconds, whereas previously it would've taken a couple of minutes.
 
 But still, I believe there should be a better way. Please let me know if there are better ways to approach this problem.
 
